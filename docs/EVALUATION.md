@@ -75,7 +75,47 @@ Tabel ketiga: rata-rata dan simpangan baku lima seed untuk F1 dan laju peringata
 
 ## 8. Hasil
 
-Belum dijalankan. Isi bagian ini dari `hasil_evaluasi.json` setelah Fase 4 di `TASKS.md`, termasuk tanggal dan versi data.
+Dihasilkan pada 2026-10-24 dengan seed utama 42 dari `ml/artifacts/hasil_evaluasi.json`.
+
+Ambang hybrid: 0,6650 (cara: batas laju false alarm 2 persen pada baris lolos aturan di validasi). Ambang Isolation Forest saja: 0,7039.
+
+### Tabel Utama (Data Pengujian)
+
+| Pendekatan | Precision | Recall | F1 | Laju peringatan palsu | Peringatan per 1.000 |
+|---|---|---|---|---|---|
+| Aturan saja | 1,0000 | 0,4935 | 0,6608 | 0,0000 | 16,32 |
+| Isolation Forest saja | 0,8333 | 0,0392 | 0,0748 | 0,0003 | 1,55 |
+| Hybrid | 0,3293 | 0,4935 | 0,3950 | 0,0344 | 49,56 |
+
+### Tabel Kedua: Recall per Subtipe Anomali (Data Pengujian)
+
+| Subtipe Anomali | n (pengujian) | Aturan saja | Isolation Forest saja | Hybrid |
+|---|---|---|---|---|
+| bukti_wajib_hilang | 26 | 1,0000 | 0,0000 | 1,0000 |
+| hash_tidak_cocok | 32 | 1,0000 | 0,0000 | 1,0000 |
+| id_proyek_tidak_valid | 25 | 1,0000 | 0,0000 | 1,0000 |
+| kategori_tidak_memenuhi_syarat | 19 | 1,0000 | 0,0000 | 1,0000 |
+| lonjakan_tanpa_progres | 55 | 0,0000 | 0,0000 | 0,0000 |
+| melebihi_pagu | 26 | 1,0000 | 0,5769 | 1,0000 |
+| milestone_belum_terverifikasi | 23 | 1,0000 | 0,0000 | 1,0000 |
+| pemecahan_pencairan | 36 | 0,0000 | 0,0000 | 0,0000 |
+| pencairan_setelah_selesai | 50 | 0,0000 | 0,0000 | 0,0000 |
+| persetujuan_wajib_hilang | 38 | 1,0000 | 0,0000 | 1,0000 |
+| progres_stagnan_tapi_cair | 53 | 0,0000 | 0,0000 | 0,0000 |
+
+False alarm pada kelompok `normal_tidak_lazim_sah` (n = 1.401):
+- Aturan saja: 0,0000 (0 / 1.401)
+- Isolation Forest saja: 0,0021 (3 / 1.401)
+- Hybrid: 0,2748 (385 / 1.401)
+
+### Tabel Ketiga: Kestabilan pada 5 Seed (42, 43, 44, 45, 46)
+
+| Metrik | Rata-rata | Simpangan Baku (SD) |
+|---|---|---|
+| F1 Hybrid | 0,3894 | 0,0049 |
+| Laju Peringatan Palsu (FAR) Hybrid | 0,0356 | 0,0011 |
+
+Latensi inferensi lokal: 0,03 ms per transaksi.
 
 ## 9. Format `hasil_evaluasi.json`
 

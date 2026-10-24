@@ -1,0 +1,200 @@
+-- ==============================================================================
+-- Skema Database Supabase Postgres untuk GSTP (Green Sukuk Traceability Protocol)
+-- Sesuai docs/DATABASE_SPEC.md dan docs/LEDGER_SPEC.md
+-- ==============================================================================
+
+-- 1. Ekstensi pgcrypto untuk fungsi digest SHA-256
+create extension if not exists pgcrypto;
+
+-- 2. Hapus tabel jika sudah ada (opsional saat reset/inisialisasi ulang)
+drop table if exists ledger_entri cascade;
+drop table if exists peringatan cascade;
+drop table if exists transaksi cascade;
+drop table if exists registri_kontrak cascade;
+drop table if exists registri_proyek cascade;
+drop table if exists meta_model cascade;
+
+-- ==============================================================================
+-- Tabel: registri_proyek
+-- ==============================================================================
+create table registri_proyek (
+    project_id text primary key,
+    nama_proyek text not null,
+    kategori_hijau text not null,
+    kementerian_pelaksana text not null,
+    seri_penerbitan text not null,
+    akad text not null,
+    jenis_pembiayaan text not null,
+    tanggal_mulai date not null,
+    pagu_proyek bigint not null
+);
+
+-- ==============================================================================
+-- Tabel: registri_kontrak
+-- ==============================================================================
+create table registri_kontrak (
+    kontrak_id text primary key,
+    project_id text not null references registri_proyek(project_id),
+    nilai_kontrak_awal bigint not null,
+    pagu_alokasi bigint not null,
+    tanggal_mulai date not null,
+    durasi_bulan integer not null,
+    uang_muka_pct numeric not null,
+    retensi_pct numeric not null
+);
+
+-- ==============================================================================
+-- Tabel: transaksi
+-- Catatan: project_id tidak memakai FK agar aturan R01 dapat menguji project_id tidak valid
+-- ==============================================================================
+create table transaksi (
+    trx_id text primary key,
+    tanggal date not null,
+    seri_penerbitan text not null,
+    akad text not null,
+    jenis_pembiayaan text not null,
+    project_id text not null,
+    kontrak_id text not null,
+    kementerian_pelaksana text not null,
+    kategori_hijau text not null,
+    jenis_pembayaran text not null,
+    bulan_ke integer not null,
+    tahap_proyek text not null,
+    nilai_pencairan bigint not null,
+    nilai_kontrak bigint not null,
+    versi_kontrak integer not null,
+    status_addendum text not null,
+    pagu_alokasi_kontrak bigint not null,
+    progres_fisik_pct numeric not null,
+    milestone_terverifikasi boolean not null,
+    persetujuan_wajib integer not null,
+    persetujuan_diperoleh integer not null,
+    kelengkapan_bukti numeric not null,
+    hash_tercatat text not null,
+    hash_dokumen_saat_ini text not null,
+    hari_sejak_pencairan_sebelumnya integer not null,
+    delta_progres_pct numeric not null,
+    kumulatif_cair bigint not null,
+    rasio_kumulatif_pagu numeric not null,
+    rasio_kumulatif_kontrak numeric not null,
+    rasio_nilai_terhadap_kontrak numeric not null,
+    split text,
+    label_anomali integer,
+    kelompok_kasus text,
+    subtipe_kasus text,
+    sumber text not null default 'simulasi',
+    dibuat_pada timestamptz not null default now()
+);
+
+create index idx_transaksi_kontrak_tanggal on transaksi (kontrak_id, tanggal);
+create index idx_transaksi_tanggal on transaksi (tanggal);
+create index idx_transaksi_project_id on transaksi (project_id);
+
+-- ==============================================================================
+-- Tabel: peringatan
+-- ==============================================================================
+create table peringatan (
+    id uuid primary key default gen_random_uuid(),
+    trx_id text not null references transaksi(trx_id),
+    jenis text not null check (jenis in ('aturan', 'skor', 'keduanya')),
+    kode_aturan text[] not null default '{}',
+    skor numeric,
+    ambang numeric,
+    versi_model text,
+    status text not null default 'baru' check (status in ('baru', 'ditelaah', 'perlu_klarifikasi', 'diklarifikasi', 'ditindaklanjuti', 'ditutup')),
+    catatan text not null default '',
+    dibuat_pada timestamptz not null default now(),
+    diperbarui_pada timestamptz not null default now()
+);
+
+create index idx_peringatan_status_dibuat on peringatan (status, dibuat_pada);
+create index idx_peringatan_trx_id on peringatan (trx_id);
+
+-- ==============================================================================
+-- Tabel: ledger_entri (Hash-chain simulasi append-only)
+-- ==============================================================================
+create table ledger_entri (
+    seq bigint generated always as identity primary key,
+    jenis_entri text not null check (jenis_entri in ('transaksi', 'peringatan', 'status', 'koreksi')),
+    trx_id text,
+    payload_kanonik text not null,
+    payload jsonb not null,
+    hash_payload text not null,
+    hash_sebelumnya text not null,
+    hash_saat_ini text not null,
+    dibuat_pada timestamptz not null default now()
+);
+
+create index idx_ledger_entri_trx_id on ledger_entri (trx_id);
+
+-- ==============================================================================
+-- Tabel: meta_model
+-- ==============================================================================
+create table meta_model (
+    versi_model text primary key,
+    ambang numeric not null,
+    dibuat_pada timestamptz not null default now()
+);
+
+-- ==============================================================================
+-- Fungsi: tambah_ledger
+-- Menambahkan entri baru ke ledger_entri menggunakan PostgreSQL advisory lock (727001)
+-- ==============================================================================
+create or replace function tambah_ledger(
+    p_jenis text,
+    p_trx_id text,
+    p_payload_kanonik text,
+    p_payload jsonb,
+    p_hash_payload text
+) returns ledger_entri
+language plpgsql security definer as $$
+declare
+    v_prev text;
+    v_baru ledger_entri;
+begin
+    -- Kunci penasihat transaksi (advisory lock) khusus ledger untuk mencegah branch/fork
+    perform pg_advisory_xact_lock(727001);
+
+    -- Dapatkan hash_saat_ini dari entri terakhir
+    select hash_saat_ini into v_prev from ledger_entri order by seq desc limit 1;
+    v_prev := coalesce(v_prev, 'GENESIS');
+
+    -- Masukkan entri baru dengan hash yang saling mengunci
+    insert into ledger_entri (
+        jenis_entri,
+        trx_id,
+        payload_kanonik,
+        payload,
+        hash_payload,
+        hash_sebelumnya,
+        hash_saat_ini
+    )
+    values (
+        p_jenis,
+        p_trx_id,
+        p_payload_kanonik,
+        p_payload,
+        p_hash_payload,
+        v_prev,
+        encode(digest(v_prev || '|' || p_hash_payload, 'sha256'), 'hex')
+    )
+    returning * into v_baru;
+
+    return v_baru;
+end;
+$$;
+
+-- Cabut hak eksekusi tambah_ledger dari peran publik, izinkan hanya untuk service role
+revoke all on function tambah_ledger(text, text, text, jsonb, text) from public;
+grant execute on function tambah_ledger(text, text, text, jsonb, text) to service_role;
+
+-- ==============================================================================
+-- Row Level Security (RLS)
+-- Diaktifkan pada seluruh tabel tanpa kebijakan publik (akses via service_role)
+-- ==============================================================================
+alter table registri_proyek enable row level security;
+alter table registri_kontrak enable row level security;
+alter table transaksi enable row level security;
+alter table peringatan enable row level security;
+alter table ledger_entri enable row level security;
+alter table meta_model enable row level security;

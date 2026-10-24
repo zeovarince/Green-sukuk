@@ -6,49 +6,49 @@ Tidak ada estimasi jam di sini. Urutan dan DoD lebih penting daripada tebakan wa
 
 ## Fase 0: Siapkan repo
 
-- [ ] Buat struktur folder `ml/`, `web/`, `supabase/`, `docs/`.
-- [ ] Salin dokumen `.md` ke tempatnya.
-- [ ] Buat `.gitignore` (termasuk `.env*`, `node_modules`, `ml/data_simulasi/*.csv` bila terlalu besar).
-- [ ] Buat `ml/requirements.txt` dengan versi scikit-learn yang dikunci.
+- [x] Buat struktur folder `ml/`, `web/`, `supabase/`, `docs/`.
+- [x] Salin dokumen `.md` ke tempatnya.
+- [x] Buat `.gitignore` (termasuk `.env*`, `node_modules`, `ml/data_simulasi/*.csv` bila terlalu besar).
+- [x] Buat `ml/requirements.txt` dengan versi scikit-learn yang dikunci.
 
 DoD: repo bisa di-clone dan struktur sesuai `README.md`.
 
 ## Fase 1: Data simulasi
 
-- [ ] Jalankan `python ml/generate_gstp_data.py --out-dir ml/data_simulasi`.
-- [ ] Cek ringkasan di layar: 800 proyek, 2.719 kontrak, 58.023 transaksi, sekitar 3% anomali (dengan seed 42).
-- [ ] Cek uji kewarasan: normal ditandai aturan 0, anomali aturan tertangkap penuh, anomali kontekstual tertangkap 0.
+- [x] Jalankan `python ml/generate_gstp_data.py --out-dir ml/data_simulasi`.
+- [x] Cek ringkasan di layar: 800 proyek, 2.719 kontrak, 58.023 transaksi, sekitar 3% anomali (dengan seed 42).
+- [x] Cek uji kewarasan: normal ditandai aturan 0, anomali aturan tertangkap penuh, anomali kontekstual tertangkap 0.
 
 DoD: tiga CSV dan `metadata_simulasi.json` ada, uji kewarasan sesuai, hasil identik pada dua kali jalan dengan seed yang sama.
 
 ## Fase 2: Rule engine (Python)
 
-- [ ] Tulis `ml/gstp/aturan.py` sesuai `docs/RULES.md` dan `ml/artifacts/rules_config.json`.
-- [ ] Tes: tiap aturan memiliki minimal satu kasus lolos dan satu kasus melanggar.
+- [x] Tulis `ml/gstp/aturan.py` sesuai `docs/RULES.md` dan `ml/artifacts/rules_config.json`.
+- [x] Tes: tiap aturan memiliki minimal satu kasus lolos dan satu kasus melanggar.
 
 DoD: aturan menangkap seluruh baris `anomali_aturan`, tidak menandai satu pun baris `normal` dan `normal_tidak_lazim_sah`, dan `pytest ml` lulus.
 
 ## Fase 3: Fitur dan Isolation Forest
 
-- [ ] Tulis `ml/gstp/fitur.py` sesuai `docs/MODEL_SPEC.md`. Fitur hanya memakai informasi yang sudah ada saat transaksi.
-- [ ] Tulis `ml/gstp/model.py`: latih pada split `pengembangan`, baris lolos aturan, tanpa label.
-- [ ] Tentukan ambang dari split `validasi`.
-- [ ] Tes: tidak ada kolom label atau split di daftar fitur.
+- [x] Tulis `ml/gstp/fitur.py` sesuai `docs/MODEL_SPEC.md`. Fitur hanya memakai informasi yang sudah ada saat transaksi.
+- [x] Tulis `ml/gstp/model.py`: latih pada split `pengembangan`, baris lolos aturan, tanpa label.
+- [x] Tentukan ambang dari split `validasi`.
+- [x] Tes: tidak ada kolom label atau split di daftar fitur.
 
 DoD: model tersimpan, ambang tercatat beserta cara menentukannya, tes kebocoran label lulus.
 
 ## Fase 4: Evaluasi
 
-- [ ] Tulis `ml/run_evaluasi.py` sesuai `docs/EVALUATION.md`: tiga pendekatan, metrik, recall per subtipe.
-- [ ] Jalankan dengan beberapa seed (minimal lima) dan catat rata-rata dan simpangan baku.
-- [ ] Hasilkan `ml/artifacts/hasil_evaluasi.json` dan tabel siap masuk esai.
+- [x] Tulis `ml/run_evaluasi.py` sesuai `docs/EVALUATION.md`: tiga pendekatan, metrik, recall per subtipe.
+- [x] Jalankan dengan beberapa seed (minimal lima) dan catat rata-rata dan simpangan baku.
+- [x] Hasilkan `ml/artifacts/hasil_evaluasi.json` dan tabel siap masuk esai.
 
 DoD: tabel hasil lengkap untuk data pengujian, hasil beberapa seed ada, angka di `docs/EVALUATION.md` diperbarui dari berkas hasil.
 
 ## Fase 5: Ekspor artefak
 
-- [ ] Tulis `ml/export_artifacts.py` sesuai `docs/EXPORT_SPEC.md`: `model_if.json`, `rules_config.json`, `golden_cases.json`.
-- [ ] `golden_cases.json` memuat kasus dari semua subtipe.
+- [x] Tulis `ml/export_artifacts.py` sesuai `docs/EXPORT_SPEC.md`: `model_if.json`, `rules_config.json`, `golden_cases.json`.
+- [x] `golden_cases.json` memuat kasus dari semua subtipe.
 
 DoD: berkas ada dan lolos validasi format. Ukuran berkas masuk akal untuk ikut ter-bundle di Vercel.
 
