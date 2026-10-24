@@ -1,0 +1,133 @@
+{
+  "catatan": "Data simulasi ilustratif; bukan data riil Kemenkeu.",
+  "parameter": {
+    "n_proyek": 800,
+    "seed": 42,
+    "tingkat_anomali_target": 0.03,
+    "tanggal_akhir_data": "2026-09-30"
+  },
+  "jumlah": {
+    "proyek": 800,
+    "kontrak": 2719,
+    "transaksi": 58023,
+    "anomali": 1790,
+    "tingkat_anomali_aktual": 0.0308
+  },
+  "kategori_hijau_memenuhi_syarat": [
+    "Ketahanan terhadap perubahan iklim",
+    "Transportasi berkelanjutan",
+    "Pengelolaan air dan air limbah",
+    "Energi terbarukan",
+    "Efisiensi energi",
+    "Bangunan hijau",
+    "Pertanian berkelanjutan",
+    "Pengelolaan sumber daya alam dan lahan"
+  ],
+  "kategori_tidak_memenuhi_syarat": [
+    "Non-hijau (umum)",
+    "Belanja operasional kantor",
+    "Belanja pegawai"
+  ],
+  "ambang_persetujuan_rupiah": {
+    "2_persetujuan_mulai": 1000000000,
+    "3_persetujuan_mulai": 5000000000
+  },
+  "batas_split": {
+    "pengembangan_sampai": "2024-09-20",
+    "validasi_sampai": "2025-06-22"
+  },
+  "label": {
+    "label_anomali": "1 jika pencairan disuntik sebagai anomali, 0 jika normal",
+    "kelompok_kasus": "normal | normal_tidak_lazim_sah | anomali_aturan | anomali_kontekstual"
+  },
+  "peringatan_fitur": "Jangan pakai label_anomali, kelompok_kasus, subtipe_kasus, atau split sebagai fitur model. Kolom turunan hanya memakai informasi yang sudah ada saat transaksi diperiksa.",
+  "uji_kewarasan_aturan": {
+    "normal_ditandai_aturan": 0,
+    "anomali_aturan_tertangkap": 894,
+    "anomali_aturan_total": 894,
+    "anomali_kontekstual_tertangkap": 0,
+    "anomali_kontekstual_total": 896
+  },
+  "rincian_kasus": [
+    {
+      "kelompok_kasus": "anomali_aturan",
+      "subtipe_kasus": "bukti_wajib_hilang",
+      "jumlah": 134
+    },
+    {
+      "kelompok_kasus": "anomali_aturan",
+      "subtipe_kasus": "hash_tidak_cocok",
+      "jumlah": 161
+    },
+    {
+      "kelompok_kasus": "anomali_aturan",
+      "subtipe_kasus": "id_proyek_tidak_valid",
+      "jumlah": 107
+    },
+    {
+      "kelompok_kasus": "anomali_aturan",
+      "subtipe_kasus": "kategori_tidak_memenuhi_syarat",
+      "jumlah": 107
+    },
+    {
+      "kelompok_kasus": "anomali_aturan",
+      "subtipe_kasus": "melebihi_pagu",
+      "jumlah": 72
+    },
+    {
+      "kelompok_kasus": "anomali_aturan",
+      "subtipe_kasus": "milestone_belum_terverifikasi",
+      "jumlah": 134
+    },
+    {
+      "kelompok_kasus": "anomali_aturan",
+      "subtipe_kasus": "persetujuan_wajib_hilang",
+      "jumlah": 179
+    },
+    {
+      "kelompok_kasus": "anomali_kontekstual",
+      "subtipe_kasus": "lonjakan_tanpa_progres",
+      "jumlah": 313
+    },
+    {
+      "kelompok_kasus": "anomali_kontekstual",
+      "subtipe_kasus": "pemecahan_pencairan",
+      "jumlah": 180
+    },
+    {
+      "kelompok_kasus": "anomali_kontekstual",
+      "subtipe_kasus": "pencairan_setelah_selesai",
+      "jumlah": 134
+    },
+    {
+      "kelompok_kasus": "anomali_kontekstual",
+      "subtipe_kasus": "progres_stagnan_tapi_cair",
+      "jumlah": 269
+    },
+    {
+      "kelompok_kasus": "normal",
+      "subtipe_kasus": "biasa",
+      "jumlah": 48402
+    },
+    {
+      "kelompok_kasus": "normal_tidak_lazim_sah",
+      "subtipe_kasus": "akhir_tahun_dipercepat",
+      "jumlah": 2540
+    },
+    {
+      "kelompok_kasus": "normal_tidak_lazim_sah",
+      "subtipe_kasus": "penyesuaian_addendum",
+      "jumlah": 325
+    },
+    {
+      "kelompok_kasus": "normal_tidak_lazim_sah",
+      "subtipe_kasus": "retensi",
+      "jumlah": 2247
+    },
+    {
+      "kelompok_kasus": "normal_tidak_lazim_sah",
+      "subtipe_kasus": "uang_muka",
+      "jumlah": 2719
+    }
+  ]
+}

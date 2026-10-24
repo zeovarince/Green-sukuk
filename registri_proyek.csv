@@ -1,0 +1,801 @@
+project_id,nama_proyek,kategori_hijau,kementerian_pelaksana,seri_penerbitan,akad,jenis_pembiayaan,tanggal_mulai,pagu_proyek
+PRJ-0001,Paket Bangunan hijau #0001,Bangunan hijau,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-11-09,841977000000
+PRJ-0002,Paket Bangunan hijau #0002,Bangunan hijau,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2024-02-17,1126765000000
+PRJ-0003,Paket Ketahanan terhadap perubahan iklim #0003,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-11-18,885952000000
+PRJ-0004,Paket Bangunan hijau #0004,Bangunan hijau,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-11-15,916973000000
+PRJ-0005,Paket Ketahanan terhadap perubahan iklim #0005,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-11-19,2061062000000
+PRJ-0006,Paket Transportasi berkelanjutan #0006,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_baru,2023-04-17,1432795000000
+PRJ-0007,Paket Transportasi berkelanjutan #0007,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_kembali,2025-03-14,1031688000000
+PRJ-0008,Paket Pengelolaan air dan air limbah #0008,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-06-10,1213357000000
+PRJ-0009,Paket Transportasi berkelanjutan #0009,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_baru,2023-12-25,1136279000000
+PRJ-0010,Paket Bangunan hijau #0010,Bangunan hijau,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2021-10-12,548503000000
+PRJ-0011,Paket Ketahanan terhadap perubahan iklim #0011,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-05-22,830637000000
+PRJ-0012,Paket Efisiensi energi #0012,Efisiensi energi,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_baru,2024-02-28,534791000000
+PRJ-0013,Paket Bangunan hijau #0013,Bangunan hijau,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-06-27,441095000000
+PRJ-0014,Paket Efisiensi energi #0014,Efisiensi energi,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_baru,2023-12-07,3527251000000
+PRJ-0015,Paket Pertanian berkelanjutan #0015,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2023,Wakalah,pembiayaan_baru,2024-02-09,2090061000000
+PRJ-0016,Paket Efisiensi energi #0016,Efisiensi energi,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-09-20,138777000000
+PRJ-0017,Paket Pengelolaan air dan air limbah #0017,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2021-12-13,1512396000000
+PRJ-0018,Paket Ketahanan terhadap perubahan iklim #0018,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2022-02-19,851041000000
+PRJ-0019,Paket Energi terbarukan #0019,Energi terbarukan,Kementerian ESDM,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-01-25,442808000000
+PRJ-0020,Paket Ketahanan terhadap perubahan iklim #0020,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-11-02,997433000000
+PRJ-0021,Paket Ketahanan terhadap perubahan iklim #0021,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2021-12-27,491811000000
+PRJ-0022,Paket Bangunan hijau #0022,Bangunan hijau,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-04-25,1614801000000
+PRJ-0023,Paket Ketahanan terhadap perubahan iklim #0023,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2022-02-12,413000000000
+PRJ-0024,Paket Ketahanan terhadap perubahan iklim #0024,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2022-01-20,286343000000
+PRJ-0025,Paket Bangunan hijau #0025,Bangunan hijau,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-09-22,1754340000000
+PRJ-0026,Paket Pengelolaan air dan air limbah #0026,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-12-10,1240171000000
+PRJ-0027,Paket Transportasi berkelanjutan #0027,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-08-20,300022000000
+PRJ-0028,Paket Transportasi berkelanjutan #0028,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_baru,2024-02-13,1866879000000
+PRJ-0029,Paket Pertanian berkelanjutan #0029,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2023,Wakalah,pembiayaan_baru,2023-10-13,2027091000000
+PRJ-0030,Paket Pengelolaan air dan air limbah #0030,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-04-16,785166000000
+PRJ-0031,Paket Pengelolaan air dan air limbah #0031,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_kembali,2024-01-01,1982120000000
+PRJ-0032,Paket Pertanian berkelanjutan #0032,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2022-03-01,1367523000000
+PRJ-0033,Paket Pengelolaan sumber daya alam dan lahan #0033,Pengelolaan sumber daya alam dan lahan,Kementerian LHK,SERI-2023,Wakalah,pembiayaan_kembali,2023-05-05,1959734000000
+PRJ-0034,Paket Bangunan hijau #0034,Bangunan hijau,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-03-19,4656381000000
+PRJ-0035,Paket Pertanian berkelanjutan #0035,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2023,Wakalah,pembiayaan_baru,2023-10-29,113997000000
+PRJ-0036,Paket Ketahanan terhadap perubahan iklim #0036,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2024-02-10,1162226000000
+PRJ-0037,Paket Efisiensi energi #0037,Efisiensi energi,Kementerian ESDM,SERI-2024,Wakalah,pembiayaan_baru,2025-03-04,1500272000000
+PRJ-0038,Paket Pengelolaan air dan air limbah #0038,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-11-29,497311000000
+PRJ-0039,Paket Pengelolaan sumber daya alam dan lahan #0039,Pengelolaan sumber daya alam dan lahan,Kementerian LHK,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-04-17,1014234000000
+PRJ-0040,Paket Transportasi berkelanjutan #0040,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_baru,2023-05-08,121242000000
+PRJ-0041,Paket Transportasi berkelanjutan #0041,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_baru,2023-10-24,983957000000
+PRJ-0042,Paket Transportasi berkelanjutan #0042,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_baru,2024-07-18,1393819000000
+PRJ-0043,Paket Ketahanan terhadap perubahan iklim #0043,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_kembali,2023-03-30,74395000000
+PRJ-0044,Paket Bangunan hijau #0044,Bangunan hijau,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_kembali,2024-02-08,146640000000
+PRJ-0045,Paket Efisiensi energi #0045,Efisiensi energi,Kementerian ESDM,SERI-2024,Wakalah,pembiayaan_baru,2024-04-12,2452092000000
+PRJ-0046,Paket Ketahanan terhadap perubahan iklim #0046,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2025-01-16,431586000000
+PRJ-0047,Paket Ketahanan terhadap perubahan iklim #0047,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_kembali,2023-03-20,937902000000
+PRJ-0048,Paket Transportasi berkelanjutan #0048,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-12-12,838314000000
+PRJ-0049,Paket Pertanian berkelanjutan #0049,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-03-23,224181000000
+PRJ-0050,Paket Ketahanan terhadap perubahan iklim #0050,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2021-10-20,2836061000000
+PRJ-0051,Paket Transportasi berkelanjutan #0051,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_baru,2023-04-25,3199347000000
+PRJ-0052,Paket Efisiensi energi #0052,Efisiensi energi,Kementerian ESDM,SERI-2024,Wakalah,pembiayaan_baru,2024-06-11,1119078000000
+PRJ-0053,Paket Energi terbarukan #0053,Energi terbarukan,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_kembali,2023-04-23,562855000000
+PRJ-0054,Paket Ketahanan terhadap perubahan iklim #0054,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-10-28,1950315000000
+PRJ-0055,Paket Pengelolaan air dan air limbah #0055,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2025-02-08,591368000000
+PRJ-0056,Paket Transportasi berkelanjutan #0056,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2023-03-15,1920248000000
+PRJ-0057,Paket Ketahanan terhadap perubahan iklim #0057,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2024-02-12,208343000000
+PRJ-0058,Paket Pengelolaan sumber daya alam dan lahan #0058,Pengelolaan sumber daya alam dan lahan,Kementerian LHK,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-07-18,634214000000
+PRJ-0059,Paket Transportasi berkelanjutan #0059,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-07-02,918783000000
+PRJ-0060,Paket Pertanian berkelanjutan #0060,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2023,Wakalah,pembiayaan_kembali,2023-06-16,2032159000000
+PRJ-0061,Paket Pengelolaan air dan air limbah #0061,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-04-07,64189000000
+PRJ-0062,Paket Transportasi berkelanjutan #0062,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-05-29,57810000000
+PRJ-0063,Paket Transportasi berkelanjutan #0063,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-09-10,189316000000
+PRJ-0064,Paket Transportasi berkelanjutan #0064,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_kembali,2024-09-07,1204302000000
+PRJ-0065,Paket Ketahanan terhadap perubahan iklim #0065,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2022-01-07,923770000000
+PRJ-0066,Paket Ketahanan terhadap perubahan iklim #0066,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_kembali,2024-09-26,2671834000000
+PRJ-0067,Paket Transportasi berkelanjutan #0067,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_baru,2023-07-01,54707000000
+PRJ-0068,Paket Energi terbarukan #0068,Energi terbarukan,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_baru,2024-01-18,1135996000000
+PRJ-0069,Paket Ketahanan terhadap perubahan iklim #0069,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_kembali,2024-10-12,2156241000000
+PRJ-0070,Paket Bangunan hijau #0070,Bangunan hijau,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-05-11,717573000000
+PRJ-0071,Paket Pengelolaan sumber daya alam dan lahan #0071,Pengelolaan sumber daya alam dan lahan,Kementerian LHK,SERI-2023,Wakalah,pembiayaan_baru,2023-06-20,2260547000000
+PRJ-0072,Paket Pertanian berkelanjutan #0072,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2024,Wakalah,pembiayaan_baru,2024-05-27,1151975000000
+PRJ-0073,Paket Pertanian berkelanjutan #0073,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2023,Wakalah,pembiayaan_kembali,2023-08-24,1235492000000
+PRJ-0074,Paket Energi terbarukan #0074,Energi terbarukan,Kementerian ESDM,SERI-2024,Wakalah,pembiayaan_kembali,2025-03-11,686824000000
+PRJ-0075,Paket Transportasi berkelanjutan #0075,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-09-02,1209732000000
+PRJ-0076,Paket Ketahanan terhadap perubahan iklim #0076,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-08-28,1498326000000
+PRJ-0077,Paket Pengelolaan sumber daya alam dan lahan #0077,Pengelolaan sumber daya alam dan lahan,Kementerian LHK,SERI-2024,Wakalah,pembiayaan_kembali,2025-01-29,959803000000
+PRJ-0078,Paket Ketahanan terhadap perubahan iklim #0078,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-09-21,949640000000
+PRJ-0079,Paket Efisiensi energi #0079,Efisiensi energi,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-04-24,2791961000000
+PRJ-0080,Paket Pengelolaan air dan air limbah #0080,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2023-01-29,1244405000000
+PRJ-0081,Paket Ketahanan terhadap perubahan iklim #0081,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2024-01-11,1441128000000
+PRJ-0082,Paket Pertanian berkelanjutan #0082,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-03-25,1398014000000
+PRJ-0083,Paket Pengelolaan air dan air limbah #0083,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-04-04,912078000000
+PRJ-0084,Paket Pertanian berkelanjutan #0084,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-11-01,550695000000
+PRJ-0085,Paket Ketahanan terhadap perubahan iklim #0085,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2024-03-09,2119037000000
+PRJ-0086,Paket Transportasi berkelanjutan #0086,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_baru,2024-09-17,538900000000
+PRJ-0087,Paket Ketahanan terhadap perubahan iklim #0087,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-02-02,982467000000
+PRJ-0088,Paket Ketahanan terhadap perubahan iklim #0088,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-11-16,3325380000000
+PRJ-0089,Paket Pengelolaan air dan air limbah #0089,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-08-08,1109339000000
+PRJ-0090,Paket Ketahanan terhadap perubahan iklim #0090,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-11-01,1691835000000
+PRJ-0091,Paket Efisiensi energi #0091,Efisiensi energi,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-06-27,733723000000
+PRJ-0092,Paket Ketahanan terhadap perubahan iklim #0092,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-11-26,3122343000000
+PRJ-0093,Paket Bangunan hijau #0093,Bangunan hijau,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-11-12,664292000000
+PRJ-0094,Paket Pengelolaan air dan air limbah #0094,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2025-03-13,2712955000000
+PRJ-0095,Paket Transportasi berkelanjutan #0095,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2023-01-09,296552000000
+PRJ-0096,Paket Efisiensi energi #0096,Efisiensi energi,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-03-15,1035728000000
+PRJ-0097,Paket Energi terbarukan #0097,Energi terbarukan,Kementerian ESDM,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-08-16,786607000000
+PRJ-0098,Paket Ketahanan terhadap perubahan iklim #0098,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-12-15,2351706000000
+PRJ-0099,Paket Transportasi berkelanjutan #0099,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-11-09,1796997000000
+PRJ-0100,Paket Ketahanan terhadap perubahan iklim #0100,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-07-29,905750000000
+PRJ-0101,Paket Ketahanan terhadap perubahan iklim #0101,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-10-07,1092596000000
+PRJ-0102,Paket Pertanian berkelanjutan #0102,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2023,Wakalah,pembiayaan_baru,2023-09-03,743283000000
+PRJ-0103,Paket Bangunan hijau #0103,Bangunan hijau,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-04-12,173457000000
+PRJ-0104,Paket Pertanian berkelanjutan #0104,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2023-01-02,2394246000000
+PRJ-0105,Paket Efisiensi energi #0105,Efisiensi energi,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_baru,2024-02-25,2932967000000
+PRJ-0106,Paket Transportasi berkelanjutan #0106,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-11-14,1549368000000
+PRJ-0107,Paket Transportasi berkelanjutan #0107,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_baru,2023-11-11,532338000000
+PRJ-0108,Paket Efisiensi energi #0108,Efisiensi energi,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_baru,2023-06-01,1989411000000
+PRJ-0109,Paket Pengelolaan air dan air limbah #0109,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-03-29,1127537000000
+PRJ-0110,Paket Ketahanan terhadap perubahan iklim #0110,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2023-01-20,3905195000000
+PRJ-0111,Paket Transportasi berkelanjutan #0111,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-08-04,2707126000000
+PRJ-0112,Paket Energi terbarukan #0112,Energi terbarukan,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_baru,2023-09-21,243196000000
+PRJ-0113,Paket Transportasi berkelanjutan #0113,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_kembali,2024-04-19,1119703000000
+PRJ-0114,Paket Pengelolaan sumber daya alam dan lahan #0114,Pengelolaan sumber daya alam dan lahan,Kementerian LHK,SERI-2023,Wakalah,pembiayaan_baru,2023-07-28,2337747000000
+PRJ-0115,Paket Transportasi berkelanjutan #0115,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-10-08,159769000000
+PRJ-0116,Paket Energi terbarukan #0116,Energi terbarukan,Kementerian ESDM,SERI-2024,Wakalah,pembiayaan_kembali,2024-04-18,872726000000
+PRJ-0117,Paket Pertanian berkelanjutan #0117,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2023,Wakalah,pembiayaan_kembali,2023-09-30,326046000000
+PRJ-0118,Paket Pertanian berkelanjutan #0118,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2024,Wakalah,pembiayaan_baru,2024-12-05,1715438000000
+PRJ-0119,Paket Ketahanan terhadap perubahan iklim #0119,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2023-03-07,1649929000000
+PRJ-0120,Paket Pertanian berkelanjutan #0120,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-08-11,1103011000000
+PRJ-0121,Paket Ketahanan terhadap perubahan iklim #0121,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_kembali,2023-06-06,2313576000000
+PRJ-0122,Paket Pengelolaan sumber daya alam dan lahan #0122,Pengelolaan sumber daya alam dan lahan,Kementerian LHK,SERI-2023,Wakalah,pembiayaan_baru,2023-10-24,1822375000000
+PRJ-0123,Paket Pengelolaan air dan air limbah #0123,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_kembali,2025-02-08,844754000000
+PRJ-0124,Paket Energi terbarukan #0124,Energi terbarukan,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_baru,2024-01-06,1683703000000
+PRJ-0125,Paket Ketahanan terhadap perubahan iklim #0125,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-05-10,633674000000
+PRJ-0126,Paket Ketahanan terhadap perubahan iklim #0126,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-09-06,822271000000
+PRJ-0127,Paket Ketahanan terhadap perubahan iklim #0127,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-08-22,449307000000
+PRJ-0128,Paket Transportasi berkelanjutan #0128,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_baru,2024-12-19,2666896000000
+PRJ-0129,Paket Ketahanan terhadap perubahan iklim #0129,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-12-29,1151880000000
+PRJ-0130,Paket Pertanian berkelanjutan #0130,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2024,Wakalah,pembiayaan_baru,2025-03-14,1336894000000
+PRJ-0131,Paket Ketahanan terhadap perubahan iklim #0131,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-10-04,2247709000000
+PRJ-0132,Paket Efisiensi energi #0132,Efisiensi energi,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_baru,2023-05-05,2318256000000
+PRJ-0133,Paket Ketahanan terhadap perubahan iklim #0133,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2025-02-01,1279942000000
+PRJ-0134,Paket Transportasi berkelanjutan #0134,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-05-17,2441757000000
+PRJ-0135,Paket Ketahanan terhadap perubahan iklim #0135,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-06-11,1963752000000
+PRJ-0136,Paket Pertanian berkelanjutan #0136,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-06-16,2736807000000
+PRJ-0137,Paket Pengelolaan air dan air limbah #0137,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_kembali,2024-09-29,1517818000000
+PRJ-0138,Paket Energi terbarukan #0138,Energi terbarukan,Kementerian ESDM,SERI-2024,Wakalah,pembiayaan_baru,2024-12-12,913975000000
+PRJ-0139,Paket Energi terbarukan #0139,Energi terbarukan,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-12-23,2257484000000
+PRJ-0140,Paket Bangunan hijau #0140,Bangunan hijau,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-10-19,2269739000000
+PRJ-0141,Paket Bangunan hijau #0141,Bangunan hijau,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-10-22,1584213000000
+PRJ-0142,Paket Ketahanan terhadap perubahan iklim #0142,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-08-14,2731329000000
+PRJ-0143,Paket Pengelolaan air dan air limbah #0143,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-11-02,1366993000000
+PRJ-0144,Paket Ketahanan terhadap perubahan iklim #0144,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_kembali,2023-07-20,1223368000000
+PRJ-0145,Paket Ketahanan terhadap perubahan iklim #0145,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2021-04-16,308397000000
+PRJ-0146,Paket Pengelolaan air dan air limbah #0146,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-10-31,874451000000
+PRJ-0147,Paket Transportasi berkelanjutan #0147,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2022-01-31,1692179000000
+PRJ-0148,Paket Transportasi berkelanjutan #0148,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-11-19,833416000000
+PRJ-0149,Paket Pengelolaan air dan air limbah #0149,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_kembali,2023-09-28,919047000000
+PRJ-0150,Paket Transportasi berkelanjutan #0150,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_kembali,2024-02-15,715754000000
+PRJ-0151,Paket Ketahanan terhadap perubahan iklim #0151,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-05-10,935587000000
+PRJ-0152,Paket Efisiensi energi #0152,Efisiensi energi,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_kembali,2024-02-09,1727214000000
+PRJ-0153,Paket Bangunan hijau #0153,Bangunan hijau,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_kembali,2023-07-17,2376325000000
+PRJ-0154,Paket Pengelolaan air dan air limbah #0154,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-11-03,625788000000
+PRJ-0155,Paket Ketahanan terhadap perubahan iklim #0155,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2025-03-10,390536000000
+PRJ-0156,Paket Ketahanan terhadap perubahan iklim #0156,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-11-17,2171531000000
+PRJ-0157,Paket Pengelolaan air dan air limbah #0157,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_kembali,2023-11-11,615744000000
+PRJ-0158,Paket Ketahanan terhadap perubahan iklim #0158,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-06-04,1684034000000
+PRJ-0159,Paket Pertanian berkelanjutan #0159,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2024,Wakalah,pembiayaan_kembali,2024-09-25,1122294000000
+PRJ-0160,Paket Bangunan hijau #0160,Bangunan hijau,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-12-28,355370000000
+PRJ-0161,Paket Bangunan hijau #0161,Bangunan hijau,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-11-27,2054513000000
+PRJ-0162,Paket Transportasi berkelanjutan #0162,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2023-02-24,2125606000000
+PRJ-0163,Paket Transportasi berkelanjutan #0163,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-12-15,3228800000000
+PRJ-0164,Paket Ketahanan terhadap perubahan iklim #0164,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-11-21,205212000000
+PRJ-0165,Paket Energi terbarukan #0165,Energi terbarukan,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-10-25,402149000000
+PRJ-0166,Paket Transportasi berkelanjutan #0166,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-11-01,990747000000
+PRJ-0167,Paket Transportasi berkelanjutan #0167,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_baru,2024-12-09,65052000000
+PRJ-0168,Paket Transportasi berkelanjutan #0168,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_kembali,2024-09-18,1668416000000
+PRJ-0169,Paket Pengelolaan air dan air limbah #0169,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_kembali,2024-08-17,1981252000000
+PRJ-0170,Paket Ketahanan terhadap perubahan iklim #0170,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-12-01,714395000000
+PRJ-0171,Paket Transportasi berkelanjutan #0171,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-12-11,778554000000
+PRJ-0172,Paket Energi terbarukan #0172,Energi terbarukan,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_kembali,2023-05-09,695493000000
+PRJ-0173,Paket Ketahanan terhadap perubahan iklim #0173,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-12-17,189538000000
+PRJ-0174,Paket Ketahanan terhadap perubahan iklim #0174,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-07-12,771043000000
+PRJ-0175,Paket Efisiensi energi #0175,Efisiensi energi,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-03-27,3967301000000
+PRJ-0176,Paket Pengelolaan air dan air limbah #0176,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_kembali,2024-12-21,218737000000
+PRJ-0177,Paket Pertanian berkelanjutan #0177,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2024,Wakalah,pembiayaan_baru,2024-05-21,199796000000
+PRJ-0178,Paket Bangunan hijau #0178,Bangunan hijau,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-10-08,1791516000000
+PRJ-0179,Paket Pengelolaan air dan air limbah #0179,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-02-18,705131000000
+PRJ-0180,Paket Ketahanan terhadap perubahan iklim #0180,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-06-18,2178376000000
+PRJ-0181,Paket Transportasi berkelanjutan #0181,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_baru,2025-02-18,1596043000000
+PRJ-0182,Paket Pertanian berkelanjutan #0182,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2021-11-09,176158000000
+PRJ-0183,Paket Ketahanan terhadap perubahan iklim #0183,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-11-13,663102000000
+PRJ-0184,Paket Pertanian berkelanjutan #0184,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2023,Wakalah,pembiayaan_kembali,2024-03-02,1947301000000
+PRJ-0185,Paket Energi terbarukan #0185,Energi terbarukan,Kementerian ESDM,SERI-2024,Wakalah,pembiayaan_kembali,2024-03-25,2096828000000
+PRJ-0186,Paket Transportasi berkelanjutan #0186,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-03-22,649325000000
+PRJ-0187,Paket Energi terbarukan #0187,Energi terbarukan,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-05-25,1372475000000
+PRJ-0188,Paket Transportasi berkelanjutan #0188,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_baru,2023-07-11,2402562000000
+PRJ-0189,Paket Ketahanan terhadap perubahan iklim #0189,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2022-02-14,423414000000
+PRJ-0190,Paket Energi terbarukan #0190,Energi terbarukan,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-05-04,439060000000
+PRJ-0191,Paket Ketahanan terhadap perubahan iklim #0191,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-09-30,933512000000
+PRJ-0192,Paket Transportasi berkelanjutan #0192,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-06-19,1105102000000
+PRJ-0193,Paket Bangunan hijau #0193,Bangunan hijau,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-08-27,943596000000
+PRJ-0194,Paket Pengelolaan air dan air limbah #0194,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-10-06,308764000000
+PRJ-0195,Paket Pertanian berkelanjutan #0195,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2024,Wakalah,pembiayaan_kembali,2024-11-23,832110000000
+PRJ-0196,Paket Pertanian berkelanjutan #0196,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-09-24,1671780000000
+PRJ-0197,Paket Pengelolaan air dan air limbah #0197,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_kembali,2023-04-09,577597000000
+PRJ-0198,Paket Energi terbarukan #0198,Energi terbarukan,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_baru,2024-02-28,2071719000000
+PRJ-0199,Paket Energi terbarukan #0199,Energi terbarukan,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_baru,2023-10-15,842310000000
+PRJ-0200,Paket Pengelolaan air dan air limbah #0200,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-07-14,805957000000
+PRJ-0201,Paket Energi terbarukan #0201,Energi terbarukan,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2023-01-15,2234328000000
+PRJ-0202,Paket Ketahanan terhadap perubahan iklim #0202,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-12-22,2725092000000
+PRJ-0203,Paket Ketahanan terhadap perubahan iklim #0203,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_kembali,2024-12-02,1456361000000
+PRJ-0204,Paket Ketahanan terhadap perubahan iklim #0204,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-06-08,2906838000000
+PRJ-0205,Paket Ketahanan terhadap perubahan iklim #0205,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_kembali,2023-09-19,560154000000
+PRJ-0206,Paket Ketahanan terhadap perubahan iklim #0206,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-04-01,601483000000
+PRJ-0207,Paket Pengelolaan air dan air limbah #0207,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-11-18,642622000000
+PRJ-0208,Paket Pengelolaan air dan air limbah #0208,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-07-28,1103184000000
+PRJ-0209,Paket Transportasi berkelanjutan #0209,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2021-05-27,1151182000000
+PRJ-0210,Paket Transportasi berkelanjutan #0210,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_baru,2025-02-22,2011776000000
+PRJ-0211,Paket Ketahanan terhadap perubahan iklim #0211,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-09-11,2045392000000
+PRJ-0212,Paket Pengelolaan air dan air limbah #0212,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-05-08,598380000000
+PRJ-0213,Paket Ketahanan terhadap perubahan iklim #0213,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_kembali,2023-08-18,1738382000000
+PRJ-0214,Paket Bangunan hijau #0214,Bangunan hijau,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_kembali,2024-03-16,469515000000
+PRJ-0215,Paket Ketahanan terhadap perubahan iklim #0215,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2023-02-11,1288711000000
+PRJ-0216,Paket Pengelolaan air dan air limbah #0216,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-08-07,847530000000
+PRJ-0217,Paket Pengelolaan air dan air limbah #0217,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2022-01-21,2558982000000
+PRJ-0218,Paket Energi terbarukan #0218,Energi terbarukan,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2023-02-20,1869742000000
+PRJ-0219,Paket Pengelolaan air dan air limbah #0219,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2023-01-23,1007090000000
+PRJ-0220,Paket Transportasi berkelanjutan #0220,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_kembali,2024-07-05,115341000000
+PRJ-0221,Paket Pengelolaan air dan air limbah #0221,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_kembali,2024-01-01,310545000000
+PRJ-0222,Paket Ketahanan terhadap perubahan iklim #0222,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-09-04,2064576000000
+PRJ-0223,Paket Ketahanan terhadap perubahan iklim #0223,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-11-08,1706336000000
+PRJ-0224,Paket Efisiensi energi #0224,Efisiensi energi,Kementerian ESDM,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-03-12,932568000000
+PRJ-0225,Paket Ketahanan terhadap perubahan iklim #0225,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-06-18,536573000000
+PRJ-0226,Paket Transportasi berkelanjutan #0226,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_kembali,2024-09-28,2100859000000
+PRJ-0227,Paket Pengelolaan air dan air limbah #0227,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-09-11,1094175000000
+PRJ-0228,Paket Pengelolaan air dan air limbah #0228,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-08-24,365503000000
+PRJ-0229,Paket Pengelolaan sumber daya alam dan lahan #0229,Pengelolaan sumber daya alam dan lahan,Kementerian LHK,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-01-30,1632102000000
+PRJ-0230,Paket Efisiensi energi #0230,Efisiensi energi,Kementerian ESDM,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-07-29,1060140000000
+PRJ-0231,Paket Efisiensi energi #0231,Efisiensi energi,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2023-01-07,387446000000
+PRJ-0232,Paket Transportasi berkelanjutan #0232,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2023-01-14,1382131000000
+PRJ-0233,Paket Ketahanan terhadap perubahan iklim #0233,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2023-02-15,168675000000
+PRJ-0234,Paket Pengelolaan air dan air limbah #0234,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-07-06,1584337000000
+PRJ-0235,Paket Ketahanan terhadap perubahan iklim #0235,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_kembali,2024-10-24,2068822000000
+PRJ-0236,Paket Ketahanan terhadap perubahan iklim #0236,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_kembali,2023-07-02,1982529000000
+PRJ-0237,Paket Energi terbarukan #0237,Energi terbarukan,Kementerian ESDM,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-03-17,528117000000
+PRJ-0238,Paket Pengelolaan air dan air limbah #0238,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-10-18,2633793000000
+PRJ-0239,Paket Bangunan hijau #0239,Bangunan hijau,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-03-22,3464892000000
+PRJ-0240,Paket Pengelolaan air dan air limbah #0240,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-10-17,2892988000000
+PRJ-0241,Paket Ketahanan terhadap perubahan iklim #0241,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2024-01-12,571482000000
+PRJ-0242,Paket Pengelolaan air dan air limbah #0242,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2023-01-09,1880785000000
+PRJ-0243,Paket Ketahanan terhadap perubahan iklim #0243,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_kembali,2024-01-12,658510000000
+PRJ-0244,Paket Pertanian berkelanjutan #0244,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-12-14,1452889000000
+PRJ-0245,Paket Pengelolaan air dan air limbah #0245,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-10-17,1003076000000
+PRJ-0246,Paket Pengelolaan sumber daya alam dan lahan #0246,Pengelolaan sumber daya alam dan lahan,Kementerian LHK,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-06-15,1521535000000
+PRJ-0247,Paket Pertanian berkelanjutan #0247,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2023,Wakalah,pembiayaan_baru,2023-08-30,679609000000
+PRJ-0248,Paket Ketahanan terhadap perubahan iklim #0248,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-09-12,552999000000
+PRJ-0249,Paket Pengelolaan sumber daya alam dan lahan #0249,Pengelolaan sumber daya alam dan lahan,Kementerian LHK,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2021-08-26,1137809000000
+PRJ-0250,Paket Transportasi berkelanjutan #0250,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_baru,2024-12-25,2610331000000
+PRJ-0251,Paket Transportasi berkelanjutan #0251,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-06-19,1430401000000
+PRJ-0252,Paket Transportasi berkelanjutan #0252,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_baru,2023-04-05,533641000000
+PRJ-0253,Paket Ketahanan terhadap perubahan iklim #0253,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2023-03-15,180945000000
+PRJ-0254,Paket Pertanian berkelanjutan #0254,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2023-02-23,1491659000000
+PRJ-0255,Paket Pengelolaan air dan air limbah #0255,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_kembali,2024-04-07,917525000000
+PRJ-0256,Paket Ketahanan terhadap perubahan iklim #0256,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-07-22,112780000000
+PRJ-0257,Paket Energi terbarukan #0257,Energi terbarukan,Kementerian ESDM,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2022-03-02,63955000000
+PRJ-0258,Paket Energi terbarukan #0258,Energi terbarukan,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_kembali,2024-03-10,1389529000000
+PRJ-0259,Paket Ketahanan terhadap perubahan iklim #0259,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2024-01-11,584097000000
+PRJ-0260,Paket Energi terbarukan #0260,Energi terbarukan,Kementerian ESDM,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-06-12,1112719000000
+PRJ-0261,Paket Ketahanan terhadap perubahan iklim #0261,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-04-15,701454000000
+PRJ-0262,Paket Transportasi berkelanjutan #0262,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2022-01-20,1658896000000
+PRJ-0263,Paket Transportasi berkelanjutan #0263,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_baru,2023-07-19,320445000000
+PRJ-0264,Paket Pengelolaan air dan air limbah #0264,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_kembali,2024-07-10,568540000000
+PRJ-0265,Paket Pengelolaan air dan air limbah #0265,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2022-01-05,262458000000
+PRJ-0266,Paket Ketahanan terhadap perubahan iklim #0266,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_kembali,2024-12-19,1031185000000
+PRJ-0267,Paket Ketahanan terhadap perubahan iklim #0267,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-11-02,890845000000
+PRJ-0268,Paket Pengelolaan sumber daya alam dan lahan #0268,Pengelolaan sumber daya alam dan lahan,Kementerian LHK,SERI-2023,Wakalah,pembiayaan_kembali,2023-06-10,1541798000000
+PRJ-0269,Paket Ketahanan terhadap perubahan iklim #0269,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-12-03,1364094000000
+PRJ-0270,Paket Ketahanan terhadap perubahan iklim #0270,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2024-01-26,723060000000
+PRJ-0271,Paket Bangunan hijau #0271,Bangunan hijau,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2025-02-18,189411000000
+PRJ-0272,Paket Ketahanan terhadap perubahan iklim #0272,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-09-23,798755000000
+PRJ-0273,Paket Pengelolaan air dan air limbah #0273,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_kembali,2024-11-15,153813000000
+PRJ-0274,Paket Energi terbarukan #0274,Energi terbarukan,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_baru,2023-10-07,771750000000
+PRJ-0275,Paket Ketahanan terhadap perubahan iklim #0275,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2022-01-26,1037583000000
+PRJ-0276,Paket Ketahanan terhadap perubahan iklim #0276,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2023-02-23,2048920000000
+PRJ-0277,Paket Bangunan hijau #0277,Bangunan hijau,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2024-01-20,1309345000000
+PRJ-0278,Paket Energi terbarukan #0278,Energi terbarukan,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_baru,2023-12-04,259865000000
+PRJ-0279,Paket Bangunan hijau #0279,Bangunan hijau,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_kembali,2024-12-01,139237000000
+PRJ-0280,Paket Pertanian berkelanjutan #0280,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-01-28,654141000000
+PRJ-0281,Paket Bangunan hijau #0281,Bangunan hijau,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-03-29,1340683000000
+PRJ-0282,Paket Ketahanan terhadap perubahan iklim #0282,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2021-10-05,2025618000000
+PRJ-0283,Paket Transportasi berkelanjutan #0283,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_baru,2023-12-30,1790208000000
+PRJ-0284,Paket Energi terbarukan #0284,Energi terbarukan,Kementerian ESDM,SERI-2024,Wakalah,pembiayaan_kembali,2025-02-08,657890000000
+PRJ-0285,Paket Transportasi berkelanjutan #0285,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_kembali,2023-12-13,2541787000000
+PRJ-0286,Paket Pertanian berkelanjutan #0286,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2024,Wakalah,pembiayaan_kembali,2025-03-11,918940000000
+PRJ-0287,Paket Ketahanan terhadap perubahan iklim #0287,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-09-08,103686000000
+PRJ-0288,Paket Pertanian berkelanjutan #0288,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-06-07,2809533000000
+PRJ-0289,Paket Pengelolaan air dan air limbah #0289,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2025-01-20,266886000000
+PRJ-0290,Paket Energi terbarukan #0290,Energi terbarukan,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_baru,2023-10-28,782164000000
+PRJ-0291,Paket Transportasi berkelanjutan #0291,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_kembali,2024-09-07,392808000000
+PRJ-0292,Paket Transportasi berkelanjutan #0292,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_baru,2025-02-07,3035238000000
+PRJ-0293,Paket Pengelolaan air dan air limbah #0293,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-06-27,459874000000
+PRJ-0294,Paket Pengelolaan air dan air limbah #0294,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-03-20,2992965000000
+PRJ-0295,Paket Ketahanan terhadap perubahan iklim #0295,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2021-11-05,943300000000
+PRJ-0296,Paket Ketahanan terhadap perubahan iklim #0296,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-01-07,1100097000000
+PRJ-0297,Paket Ketahanan terhadap perubahan iklim #0297,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2023-01-28,2091342000000
+PRJ-0298,Paket Transportasi berkelanjutan #0298,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_baru,2023-08-05,142399000000
+PRJ-0299,Paket Efisiensi energi #0299,Efisiensi energi,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-03-28,162090000000
+PRJ-0300,Paket Ketahanan terhadap perubahan iklim #0300,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-09-09,568180000000
+PRJ-0301,Paket Ketahanan terhadap perubahan iklim #0301,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-06-26,431763000000
+PRJ-0302,Paket Transportasi berkelanjutan #0302,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_kembali,2023-07-14,2912102000000
+PRJ-0303,Paket Bangunan hijau #0303,Bangunan hijau,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-11-03,2273142000000
+PRJ-0304,Paket Ketahanan terhadap perubahan iklim #0304,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_kembali,2024-05-15,347050000000
+PRJ-0305,Paket Efisiensi energi #0305,Efisiensi energi,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_baru,2023-12-17,2873311000000
+PRJ-0306,Paket Ketahanan terhadap perubahan iklim #0306,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-04-16,1549062000000
+PRJ-0307,Paket Bangunan hijau #0307,Bangunan hijau,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_kembali,2024-11-11,1448068000000
+PRJ-0308,Paket Ketahanan terhadap perubahan iklim #0308,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-10-28,1050561000000
+PRJ-0309,Paket Ketahanan terhadap perubahan iklim #0309,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-09-16,1080599000000
+PRJ-0310,Paket Ketahanan terhadap perubahan iklim #0310,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2022-01-30,1176144000000
+PRJ-0311,Paket Transportasi berkelanjutan #0311,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_kembali,2023-06-27,534277000000
+PRJ-0312,Paket Efisiensi energi #0312,Efisiensi energi,Kementerian ESDM,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-11-20,1176190000000
+PRJ-0313,Paket Transportasi berkelanjutan #0313,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-04-10,309513000000
+PRJ-0314,Paket Ketahanan terhadap perubahan iklim #0314,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-04-13,1576302000000
+PRJ-0315,Paket Transportasi berkelanjutan #0315,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_baru,2023-10-27,167392000000
+PRJ-0316,Paket Transportasi berkelanjutan #0316,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-02-26,2882536000000
+PRJ-0317,Paket Pengelolaan air dan air limbah #0317,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_kembali,2023-11-12,1803659000000
+PRJ-0318,Paket Pengelolaan air dan air limbah #0318,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-11-23,1390551000000
+PRJ-0319,Paket Pengelolaan air dan air limbah #0319,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_kembali,2023-05-29,1394756000000
+PRJ-0320,Paket Ketahanan terhadap perubahan iklim #0320,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-03-28,522903000000
+PRJ-0321,Paket Ketahanan terhadap perubahan iklim #0321,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_kembali,2024-07-10,1376432000000
+PRJ-0322,Paket Pengelolaan sumber daya alam dan lahan #0322,Pengelolaan sumber daya alam dan lahan,Kementerian LHK,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2021-04-01,333913000000
+PRJ-0323,Paket Pengelolaan sumber daya alam dan lahan #0323,Pengelolaan sumber daya alam dan lahan,Kementerian LHK,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-04-09,262102000000
+PRJ-0324,Paket Energi terbarukan #0324,Energi terbarukan,Kementerian ESDM,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-11-21,314274000000
+PRJ-0325,Paket Pengelolaan sumber daya alam dan lahan #0325,Pengelolaan sumber daya alam dan lahan,Kementerian LHK,SERI-2024,Wakalah,pembiayaan_baru,2025-03-12,692025000000
+PRJ-0326,Paket Pengelolaan air dan air limbah #0326,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2023-01-20,351791000000
+PRJ-0327,Paket Ketahanan terhadap perubahan iklim #0327,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-05-17,147747000000
+PRJ-0328,Paket Pertanian berkelanjutan #0328,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2024,Wakalah,pembiayaan_baru,2024-12-08,1905541000000
+PRJ-0329,Paket Efisiensi energi #0329,Efisiensi energi,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2023-01-09,1120199000000
+PRJ-0330,Paket Bangunan hijau #0330,Bangunan hijau,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-08-26,1827274000000
+PRJ-0331,Paket Energi terbarukan #0331,Energi terbarukan,Kementerian ESDM,SERI-2024,Wakalah,pembiayaan_kembali,2024-11-10,207690000000
+PRJ-0332,Paket Ketahanan terhadap perubahan iklim #0332,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-11-07,155635000000
+PRJ-0333,Paket Pengelolaan air dan air limbah #0333,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2024-02-15,1257683000000
+PRJ-0334,Paket Energi terbarukan #0334,Energi terbarukan,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2023-02-09,1788610000000
+PRJ-0335,Paket Pengelolaan air dan air limbah #0335,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_kembali,2025-02-03,1651005000000
+PRJ-0336,Paket Pertanian berkelanjutan #0336,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2024,Wakalah,pembiayaan_kembali,2024-09-06,1932008000000
+PRJ-0337,Paket Ketahanan terhadap perubahan iklim #0337,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-08-17,538572000000
+PRJ-0338,Paket Ketahanan terhadap perubahan iklim #0338,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-03-17,1112675000000
+PRJ-0339,Paket Ketahanan terhadap perubahan iklim #0339,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-11-03,1289015000000
+PRJ-0340,Paket Energi terbarukan #0340,Energi terbarukan,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_kembali,2023-10-04,1460510000000
+PRJ-0341,Paket Ketahanan terhadap perubahan iklim #0341,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-10-03,1651773000000
+PRJ-0342,Paket Transportasi berkelanjutan #0342,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-12-19,1958833000000
+PRJ-0343,Paket Bangunan hijau #0343,Bangunan hijau,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2022-01-10,1536008000000
+PRJ-0344,Paket Ketahanan terhadap perubahan iklim #0344,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-08-07,2642425000000
+PRJ-0345,Paket Transportasi berkelanjutan #0345,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_baru,2024-05-25,247428000000
+PRJ-0346,Paket Ketahanan terhadap perubahan iklim #0346,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_kembali,2024-09-01,1821449000000
+PRJ-0347,Paket Bangunan hijau #0347,Bangunan hijau,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-09-06,1461233000000
+PRJ-0348,Paket Ketahanan terhadap perubahan iklim #0348,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2025-02-08,604531000000
+PRJ-0349,Paket Ketahanan terhadap perubahan iklim #0349,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-07-09,1260272000000
+PRJ-0350,Paket Pengelolaan air dan air limbah #0350,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-01-09,2742555000000
+PRJ-0351,Paket Ketahanan terhadap perubahan iklim #0351,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-11-06,2354762000000
+PRJ-0352,Paket Pengelolaan air dan air limbah #0352,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_kembali,2024-12-20,1578881000000
+PRJ-0353,Paket Energi terbarukan #0353,Energi terbarukan,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_kembali,2023-06-11,637600000000
+PRJ-0354,Paket Ketahanan terhadap perubahan iklim #0354,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-12-05,1860916000000
+PRJ-0355,Paket Transportasi berkelanjutan #0355,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-11-09,804698000000
+PRJ-0356,Paket Transportasi berkelanjutan #0356,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_kembali,2023-10-02,876949000000
+PRJ-0357,Paket Ketahanan terhadap perubahan iklim #0357,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-05-19,1190987000000
+PRJ-0358,Paket Pengelolaan air dan air limbah #0358,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-12-13,1220249000000
+PRJ-0359,Paket Ketahanan terhadap perubahan iklim #0359,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_kembali,2023-06-27,2502927000000
+PRJ-0360,Paket Pengelolaan sumber daya alam dan lahan #0360,Pengelolaan sumber daya alam dan lahan,Kementerian LHK,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-07-24,2733310000000
+PRJ-0361,Paket Transportasi berkelanjutan #0361,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-11-07,2179400000000
+PRJ-0362,Paket Efisiensi energi #0362,Efisiensi energi,Kementerian ESDM,SERI-2024,Wakalah,pembiayaan_baru,2024-10-26,976398000000
+PRJ-0363,Paket Transportasi berkelanjutan #0363,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_kembali,2023-07-23,341077000000
+PRJ-0364,Paket Transportasi berkelanjutan #0364,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-05-01,328064000000
+PRJ-0365,Paket Efisiensi energi #0365,Efisiensi energi,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2023-01-25,1141868000000
+PRJ-0366,Paket Pengelolaan air dan air limbah #0366,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-11-19,1594343000000
+PRJ-0367,Paket Transportasi berkelanjutan #0367,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_baru,2024-03-25,2845694000000
+PRJ-0368,Paket Energi terbarukan #0368,Energi terbarukan,Kementerian ESDM,SERI-2024,Wakalah,pembiayaan_baru,2024-12-13,2034272000000
+PRJ-0369,Paket Pengelolaan air dan air limbah #0369,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-11-01,2619413000000
+PRJ-0370,Paket Pengelolaan sumber daya alam dan lahan #0370,Pengelolaan sumber daya alam dan lahan,Kementerian LHK,SERI-2024,Wakalah,pembiayaan_baru,2025-02-24,2577546000000
+PRJ-0371,Paket Transportasi berkelanjutan #0371,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-05-20,2065190000000
+PRJ-0372,Paket Transportasi berkelanjutan #0372,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_baru,2024-05-09,2691560000000
+PRJ-0373,Paket Transportasi berkelanjutan #0373,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_baru,2024-10-28,161353000000
+PRJ-0374,Paket Transportasi berkelanjutan #0374,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-11-07,79193000000
+PRJ-0375,Paket Pengelolaan sumber daya alam dan lahan #0375,Pengelolaan sumber daya alam dan lahan,Kementerian LHK,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-03-29,926736000000
+PRJ-0376,Paket Transportasi berkelanjutan #0376,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2021-04-30,234785000000
+PRJ-0377,Paket Efisiensi energi #0377,Efisiensi energi,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_baru,2023-04-22,1118124000000
+PRJ-0378,Paket Ketahanan terhadap perubahan iklim #0378,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-05-06,2304811000000
+PRJ-0379,Paket Transportasi berkelanjutan #0379,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_baru,2023-12-30,971400000000
+PRJ-0380,Paket Efisiensi energi #0380,Efisiensi energi,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-05-15,1323779000000
+PRJ-0381,Paket Ketahanan terhadap perubahan iklim #0381,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-05-22,323212000000
+PRJ-0382,Paket Energi terbarukan #0382,Energi terbarukan,Kementerian ESDM,SERI-2024,Wakalah,pembiayaan_baru,2024-08-01,321724000000
+PRJ-0383,Paket Ketahanan terhadap perubahan iklim #0383,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2025-02-14,337237000000
+PRJ-0384,Paket Pertanian berkelanjutan #0384,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2024,Wakalah,pembiayaan_baru,2024-08-10,339678000000
+PRJ-0385,Paket Ketahanan terhadap perubahan iklim #0385,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_kembali,2023-04-15,608940000000
+PRJ-0386,Paket Pertanian berkelanjutan #0386,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-11-08,2570849000000
+PRJ-0387,Paket Bangunan hijau #0387,Bangunan hijau,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_kembali,2023-05-22,489397000000
+PRJ-0388,Paket Pengelolaan air dan air limbah #0388,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_kembali,2023-09-20,1083999000000
+PRJ-0389,Paket Ketahanan terhadap perubahan iklim #0389,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-08-12,1359629000000
+PRJ-0390,Paket Transportasi berkelanjutan #0390,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-11-06,173083000000
+PRJ-0391,Paket Ketahanan terhadap perubahan iklim #0391,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-01-03,862428000000
+PRJ-0392,Paket Transportasi berkelanjutan #0392,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-06-30,394952000000
+PRJ-0393,Paket Ketahanan terhadap perubahan iklim #0393,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2023-02-03,1585696000000
+PRJ-0394,Paket Ketahanan terhadap perubahan iklim #0394,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2023-03-15,1243316000000
+PRJ-0395,Paket Pengelolaan air dan air limbah #0395,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_kembali,2024-01-30,2477879000000
+PRJ-0396,Paket Transportasi berkelanjutan #0396,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_baru,2024-11-14,497339000000
+PRJ-0397,Paket Ketahanan terhadap perubahan iklim #0397,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-10-31,2008579000000
+PRJ-0398,Paket Efisiensi energi #0398,Efisiensi energi,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_baru,2024-01-02,244213000000
+PRJ-0399,Paket Ketahanan terhadap perubahan iklim #0399,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-12-01,521191000000
+PRJ-0400,Paket Transportasi berkelanjutan #0400,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_baru,2024-01-28,1990934000000
+PRJ-0401,Paket Ketahanan terhadap perubahan iklim #0401,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-05-23,915200000000
+PRJ-0402,Paket Energi terbarukan #0402,Energi terbarukan,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_kembali,2023-07-16,667137000000
+PRJ-0403,Paket Ketahanan terhadap perubahan iklim #0403,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2024-01-06,310432000000
+PRJ-0404,Paket Bangunan hijau #0404,Bangunan hijau,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_kembali,2024-08-22,509670000000
+PRJ-0405,Paket Pengelolaan air dan air limbah #0405,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-04-08,1053935000000
+PRJ-0406,Paket Transportasi berkelanjutan #0406,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-06-03,857745000000
+PRJ-0407,Paket Transportasi berkelanjutan #0407,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_baru,2025-01-04,272668000000
+PRJ-0408,Paket Ketahanan terhadap perubahan iklim #0408,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-09-17,282543000000
+PRJ-0409,Paket Pengelolaan air dan air limbah #0409,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-08-03,1819843000000
+PRJ-0410,Paket Ketahanan terhadap perubahan iklim #0410,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-07-21,1417709000000
+PRJ-0411,Paket Transportasi berkelanjutan #0411,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-03-21,3677073000000
+PRJ-0412,Paket Pengelolaan air dan air limbah #0412,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-05-14,1856364000000
+PRJ-0413,Paket Pengelolaan air dan air limbah #0413,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-08-10,303796000000
+PRJ-0414,Paket Bangunan hijau #0414,Bangunan hijau,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-07-14,1114874000000
+PRJ-0415,Paket Bangunan hijau #0415,Bangunan hijau,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2023-02-18,1658585000000
+PRJ-0416,Paket Ketahanan terhadap perubahan iklim #0416,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-09-08,1869960000000
+PRJ-0417,Paket Pengelolaan air dan air limbah #0417,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-05-24,543836000000
+PRJ-0418,Paket Pengelolaan air dan air limbah #0418,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-07-07,1677703000000
+PRJ-0419,Paket Ketahanan terhadap perubahan iklim #0419,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-07-01,121110000000
+PRJ-0420,Paket Transportasi berkelanjutan #0420,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2023-02-11,294938000000
+PRJ-0421,Paket Ketahanan terhadap perubahan iklim #0421,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2021-03-16,603775000000
+PRJ-0422,Paket Transportasi berkelanjutan #0422,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-05-21,344429000000
+PRJ-0423,Paket Transportasi berkelanjutan #0423,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-11-25,1577157000000
+PRJ-0424,Paket Transportasi berkelanjutan #0424,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2021-07-27,1145630000000
+PRJ-0425,Paket Efisiensi energi #0425,Efisiensi energi,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2023-01-23,1652611000000
+PRJ-0426,Paket Bangunan hijau #0426,Bangunan hijau,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-11-01,686718000000
+PRJ-0427,Paket Transportasi berkelanjutan #0427,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_baru,2023-10-25,1754407000000
+PRJ-0428,Paket Transportasi berkelanjutan #0428,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_baru,2023-11-23,2106255000000
+PRJ-0429,Paket Pengelolaan air dan air limbah #0429,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2021-05-07,1258250000000
+PRJ-0430,Paket Pengelolaan air dan air limbah #0430,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-10-25,3130835000000
+PRJ-0431,Paket Efisiensi energi #0431,Efisiensi energi,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-08-14,1042747000000
+PRJ-0432,Paket Bangunan hijau #0432,Bangunan hijau,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-08-18,2041331000000
+PRJ-0433,Paket Efisiensi energi #0433,Efisiensi energi,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_baru,2023-06-03,934759000000
+PRJ-0434,Paket Transportasi berkelanjutan #0434,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_baru,2024-03-17,163366000000
+PRJ-0435,Paket Energi terbarukan #0435,Energi terbarukan,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_baru,2023-05-07,128366000000
+PRJ-0436,Paket Energi terbarukan #0436,Energi terbarukan,Kementerian ESDM,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-07-14,2142525000000
+PRJ-0437,Paket Pengelolaan sumber daya alam dan lahan #0437,Pengelolaan sumber daya alam dan lahan,Kementerian LHK,SERI-2024,Wakalah,pembiayaan_kembali,2024-05-02,2288141000000
+PRJ-0438,Paket Ketahanan terhadap perubahan iklim #0438,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_kembali,2024-12-18,825036000000
+PRJ-0439,Paket Transportasi berkelanjutan #0439,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-12-09,1567592000000
+PRJ-0440,Paket Energi terbarukan #0440,Energi terbarukan,Kementerian ESDM,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-03-30,932015000000
+PRJ-0441,Paket Pertanian berkelanjutan #0441,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2023,Wakalah,pembiayaan_baru,2023-11-06,573817000000
+PRJ-0442,Paket Ketahanan terhadap perubahan iklim #0442,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-12-17,1091959000000
+PRJ-0443,Paket Transportasi berkelanjutan #0443,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-10-31,254746000000
+PRJ-0444,Paket Bangunan hijau #0444,Bangunan hijau,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-09-01,587455000000
+PRJ-0445,Paket Ketahanan terhadap perubahan iklim #0445,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-09-07,552404000000
+PRJ-0446,Paket Ketahanan terhadap perubahan iklim #0446,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_kembali,2025-02-18,1760440000000
+PRJ-0447,Paket Transportasi berkelanjutan #0447,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_baru,2023-07-02,529315000000
+PRJ-0448,Paket Pengelolaan air dan air limbah #0448,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-06-29,176039000000
+PRJ-0449,Paket Transportasi berkelanjutan #0449,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_baru,2024-11-12,1381932000000
+PRJ-0450,Paket Ketahanan terhadap perubahan iklim #0450,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_kembali,2024-01-27,953883000000
+PRJ-0451,Paket Energi terbarukan #0451,Energi terbarukan,Kementerian ESDM,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2021-04-23,1530550000000
+PRJ-0452,Paket Ketahanan terhadap perubahan iklim #0452,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-12-29,1407217000000
+PRJ-0453,Paket Pertanian berkelanjutan #0453,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2021-09-25,636921000000
+PRJ-0454,Paket Transportasi berkelanjutan #0454,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-10-30,743946000000
+PRJ-0455,Paket Ketahanan terhadap perubahan iklim #0455,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2022-03-06,541017000000
+PRJ-0456,Paket Pengelolaan air dan air limbah #0456,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-12-26,1132318000000
+PRJ-0457,Paket Ketahanan terhadap perubahan iklim #0457,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-12-11,480882000000
+PRJ-0458,Paket Transportasi berkelanjutan #0458,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_baru,2024-10-26,1356029000000
+PRJ-0459,Paket Transportasi berkelanjutan #0459,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_baru,2024-07-28,1234921000000
+PRJ-0460,Paket Ketahanan terhadap perubahan iklim #0460,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2024-01-22,2363103000000
+PRJ-0461,Paket Pengelolaan air dan air limbah #0461,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-01-16,3258320000000
+PRJ-0462,Paket Energi terbarukan #0462,Energi terbarukan,Kementerian ESDM,SERI-2024,Wakalah,pembiayaan_baru,2024-12-23,4611582000000
+PRJ-0463,Paket Efisiensi energi #0463,Efisiensi energi,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_kembali,2023-12-03,1407913000000
+PRJ-0464,Paket Ketahanan terhadap perubahan iklim #0464,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-07-14,1462260000000
+PRJ-0465,Paket Efisiensi energi #0465,Efisiensi energi,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_kembali,2023-07-21,3284817000000
+PRJ-0466,Paket Efisiensi energi #0466,Efisiensi energi,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_kembali,2024-01-06,2045005000000
+PRJ-0467,Paket Pengelolaan air dan air limbah #0467,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-10-22,521401000000
+PRJ-0468,Paket Efisiensi energi #0468,Efisiensi energi,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_baru,2023-09-10,1034682000000
+PRJ-0469,Paket Efisiensi energi #0469,Efisiensi energi,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-07-19,1325149000000
+PRJ-0470,Paket Pengelolaan air dan air limbah #0470,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-10-25,2670331000000
+PRJ-0471,Paket Ketahanan terhadap perubahan iklim #0471,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-03-23,1510792000000
+PRJ-0472,Paket Ketahanan terhadap perubahan iklim #0472,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-10-23,880470000000
+PRJ-0473,Paket Ketahanan terhadap perubahan iklim #0473,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-07-23,1676880000000
+PRJ-0474,Paket Ketahanan terhadap perubahan iklim #0474,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_kembali,2024-03-25,217111000000
+PRJ-0475,Paket Ketahanan terhadap perubahan iklim #0475,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-05-03,2689767000000
+PRJ-0476,Paket Energi terbarukan #0476,Energi terbarukan,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_baru,2023-11-26,998109000000
+PRJ-0477,Paket Ketahanan terhadap perubahan iklim #0477,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-04-25,1531738000000
+PRJ-0478,Paket Energi terbarukan #0478,Energi terbarukan,Kementerian ESDM,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-06-19,661511000000
+PRJ-0479,Paket Energi terbarukan #0479,Energi terbarukan,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_baru,2023-05-11,1339032000000
+PRJ-0480,Paket Ketahanan terhadap perubahan iklim #0480,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_kembali,2025-03-14,329262000000
+PRJ-0481,Paket Transportasi berkelanjutan #0481,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-10-09,1585941000000
+PRJ-0482,Paket Pengelolaan air dan air limbah #0482,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_kembali,2023-04-17,986328000000
+PRJ-0483,Paket Bangunan hijau #0483,Bangunan hijau,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_kembali,2023-09-13,608580000000
+PRJ-0484,Paket Ketahanan terhadap perubahan iklim #0484,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2021-04-28,3227881000000
+PRJ-0485,Paket Transportasi berkelanjutan #0485,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2022-02-16,1049696000000
+PRJ-0486,Paket Efisiensi energi #0486,Efisiensi energi,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_kembali,2024-01-01,248961000000
+PRJ-0487,Paket Pengelolaan air dan air limbah #0487,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_kembali,2023-12-02,818250000000
+PRJ-0488,Paket Ketahanan terhadap perubahan iklim #0488,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-11-02,2394901000000
+PRJ-0489,Paket Bangunan hijau #0489,Bangunan hijau,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2023-02-03,58640000000
+PRJ-0490,Paket Transportasi berkelanjutan #0490,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_kembali,2023-04-23,331664000000
+PRJ-0491,Paket Pengelolaan air dan air limbah #0491,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-08-18,884197000000
+PRJ-0492,Paket Pengelolaan sumber daya alam dan lahan #0492,Pengelolaan sumber daya alam dan lahan,Kementerian LHK,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2023-02-01,2594562000000
+PRJ-0493,Paket Energi terbarukan #0493,Energi terbarukan,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-04-04,752869000000
+PRJ-0494,Paket Transportasi berkelanjutan #0494,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2022-01-26,352388000000
+PRJ-0495,Paket Pertanian berkelanjutan #0495,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2024,Wakalah,pembiayaan_kembali,2024-12-07,818184000000
+PRJ-0496,Paket Pertanian berkelanjutan #0496,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-03-30,1129136000000
+PRJ-0497,Paket Transportasi berkelanjutan #0497,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_baru,2023-10-21,852004000000
+PRJ-0498,Paket Efisiensi energi #0498,Efisiensi energi,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_baru,2023-03-28,1455504000000
+PRJ-0499,Paket Efisiensi energi #0499,Efisiensi energi,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-03-31,2779695000000
+PRJ-0500,Paket Pengelolaan air dan air limbah #0500,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-07-19,244230000000
+PRJ-0501,Paket Pengelolaan air dan air limbah #0501,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-10-07,1476537000000
+PRJ-0502,Paket Ketahanan terhadap perubahan iklim #0502,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2024-03-02,2299345000000
+PRJ-0503,Paket Pertanian berkelanjutan #0503,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-06-30,2587351000000
+PRJ-0504,Paket Ketahanan terhadap perubahan iklim #0504,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-03-25,1000733000000
+PRJ-0505,Paket Transportasi berkelanjutan #0505,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_kembali,2023-05-31,2889651000000
+PRJ-0506,Paket Energi terbarukan #0506,Energi terbarukan,Kementerian ESDM,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-09-21,1328856000000
+PRJ-0507,Paket Ketahanan terhadap perubahan iklim #0507,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2025-01-18,399767000000
+PRJ-0508,Paket Bangunan hijau #0508,Bangunan hijau,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-06-07,660078000000
+PRJ-0509,Paket Transportasi berkelanjutan #0509,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-12-13,1652229000000
+PRJ-0510,Paket Transportasi berkelanjutan #0510,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_baru,2024-08-15,1148392000000
+PRJ-0511,Paket Pengelolaan air dan air limbah #0511,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-05-03,2917941000000
+PRJ-0512,Paket Ketahanan terhadap perubahan iklim #0512,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-11-05,1026828000000
+PRJ-0513,Paket Bangunan hijau #0513,Bangunan hijau,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-10-24,77982000000
+PRJ-0514,Paket Pengelolaan air dan air limbah #0514,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-05-26,1413752000000
+PRJ-0515,Paket Pengelolaan air dan air limbah #0515,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-04-23,864352000000
+PRJ-0516,Paket Transportasi berkelanjutan #0516,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2021-08-06,1135306000000
+PRJ-0517,Paket Transportasi berkelanjutan #0517,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-04-25,3498491000000
+PRJ-0518,Paket Ketahanan terhadap perubahan iklim #0518,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2025-01-20,245133000000
+PRJ-0519,Paket Energi terbarukan #0519,Energi terbarukan,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_kembali,2023-08-22,1180815000000
+PRJ-0520,Paket Bangunan hijau #0520,Bangunan hijau,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-06-20,1823780000000
+PRJ-0521,Paket Bangunan hijau #0521,Bangunan hijau,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_kembali,2024-04-20,3441351000000
+PRJ-0522,Paket Ketahanan terhadap perubahan iklim #0522,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_kembali,2024-11-13,258933000000
+PRJ-0523,Paket Pengelolaan air dan air limbah #0523,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2023-02-12,923918000000
+PRJ-0524,Paket Transportasi berkelanjutan #0524,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_kembali,2023-12-16,249150000000
+PRJ-0525,Paket Pengelolaan air dan air limbah #0525,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-06-22,99211000000
+PRJ-0526,Paket Pengelolaan air dan air limbah #0526,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-09-01,1726963000000
+PRJ-0527,Paket Ketahanan terhadap perubahan iklim #0527,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-04-09,2431329000000
+PRJ-0528,Paket Ketahanan terhadap perubahan iklim #0528,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-08-27,1432374000000
+PRJ-0529,Paket Transportasi berkelanjutan #0529,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_kembali,2023-08-20,1857149000000
+PRJ-0530,Paket Bangunan hijau #0530,Bangunan hijau,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-03-26,927773000000
+PRJ-0531,Paket Energi terbarukan #0531,Energi terbarukan,Kementerian ESDM,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-06-22,1827141000000
+PRJ-0532,Paket Ketahanan terhadap perubahan iklim #0532,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-08-12,615155000000
+PRJ-0533,Paket Pertanian berkelanjutan #0533,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-11-17,525078000000
+PRJ-0534,Paket Efisiensi energi #0534,Efisiensi energi,Kementerian ESDM,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-08-03,2020909000000
+PRJ-0535,Paket Transportasi berkelanjutan #0535,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_baru,2023-09-23,2148901000000
+PRJ-0536,Paket Pengelolaan air dan air limbah #0536,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-06-12,1612172000000
+PRJ-0537,Paket Bangunan hijau #0537,Bangunan hijau,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2024-02-02,1558271000000
+PRJ-0538,Paket Ketahanan terhadap perubahan iklim #0538,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-07-27,1606370000000
+PRJ-0539,Paket Ketahanan terhadap perubahan iklim #0539,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-08-29,1796916000000
+PRJ-0540,Paket Transportasi berkelanjutan #0540,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-10-29,721979000000
+PRJ-0541,Paket Bangunan hijau #0541,Bangunan hijau,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_kembali,2024-09-30,443834000000
+PRJ-0542,Paket Pengelolaan air dan air limbah #0542,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-07-24,228079000000
+PRJ-0543,Paket Ketahanan terhadap perubahan iklim #0543,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_kembali,2024-09-06,2149720000000
+PRJ-0544,Paket Bangunan hijau #0544,Bangunan hijau,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-07-09,596594000000
+PRJ-0545,Paket Transportasi berkelanjutan #0545,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-04-04,918113000000
+PRJ-0546,Paket Energi terbarukan #0546,Energi terbarukan,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-12-28,430095000000
+PRJ-0547,Paket Transportasi berkelanjutan #0547,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_kembali,2023-11-13,426435000000
+PRJ-0548,Paket Ketahanan terhadap perubahan iklim #0548,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-12-06,854743000000
+PRJ-0549,Paket Energi terbarukan #0549,Energi terbarukan,Kementerian ESDM,SERI-2024,Wakalah,pembiayaan_baru,2024-12-05,1521962000000
+PRJ-0550,Paket Transportasi berkelanjutan #0550,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_baru,2024-04-18,1830505000000
+PRJ-0551,Paket Transportasi berkelanjutan #0551,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-12-31,67519000000
+PRJ-0552,Paket Pengelolaan air dan air limbah #0552,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-07-04,716335000000
+PRJ-0553,Paket Transportasi berkelanjutan #0553,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-09-14,1914058000000
+PRJ-0554,Paket Ketahanan terhadap perubahan iklim #0554,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-12-17,2515427000000
+PRJ-0555,Paket Transportasi berkelanjutan #0555,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_baru,2023-12-02,3401721000000
+PRJ-0556,Paket Energi terbarukan #0556,Energi terbarukan,Kementerian ESDM,SERI-2024,Wakalah,pembiayaan_baru,2025-02-15,514537000000
+PRJ-0557,Paket Transportasi berkelanjutan #0557,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_kembali,2024-06-18,2071822000000
+PRJ-0558,Paket Pengelolaan air dan air limbah #0558,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-11-29,1599318000000
+PRJ-0559,Paket Pertanian berkelanjutan #0559,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2023,Wakalah,pembiayaan_baru,2023-05-05,304607000000
+PRJ-0560,Paket Efisiensi energi #0560,Efisiensi energi,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_baru,2023-10-19,3458600000000
+PRJ-0561,Paket Transportasi berkelanjutan #0561,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_baru,2024-06-23,56074000000
+PRJ-0562,Paket Pengelolaan air dan air limbah #0562,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_kembali,2024-06-17,1442062000000
+PRJ-0563,Paket Pengelolaan air dan air limbah #0563,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-12-11,184278000000
+PRJ-0564,Paket Pengelolaan sumber daya alam dan lahan #0564,Pengelolaan sumber daya alam dan lahan,Kementerian LHK,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-09-24,417065000000
+PRJ-0565,Paket Transportasi berkelanjutan #0565,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_baru,2025-01-04,540915000000
+PRJ-0566,Paket Ketahanan terhadap perubahan iklim #0566,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-05-30,1735397000000
+PRJ-0567,Paket Ketahanan terhadap perubahan iklim #0567,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2021-05-26,1399884000000
+PRJ-0568,Paket Ketahanan terhadap perubahan iklim #0568,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-07-05,2113440000000
+PRJ-0569,Paket Ketahanan terhadap perubahan iklim #0569,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-11-29,2108490000000
+PRJ-0570,Paket Ketahanan terhadap perubahan iklim #0570,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-08-05,1477333000000
+PRJ-0571,Paket Ketahanan terhadap perubahan iklim #0571,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-07-15,1040790000000
+PRJ-0572,Paket Transportasi berkelanjutan #0572,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_baru,2024-10-19,1971633000000
+PRJ-0573,Paket Ketahanan terhadap perubahan iklim #0573,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-08-26,468802000000
+PRJ-0574,Paket Energi terbarukan #0574,Energi terbarukan,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-05-11,1260622000000
+PRJ-0575,Paket Pengelolaan air dan air limbah #0575,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_kembali,2023-03-25,1697547000000
+PRJ-0576,Paket Ketahanan terhadap perubahan iklim #0576,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-05-26,2098744000000
+PRJ-0577,Paket Transportasi berkelanjutan #0577,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-08-25,214915000000
+PRJ-0578,Paket Pengelolaan air dan air limbah #0578,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-09-23,2474732000000
+PRJ-0579,Paket Pengelolaan air dan air limbah #0579,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-09-28,2390277000000
+PRJ-0580,Paket Ketahanan terhadap perubahan iklim #0580,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-06-23,74142000000
+PRJ-0581,Paket Pengelolaan sumber daya alam dan lahan #0581,Pengelolaan sumber daya alam dan lahan,Kementerian LHK,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-07-09,352352000000
+PRJ-0582,Paket Transportasi berkelanjutan #0582,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_kembali,2023-07-26,2674108000000
+PRJ-0583,Paket Ketahanan terhadap perubahan iklim #0583,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-11-14,2370150000000
+PRJ-0584,Paket Transportasi berkelanjutan #0584,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_kembali,2023-07-26,2319417000000
+PRJ-0585,Paket Pertanian berkelanjutan #0585,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2024,Wakalah,pembiayaan_kembali,2024-05-02,3059097000000
+PRJ-0586,Paket Bangunan hijau #0586,Bangunan hijau,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-12-14,1122040000000
+PRJ-0587,Paket Bangunan hijau #0587,Bangunan hijau,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-10-14,185124000000
+PRJ-0588,Paket Transportasi berkelanjutan #0588,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_kembali,2025-01-08,1379047000000
+PRJ-0589,Paket Pertanian berkelanjutan #0589,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2023,Wakalah,pembiayaan_baru,2023-03-26,160696000000
+PRJ-0590,Paket Ketahanan terhadap perubahan iklim #0590,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-12-09,405259000000
+PRJ-0591,Paket Energi terbarukan #0591,Energi terbarukan,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-05-05,2950838000000
+PRJ-0592,Paket Bangunan hijau #0592,Bangunan hijau,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2024-01-16,311080000000
+PRJ-0593,Paket Ketahanan terhadap perubahan iklim #0593,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-12-29,1187096000000
+PRJ-0594,Paket Efisiensi energi #0594,Efisiensi energi,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-10-21,2264788000000
+PRJ-0595,Paket Bangunan hijau #0595,Bangunan hijau,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-10-18,196047000000
+PRJ-0596,Paket Energi terbarukan #0596,Energi terbarukan,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_baru,2023-06-26,1764267000000
+PRJ-0597,Paket Ketahanan terhadap perubahan iklim #0597,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-04-16,1149988000000
+PRJ-0598,Paket Ketahanan terhadap perubahan iklim #0598,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-07-17,1076042000000
+PRJ-0599,Paket Pengelolaan air dan air limbah #0599,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-11-09,2430861000000
+PRJ-0600,Paket Pengelolaan air dan air limbah #0600,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-08-30,938618000000
+PRJ-0601,Paket Ketahanan terhadap perubahan iklim #0601,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-08-07,1681839000000
+PRJ-0602,Paket Energi terbarukan #0602,Energi terbarukan,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_baru,2023-07-14,669119000000
+PRJ-0603,Paket Bangunan hijau #0603,Bangunan hijau,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-12-09,325891000000
+PRJ-0604,Paket Bangunan hijau #0604,Bangunan hijau,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-12-02,860191000000
+PRJ-0605,Paket Ketahanan terhadap perubahan iklim #0605,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-06-02,2745909000000
+PRJ-0606,Paket Pengelolaan air dan air limbah #0606,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-11-07,130309000000
+PRJ-0607,Paket Ketahanan terhadap perubahan iklim #0607,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2024-01-29,2230640000000
+PRJ-0608,Paket Ketahanan terhadap perubahan iklim #0608,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-11-07,1546089000000
+PRJ-0609,Paket Bangunan hijau #0609,Bangunan hijau,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-07-27,1841902000000
+PRJ-0610,Paket Transportasi berkelanjutan #0610,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-09-21,3538356000000
+PRJ-0611,Paket Energi terbarukan #0611,Energi terbarukan,Kementerian ESDM,SERI-2024,Wakalah,pembiayaan_baru,2024-04-05,1426854000000
+PRJ-0612,Paket Pertanian berkelanjutan #0612,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-07-18,482841000000
+PRJ-0613,Paket Ketahanan terhadap perubahan iklim #0613,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-07-25,1350372000000
+PRJ-0614,Paket Energi terbarukan #0614,Energi terbarukan,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-10-23,594260000000
+PRJ-0615,Paket Ketahanan terhadap perubahan iklim #0615,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2025-03-13,3469022000000
+PRJ-0616,Paket Transportasi berkelanjutan #0616,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2023-02-20,3032885000000
+PRJ-0617,Paket Transportasi berkelanjutan #0617,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-11-24,428113000000
+PRJ-0618,Paket Pengelolaan air dan air limbah #0618,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-05-12,360888000000
+PRJ-0619,Paket Efisiensi energi #0619,Efisiensi energi,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-11-13,443724000000
+PRJ-0620,Paket Transportasi berkelanjutan #0620,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_kembali,2024-06-16,413567000000
+PRJ-0621,Paket Transportasi berkelanjutan #0621,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_baru,2024-01-21,1064151000000
+PRJ-0622,Paket Pertanian berkelanjutan #0622,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2024,Wakalah,pembiayaan_kembali,2024-08-29,1232545000000
+PRJ-0623,Paket Ketahanan terhadap perubahan iklim #0623,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2022-02-10,188765000000
+PRJ-0624,Paket Energi terbarukan #0624,Energi terbarukan,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-06-18,1050403000000
+PRJ-0625,Paket Pengelolaan sumber daya alam dan lahan #0625,Pengelolaan sumber daya alam dan lahan,Kementerian LHK,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-06-04,1474773000000
+PRJ-0626,Paket Transportasi berkelanjutan #0626,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-11-04,873131000000
+PRJ-0627,Paket Pengelolaan sumber daya alam dan lahan #0627,Pengelolaan sumber daya alam dan lahan,Kementerian LHK,SERI-2023,Wakalah,pembiayaan_baru,2023-10-03,1708608000000
+PRJ-0628,Paket Ketahanan terhadap perubahan iklim #0628,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2024-03-02,1551366000000
+PRJ-0629,Paket Ketahanan terhadap perubahan iklim #0629,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-08-29,1548661000000
+PRJ-0630,Paket Bangunan hijau #0630,Bangunan hijau,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2021-06-29,500659000000
+PRJ-0631,Paket Ketahanan terhadap perubahan iklim #0631,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-07-06,508661000000
+PRJ-0632,Paket Pengelolaan air dan air limbah #0632,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_kembali,2024-02-27,1477762000000
+PRJ-0633,Paket Transportasi berkelanjutan #0633,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_baru,2023-04-15,278795000000
+PRJ-0634,Paket Transportasi berkelanjutan #0634,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-11-25,356028000000
+PRJ-0635,Paket Energi terbarukan #0635,Energi terbarukan,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_kembali,2023-12-31,4263571000000
+PRJ-0636,Paket Transportasi berkelanjutan #0636,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_baru,2024-04-02,2170426000000
+PRJ-0637,Paket Ketahanan terhadap perubahan iklim #0637,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-10-04,111214000000
+PRJ-0638,Paket Energi terbarukan #0638,Energi terbarukan,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-05-15,1580687000000
+PRJ-0639,Paket Transportasi berkelanjutan #0639,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_baru,2024-01-15,1390844000000
+PRJ-0640,Paket Ketahanan terhadap perubahan iklim #0640,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-10-12,2645607000000
+PRJ-0641,Paket Efisiensi energi #0641,Efisiensi energi,Kementerian ESDM,SERI-2024,Wakalah,pembiayaan_baru,2025-02-17,2439390000000
+PRJ-0642,Paket Pertanian berkelanjutan #0642,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2024,Wakalah,pembiayaan_baru,2025-03-14,1575684000000
+PRJ-0643,Paket Ketahanan terhadap perubahan iklim #0643,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-06-04,522614000000
+PRJ-0644,Paket Ketahanan terhadap perubahan iklim #0644,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-04-20,506388000000
+PRJ-0645,Paket Bangunan hijau #0645,Bangunan hijau,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-07-09,77450000000
+PRJ-0646,Paket Pertanian berkelanjutan #0646,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2023,Wakalah,pembiayaan_baru,2024-01-16,4301877000000
+PRJ-0647,Paket Energi terbarukan #0647,Energi terbarukan,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-10-12,635415000000
+PRJ-0648,Paket Transportasi berkelanjutan #0648,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-05-11,377497000000
+PRJ-0649,Paket Pengelolaan sumber daya alam dan lahan #0649,Pengelolaan sumber daya alam dan lahan,Kementerian LHK,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-09-20,1685707000000
+PRJ-0650,Paket Bangunan hijau #0650,Bangunan hijau,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2022-03-12,1030903000000
+PRJ-0651,Paket Pertanian berkelanjutan #0651,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-11-08,635032000000
+PRJ-0652,Paket Ketahanan terhadap perubahan iklim #0652,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_kembali,2023-10-12,439259000000
+PRJ-0653,Paket Efisiensi energi #0653,Efisiensi energi,Kementerian ESDM,SERI-2024,Wakalah,pembiayaan_kembali,2024-11-07,583764000000
+PRJ-0654,Paket Ketahanan terhadap perubahan iklim #0654,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-05-04,1817320000000
+PRJ-0655,Paket Energi terbarukan #0655,Energi terbarukan,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-06-04,2736676000000
+PRJ-0656,Paket Transportasi berkelanjutan #0656,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_baru,2023-10-10,1189612000000
+PRJ-0657,Paket Pengelolaan air dan air limbah #0657,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-05-08,2078922000000
+PRJ-0658,Paket Transportasi berkelanjutan #0658,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_kembali,2023-06-28,859012000000
+PRJ-0659,Paket Energi terbarukan #0659,Energi terbarukan,Kementerian ESDM,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-06-21,427128000000
+PRJ-0660,Paket Ketahanan terhadap perubahan iklim #0660,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_kembali,2024-10-23,528797000000
+PRJ-0661,Paket Ketahanan terhadap perubahan iklim #0661,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-09-07,543048000000
+PRJ-0662,Paket Efisiensi energi #0662,Efisiensi energi,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_baru,2023-12-15,615679000000
+PRJ-0663,Paket Pengelolaan sumber daya alam dan lahan #0663,Pengelolaan sumber daya alam dan lahan,Kementerian LHK,SERI-2024,Wakalah,pembiayaan_kembali,2025-02-17,1820654000000
+PRJ-0664,Paket Transportasi berkelanjutan #0664,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_baru,2023-12-22,1833286000000
+PRJ-0665,Paket Transportasi berkelanjutan #0665,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_baru,2023-03-18,483496000000
+PRJ-0666,Paket Efisiensi energi #0666,Efisiensi energi,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_baru,2023-06-03,1869216000000
+PRJ-0667,Paket Pertanian berkelanjutan #0667,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-09-16,2029334000000
+PRJ-0668,Paket Ketahanan terhadap perubahan iklim #0668,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-12-22,489785000000
+PRJ-0669,Paket Pengelolaan air dan air limbah #0669,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-12-08,2362627000000
+PRJ-0670,Paket Pertanian berkelanjutan #0670,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2023,Wakalah,pembiayaan_baru,2024-01-13,156247000000
+PRJ-0671,Paket Efisiensi energi #0671,Efisiensi energi,Kementerian ESDM,SERI-2024,Wakalah,pembiayaan_baru,2025-01-25,89999000000
+PRJ-0672,Paket Energi terbarukan #0672,Energi terbarukan,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_kembali,2023-09-29,1937967000000
+PRJ-0673,Paket Energi terbarukan #0673,Energi terbarukan,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-10-15,1149481000000
+PRJ-0674,Paket Pertanian berkelanjutan #0674,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2023,Wakalah,pembiayaan_kembali,2023-09-21,1979802000000
+PRJ-0675,Paket Ketahanan terhadap perubahan iklim #0675,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2021-07-15,3102734000000
+PRJ-0676,Paket Efisiensi energi #0676,Efisiensi energi,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_kembali,2024-01-31,826040000000
+PRJ-0677,Paket Transportasi berkelanjutan #0677,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_baru,2024-12-23,68017000000
+PRJ-0678,Paket Ketahanan terhadap perubahan iklim #0678,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_kembali,2024-09-15,2202109000000
+PRJ-0679,Paket Energi terbarukan #0679,Energi terbarukan,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_baru,2023-07-22,1675677000000
+PRJ-0680,Paket Ketahanan terhadap perubahan iklim #0680,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-06-25,1804815000000
+PRJ-0681,Paket Pengelolaan air dan air limbah #0681,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-08-09,1162424000000
+PRJ-0682,Paket Pengelolaan air dan air limbah #0682,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-12-24,1781405000000
+PRJ-0683,Paket Pengelolaan air dan air limbah #0683,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_kembali,2024-10-10,1795684000000
+PRJ-0684,Paket Bangunan hijau #0684,Bangunan hijau,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-05-03,732471000000
+PRJ-0685,Paket Pengelolaan sumber daya alam dan lahan #0685,Pengelolaan sumber daya alam dan lahan,Kementerian LHK,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-06-28,1043933000000
+PRJ-0686,Paket Efisiensi energi #0686,Efisiensi energi,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_baru,2024-01-01,2419785000000
+PRJ-0687,Paket Pertanian berkelanjutan #0687,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-08-30,1858608000000
+PRJ-0688,Paket Ketahanan terhadap perubahan iklim #0688,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-09-22,494916000000
+PRJ-0689,Paket Ketahanan terhadap perubahan iklim #0689,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2023-01-19,782454000000
+PRJ-0690,Paket Pengelolaan air dan air limbah #0690,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-08-18,1700235000000
+PRJ-0691,Paket Ketahanan terhadap perubahan iklim #0691,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-12-12,389118000000
+PRJ-0692,Paket Ketahanan terhadap perubahan iklim #0692,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_kembali,2023-10-10,708361000000
+PRJ-0693,Paket Pertanian berkelanjutan #0693,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-04-02,588995000000
+PRJ-0694,Paket Transportasi berkelanjutan #0694,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-05-24,2101796000000
+PRJ-0695,Paket Ketahanan terhadap perubahan iklim #0695,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-04-27,1883669000000
+PRJ-0696,Paket Pertanian berkelanjutan #0696,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2023,Wakalah,pembiayaan_baru,2023-11-22,1587955000000
+PRJ-0697,Paket Efisiensi energi #0697,Efisiensi energi,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_baru,2023-12-24,1227252000000
+PRJ-0698,Paket Ketahanan terhadap perubahan iklim #0698,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-04-30,218631000000
+PRJ-0699,Paket Ketahanan terhadap perubahan iklim #0699,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-12-30,483292000000
+PRJ-0700,Paket Energi terbarukan #0700,Energi terbarukan,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-03-27,726281000000
+PRJ-0701,Paket Energi terbarukan #0701,Energi terbarukan,Kementerian ESDM,SERI-2024,Wakalah,pembiayaan_kembali,2024-06-29,405483000000
+PRJ-0702,Paket Transportasi berkelanjutan #0702,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-09-25,876023000000
+PRJ-0703,Paket Ketahanan terhadap perubahan iklim #0703,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_kembali,2023-03-18,2236270000000
+PRJ-0704,Paket Ketahanan terhadap perubahan iklim #0704,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-05-12,846639000000
+PRJ-0705,Paket Ketahanan terhadap perubahan iklim #0705,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2021-10-07,1829429000000
+PRJ-0706,Paket Energi terbarukan #0706,Energi terbarukan,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2023-02-28,1133672000000
+PRJ-0707,Paket Energi terbarukan #0707,Energi terbarukan,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2023-01-21,286077000000
+PRJ-0708,Paket Pengelolaan air dan air limbah #0708,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-08-06,2465890000000
+PRJ-0709,Paket Transportasi berkelanjutan #0709,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2023-02-06,3169512000000
+PRJ-0710,Paket Ketahanan terhadap perubahan iklim #0710,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-06-25,1317165000000
+PRJ-0711,Paket Ketahanan terhadap perubahan iklim #0711,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-05-24,1602434000000
+PRJ-0712,Paket Transportasi berkelanjutan #0712,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-10-06,320820000000
+PRJ-0713,Paket Pengelolaan air dan air limbah #0713,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-09-13,1035582000000
+PRJ-0714,Paket Transportasi berkelanjutan #0714,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_baru,2023-04-27,52746000000
+PRJ-0715,Paket Ketahanan terhadap perubahan iklim #0715,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-11-27,333030000000
+PRJ-0716,Paket Ketahanan terhadap perubahan iklim #0716,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2023-01-06,519121000000
+PRJ-0717,Paket Energi terbarukan #0717,Energi terbarukan,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_baru,2023-09-04,768464000000
+PRJ-0718,Paket Ketahanan terhadap perubahan iklim #0718,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-10-24,1472692000000
+PRJ-0719,Paket Ketahanan terhadap perubahan iklim #0719,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_kembali,2023-12-27,405813000000
+PRJ-0720,Paket Ketahanan terhadap perubahan iklim #0720,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-12-22,1485409000000
+PRJ-0721,Paket Bangunan hijau #0721,Bangunan hijau,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2025-01-22,1569061000000
+PRJ-0722,Paket Bangunan hijau #0722,Bangunan hijau,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-10-09,1066988000000
+PRJ-0723,Paket Bangunan hijau #0723,Bangunan hijau,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-12-29,1031151000000
+PRJ-0724,Paket Pengelolaan sumber daya alam dan lahan #0724,Pengelolaan sumber daya alam dan lahan,Kementerian LHK,SERI-2024,Wakalah,pembiayaan_kembali,2024-04-07,2710963000000
+PRJ-0725,Paket Pengelolaan air dan air limbah #0725,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_kembali,2023-09-08,118361000000
+PRJ-0726,Paket Transportasi berkelanjutan #0726,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_baru,2024-08-07,463542000000
+PRJ-0727,Paket Pengelolaan sumber daya alam dan lahan #0727,Pengelolaan sumber daya alam dan lahan,Kementerian LHK,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-06-19,1270909000000
+PRJ-0728,Paket Bangunan hijau #0728,Bangunan hijau,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2021-08-22,1202042000000
+PRJ-0729,Paket Efisiensi energi #0729,Efisiensi energi,Kementerian ESDM,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-12-11,291990000000
+PRJ-0730,Paket Energi terbarukan #0730,Energi terbarukan,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-09-23,594172000000
+PRJ-0731,Paket Transportasi berkelanjutan #0731,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2023-03-10,970734000000
+PRJ-0732,Paket Ketahanan terhadap perubahan iklim #0732,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-08-10,1946566000000
+PRJ-0733,Paket Transportasi berkelanjutan #0733,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_baru,2023-04-18,770210000000
+PRJ-0734,Paket Pertanian berkelanjutan #0734,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-05-07,88871000000
+PRJ-0735,Paket Transportasi berkelanjutan #0735,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-07-27,2753727000000
+PRJ-0736,Paket Transportasi berkelanjutan #0736,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_baru,2023-11-18,1413942000000
+PRJ-0737,Paket Ketahanan terhadap perubahan iklim #0737,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-08-28,2660878000000
+PRJ-0738,Paket Pengelolaan air dan air limbah #0738,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-08-31,300682000000
+PRJ-0739,Paket Pengelolaan air dan air limbah #0739,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-03-25,685533000000
+PRJ-0740,Paket Efisiensi energi #0740,Efisiensi energi,Kementerian ESDM,SERI-2024,Wakalah,pembiayaan_baru,2025-03-03,3376151000000
+PRJ-0741,Paket Ketahanan terhadap perubahan iklim #0741,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-10-19,1839707000000
+PRJ-0742,Paket Transportasi berkelanjutan #0742,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-05-23,1280518000000
+PRJ-0743,Paket Pengelolaan sumber daya alam dan lahan #0743,Pengelolaan sumber daya alam dan lahan,Kementerian LHK,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-10-22,1818062000000
+PRJ-0744,Paket Efisiensi energi #0744,Efisiensi energi,Kementerian ESDM,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-01-28,1180723000000
+PRJ-0745,Paket Pertanian berkelanjutan #0745,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2024,Wakalah,pembiayaan_kembali,2024-07-07,207699000000
+PRJ-0746,Paket Energi terbarukan #0746,Energi terbarukan,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-04-22,1404743000000
+PRJ-0747,Paket Transportasi berkelanjutan #0747,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_baru,2025-01-17,2222555000000
+PRJ-0748,Paket Pengelolaan air dan air limbah #0748,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2024-03-04,466404000000
+PRJ-0749,Paket Transportasi berkelanjutan #0749,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_baru,2024-11-10,107036000000
+PRJ-0750,Paket Pengelolaan air dan air limbah #0750,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-05-27,1585319000000
+PRJ-0751,Paket Pengelolaan air dan air limbah #0751,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-12-25,2318720000000
+PRJ-0752,Paket Pengelolaan sumber daya alam dan lahan #0752,Pengelolaan sumber daya alam dan lahan,Kementerian LHK,SERI-2023,Wakalah,pembiayaan_baru,2023-04-14,4089702000000
+PRJ-0753,Paket Pengelolaan air dan air limbah #0753,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2023-03-07,635500000000
+PRJ-0754,Paket Energi terbarukan #0754,Energi terbarukan,Kementerian ESDM,SERI-2024,Wakalah,pembiayaan_baru,2024-03-19,1497509000000
+PRJ-0755,Paket Pengelolaan air dan air limbah #0755,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2025-03-02,295583000000
+PRJ-0756,Paket Transportasi berkelanjutan #0756,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_baru,2024-10-01,1081271000000
+PRJ-0757,Paket Ketahanan terhadap perubahan iklim #0757,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_kembali,2024-05-24,1834732000000
+PRJ-0758,Paket Pertanian berkelanjutan #0758,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-07-31,786352000000
+PRJ-0759,Paket Ketahanan terhadap perubahan iklim #0759,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2025-03-06,1537987000000
+PRJ-0760,Paket Energi terbarukan #0760,Energi terbarukan,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-10-04,1512685000000
+PRJ-0761,Paket Energi terbarukan #0761,Energi terbarukan,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-12-16,3493706000000
+PRJ-0762,Paket Pengelolaan air dan air limbah #0762,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2025-02-24,1524375000000
+PRJ-0763,Paket Pengelolaan air dan air limbah #0763,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-11-22,1959468000000
+PRJ-0764,Paket Ketahanan terhadap perubahan iklim #0764,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-07-08,560339000000
+PRJ-0765,Paket Pengelolaan air dan air limbah #0765,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2023-01-07,753966000000
+PRJ-0766,Paket Transportasi berkelanjutan #0766,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_baru,2025-01-28,1155374000000
+PRJ-0767,Paket Pengelolaan air dan air limbah #0767,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-07-25,461714000000
+PRJ-0768,Paket Transportasi berkelanjutan #0768,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_kembali,2023-04-28,1196563000000
+PRJ-0769,Paket Transportasi berkelanjutan #0769,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2024,Wakalah,pembiayaan_baru,2025-01-05,533860000000
+PRJ-0770,Paket Transportasi berkelanjutan #0770,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-06-07,4167609000000
+PRJ-0771,Paket Ketahanan terhadap perubahan iklim #0771,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-05-05,1830229000000
+PRJ-0772,Paket Ketahanan terhadap perubahan iklim #0772,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-05-08,3114171000000
+PRJ-0773,Paket Energi terbarukan #0773,Energi terbarukan,Kementerian ESDM,SERI-2023,Wakalah,pembiayaan_baru,2023-12-29,1427361000000
+PRJ-0774,Paket Efisiensi energi #0774,Efisiensi energi,Kementerian ESDM,SERI-2024,Wakalah,pembiayaan_baru,2024-08-29,1733236000000
+PRJ-0775,Paket Energi terbarukan #0775,Energi terbarukan,Kementerian ESDM,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-01-14,1642924000000
+PRJ-0776,Paket Pengelolaan sumber daya alam dan lahan #0776,Pengelolaan sumber daya alam dan lahan,Kementerian LHK,SERI-2023,Wakalah,pembiayaan_baru,2023-06-21,954512000000
+PRJ-0777,Paket Ketahanan terhadap perubahan iklim #0777,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2021-04-05,234653000000
+PRJ-0778,Paket Pengelolaan sumber daya alam dan lahan #0778,Pengelolaan sumber daya alam dan lahan,Kementerian LHK,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-04-07,2863518000000
+PRJ-0779,Paket Ketahanan terhadap perubahan iklim #0779,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2023,Wakalah,pembiayaan_baru,2023-03-15,1953715000000
+PRJ-0780,Paket Ketahanan terhadap perubahan iklim #0780,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-10-23,1203851000000
+PRJ-0781,Paket Pertanian berkelanjutan #0781,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2024,Wakalah,pembiayaan_kembali,2024-06-11,637400000000
+PRJ-0782,Paket Ketahanan terhadap perubahan iklim #0782,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-09-16,1359791000000
+PRJ-0783,Paket Energi terbarukan #0783,Energi terbarukan,Kementerian ESDM,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-04-23,775969000000
+PRJ-0784,Paket Pertanian berkelanjutan #0784,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-08-04,87379000000
+PRJ-0785,Paket Ketahanan terhadap perubahan iklim #0785,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-05-12,1479633000000
+PRJ-0786,Paket Efisiensi energi #0786,Efisiensi energi,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-04-04,1786405000000
+PRJ-0787,Paket Pertanian berkelanjutan #0787,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2024,Wakalah,pembiayaan_baru,2024-12-11,1957369000000
+PRJ-0788,Paket Transportasi berkelanjutan #0788,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2021-03-18,693791000000
+PRJ-0789,Paket Energi terbarukan #0789,Energi terbarukan,Kementerian ESDM,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-03-28,823553000000
+PRJ-0790,Paket Ketahanan terhadap perubahan iklim #0790,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2021-07-06,302559000000
+PRJ-0791,Paket Ketahanan terhadap perubahan iklim #0791,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_kembali,2022-11-06,1765053000000
+PRJ-0792,Paket Pertanian berkelanjutan #0792,Pertanian berkelanjutan,Kementerian Pertanian,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-09-15,1289245000000
+PRJ-0793,Paket Ketahanan terhadap perubahan iklim #0793,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2023-01-15,1579947000000
+PRJ-0794,Paket Energi terbarukan #0794,Energi terbarukan,Kementerian ESDM,SERI-2024,Wakalah,pembiayaan_baru,2024-04-19,613474000000
+PRJ-0795,Paket Ketahanan terhadap perubahan iklim #0795,Ketahanan terhadap perubahan iklim,Kementerian PUPR,SERI-2024,Wakalah,pembiayaan_baru,2024-05-29,1690689000000
+PRJ-0796,Paket Transportasi berkelanjutan #0796,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2023,Wakalah,pembiayaan_baru,2023-12-27,1452811000000
+PRJ-0797,Paket Transportasi berkelanjutan #0797,Transportasi berkelanjutan,Kementerian Perhubungan,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_baru,2021-12-12,1644575000000
+PRJ-0798,Paket Pengelolaan air dan air limbah #0798,Pengelolaan air dan air limbah,Kementerian PUPR,SERI-2022,Ijarah Asset to Be Leased,pembiayaan_baru,2022-03-18,2041176000000
+PRJ-0799,Paket Energi terbarukan #0799,Energi terbarukan,Kementerian ESDM,SERI-2021,Ijarah Asset to Be Leased,pembiayaan_kembali,2021-11-05,61045000000
+PRJ-0800,Paket Pengelolaan sumber daya alam dan lahan #0800,Pengelolaan sumber daya alam dan lahan,Kementerian LHK,SERI-2023,Wakalah,pembiayaan_kembali,2023-10-20,364465000000
