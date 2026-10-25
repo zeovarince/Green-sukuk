@@ -8,7 +8,7 @@ Kontrak route API Next.js (`web/app/api/`). Semua route berjalan di runtime Node
 - Rahasia hanya dibaca di server. Route tidak pernah mengembalikan kunci atau isi environment.
 - Semua masukan divalidasi (tipe, rentang, panjang) sebelum dipakai. Gagal validasi memberi 400.
 - Semua route penulisan (POST, PATCH) wajib menyertakan header `x-kode-akses` yang cocok dengan `DEMO_PASSCODE`. Tanpa itu, siapa pun yang tahu URL bisa menulis ke database. Ini pengaman sederhana, bukan autentikasi sungguhan.
-- Pembatasan laju untuk route penulisan, misalnya jumlah permintaan per IP per menit. Pilih mekanisme yang tersedia di Vercel dan catat di `DECISIONS.md`.
+- Pembatasan laju route penulisan: pemeriksaan/simpan maksimal 20 permintaan per IP per menit; route demo maksimal 5. Prototipe memakai jendela per instance Node.js; keterbatasannya dicatat di `DECISIONS.md`.
 - Format galat seragam:
 
 ```json
@@ -88,7 +88,7 @@ Mengubah status dan catatan. Butuh kode akses.
 { "status": "perlu_klarifikasi", "catatan": "Mohon bukti progres bulan ini." }
 ```
 
-Hanya perpindahan status yang sah (`DATABASE_SPEC.md` bagian 3) yang diterima, selain itu 400. Setiap perubahan menambah entri ledger jenis `status`.
+Hanya perpindahan status yang sah (`DATABASE_SPEC.md` bagian 3) yang diterima, selain itu 400. Catatan minimal 8 karakter wajib untuk status `perlu_klarifikasi`, `diklarifikasi`, `ditindaklanjuti`, dan `ditutup`. Setiap perubahan menambah entri ledger jenis `status`.
 
 ## 6. `GET /api/kontrak/{id}`
 
@@ -116,6 +116,7 @@ Mengembalikan isi `hasil_evaluasi.json`. Tidak menghitung ulang apa pun.
 - `POST /api/demo/pulihkan` : mengembalikan entri yang dirusak.
 
 Kedua route butuh kode akses. Jika `DEMO_MODE` tidak `true`, route ini mengembalikan 404, seakan tidak ada.
+Pada proyek Supabase yang skemanya sudah dibuat sebelum fase 8, jalankan `supabase/phase8_demo_backup.sql` sebelum mengaktifkan `DEMO_MODE`.
 
 ## 11. Waktu proses
 

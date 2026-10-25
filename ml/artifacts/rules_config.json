@@ -14,5 +14,7 @@
     "Pertanian berkelanjutan",
     "Pengelolaan sumber daya alam dan lahan"
   ],
-  "ambang_bukti": 0.8
+  "ambang_bukti": 0.8,
+  "versi_skema": 1,
+  "dibuat_pada": "2026-10-24"
 }

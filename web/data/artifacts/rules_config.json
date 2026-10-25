@@ -1,0 +1,20 @@
+{
+  "versi": 1,
+  "ambang_persetujuan_rupiah": {
+    "dua_mulai": 1000000000,
+    "tiga_mulai": 5000000000
+  },
+  "kategori_sah": [
+    "Ketahanan terhadap perubahan iklim",
+    "Transportasi berkelanjutan",
+    "Pengelolaan air dan air limbah",
+    "Energi terbarukan",
+    "Efisiensi energi",
+    "Bangunan hijau",
+    "Pertanian berkelanjutan",
+    "Pengelolaan sumber daya alam dan lahan"
+  ],
+  "ambang_bukti": 0.8,
+  "versi_skema": 1,
+  "dibuat_pada": "2026-10-24"
+}

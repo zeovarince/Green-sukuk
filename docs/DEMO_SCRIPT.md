@@ -4,6 +4,8 @@ Skenario demo untuk presentasi atau video. Angka dan ID kontrak di bawah adalah 
 
 Skenario yang bergantung pada keluaran model (3, 4, 5) belum boleh dijanjikan di slide sampai diuji dengan model yang sudah jadi.
 
+Status 2026-10-25: skenario di bawah belum dijalankan pada URL publik. Build lokal tersedia, tetapi Vercel belum dikonfigurasi dan migrasi tabel cadangan mode demo belum diterapkan. Halaman lokal memberi HTTP 200, tetapi secret key server mendapat HTTP 401 saat diuji terhadap Supabase. Kolom Hasil tetap kosong sampai pengujian benar-benar dilakukan.
+
 ## Persiapan
 
 - [ ] Ikuti daftar periksa di `DEPLOY.md` bagian 7.
@@ -19,7 +21,7 @@ Skenario yang bergantung pada keluaran model (3, 4, 5) belum boleh dijanjikan di
 
 - Tujuan: menunjukkan sistem tidak berisik pada transaksi wajar.
 - Kontrak: A. Isi nilai mendekati median termin kontrak, progres naik sewajarnya, persetujuan sesuai kebutuhan, bukti lengkap, hash cocok.
-- Harapan: "Tidak ada peringatan baru". Tidak ada temuan aturan, skor di bawah ambang.
+- Harapan awal: tidak ada temuan aturan. Hasil skor tetap harus dicatat karena kelompok transaksi sah yang tampak tidak lazim memiliki laju peringatan palsu hybrid 27,48 persen pada data pengujian.
 - Hasil: ______
 
 ## Skenario 2: Pelanggaran aturan jelas
@@ -34,7 +36,7 @@ Skenario yang bergantung pada keluaran model (3, 4, 5) belum boleh dijanjikan di
 
 - Tujuan: menunjukkan peran Isolation Forest.
 - Kontrak: A. Isi nilai beberapa kali lipat median termin, progres tidak bertambah dari pencairan sebelumnya, semua kolom administratif benar (persetujuan sesuai, bukti lengkap, hash cocok, milestone terverifikasi).
-- Harapan: lolos tujuh aturan, skor di atas ambang, status "Perlu diperiksa". Pembanding menunjukkan nilai jauh di atas median.
+- Uji ini belum terbukti tertangkap oleh model. Recall `lonjakan_tanpa_progres` pada ketiga pendekatan adalah 0 pada data pengujian seed 42. Jangan menjanjikan status "Perlu diperiksa" sebelum keluaran aktual dicatat.
 - Catatan: pastikan nilai tidak membuat kumulatif melewati pagu, kalau tidak yang terpicu `R02_PAGU`.
 - Hasil: ______
 
@@ -42,14 +44,14 @@ Skenario yang bergantung pada keluaran model (3, 4, 5) belum boleh dijanjikan di
 
 - Tujuan: menunjukkan sistem tidak menganggap semua kejanggalan sebagai masalah.
 - Kontrak: B. Isi nilai lebih besar dari biasanya tetapi dengan kenaikan progres yang sebanding (percepatan akhir tahun yang terverifikasi).
-- Harapan: tidak ada peringatan, atau jika ada, jelaskan di demo mengapa (batas model). Catat apa pun yang terjadi.
+- Harapan: belum dapat ditentukan. Kasus sah yang tampak tidak lazim dapat mendapat peringatan; catat keluaran apa adanya.
 - Hasil: ______
 
 ## Skenario 5: Pemecahan pencairan
 
 - Tujuan: menunjukkan pola beruntun yang tidak terlihat pada satu transaksi.
 - Kontrak: D. Simpan tiga pencairan berturut-turut dalam dua hari, masing-masing sedikit di bawah Rp5 miliar (misalnya Rp4,9 miliar), dengan persetujuan 2 sesuai nilai per transaksi dan progres tetap.
-- Harapan: pencairan pertama mungkin tidak ditandai, pencairan kedua atau ketiga ditandai karena jumlah pencairan 7 hari dan nilai relatif terhadap progres. Catat pada pencairan ke berapa peringatan muncul. Angka itu bahan "waktu deteksi" di `EVALUATION.md`.
+- Harapan belum terverifikasi. Recall `pemecahan_pencairan` adalah 0 untuk ketiga pendekatan pada data pengujian seed 42. Jangan menjanjikan deteksi; catat transaksi dan hasil aktual jika skenario diuji.
 - Hasil: ______
 
 ## Skenario 6: Tindak lanjut peringatan
@@ -64,7 +66,7 @@ Skenario yang bergantung pada keluaran model (3, 4, 5) belum boleh dijanjikan di
 - Tujuan: menunjukkan verifikasi ledger.
 - Langkah:
   1. Buka halaman Ledger dan jalankan verifikasi pada rentang terbaru. Harapan: valid.
-  2. Aktifkan mode demo dan rusak satu entri.
+  2. Pastikan tabel `demo_pemulihan` tersedia dan mode demo aktif, lalu rusak satu entri.
   3. Jalankan verifikasi lagi. Harapan: tidak valid, `rusak_pada` menunjuk tepat entri tadi.
   4. Pulihkan entri dan verifikasi ulang. Harapan: valid.
 - Pesan: perubahan terdeteksi, bukan tercegah. Sebutkan batasannya dari `LIMITATIONS.md` bagian 3.

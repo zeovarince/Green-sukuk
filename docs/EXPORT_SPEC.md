@@ -13,7 +13,7 @@ Dihasilkan oleh `ml/export_artifacts.py` ke `ml/artifacts/`, lalu disalin ke `we
 | `golden_cases.json` | Kasus uji dengan jawaban dari Python | Tes TypeScript |
 | `hasil_evaluasi.json` | Hasil evaluasi | Halaman evaluasi |
 
-Setiap berkas memuat `versi_skema` dan `dibuat_pada`. Web menolak memuat berkas dengan `versi_skema` yang tidak dikenal.
+Setiap berkas memuat `versi_skema` dan `dibuat_pada`. Web menolak memuat berkas dengan `versi_skema` yang tidak dikenal. `rules_config.json` juga mempertahankan `versi` untuk kompatibilitas dengan mesin aturan Python.
 
 ## 2. `model_if.json`
 
@@ -51,7 +51,7 @@ Rumus skor ada di `MODEL_SPEC.md` bagian 5. Ukuran: 200 pohon dengan `max_sample
 
 ## 3. `golden_cases.json`
 
-Setiap kasus berisi masukan mentah, riwayat kontrak ringkas, dan jawaban Python.
+Setiap kasus berisi masukan mentah, riwayat kontrak, konteks proyek dan kontrak minimum untuk menjalankan aturan, dan jawaban Python. Fitur dan skor disimpan dengan presisi penuh.
 
 ```json
 {
@@ -77,6 +77,14 @@ Setiap kasus berisi masukan mentah, riwayat kontrak ringkas, dan jawaban Python.
       "riwayat": [
         { "tanggal": "2025-02-12", "nilai_pencairan": 1000000000, "progres_fisik_pct": 41.5 }
       ],
+      "konteks": {
+        "project_id_kontrak": "PRJ-0001",
+        "project_id_sah": true,
+        "pagu_alokasi_kontrak": 10000000000,
+        "nilai_kontrak": 9000000000,
+        "tanggal_mulai_kontrak": "2025-01-01",
+        "kumulatif_cair_sebelumnya": 1000000000
+      },
       "jawaban": {
         "fitur": { "log_nilai": 22.8, "...": 0.0 },
         "aturan": ["R02_PAGU"],

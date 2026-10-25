@@ -89,6 +89,9 @@ Rumus hash ada di `LEDGER_SPEC.md`.
 
 Tabel kecil ini mencatat model yang dipakai untuk peringatan live, supaya jejaknya bisa ditelusuri.
 
+### `demo_pemulihan`
+Cadangan sementara untuk endpoint demo yang sengaja mengubah `payload_kanonik`. Kunci `seq` merujuk ke `ledger_entri`; hanya satu cadangan aktif pada satu waktu. Tabel memakai RLS dan hanya tersedia untuk service role. Jika database sudah menjalankan skema versi lama, buat tabel ini dengan `supabase/phase8_demo_backup.sql` sebelum mengaktifkan `DEMO_MODE`.
+
 ## 3. Status peringatan
 
 `baru` -> `ditelaah` -> `perlu_klarifikasi` -> `diklarifikasi` -> `ditindaklanjuti` -> `ditutup`
@@ -130,10 +133,13 @@ Catatan:
 
 ## 5. Impor data simulasi
 
-Urutan impor: `registri_proyek`, `registri_kontrak`, `transaksi`, lalu `ledger_entri`.
+Urutan impor: `registri_proyek`, `registri_kontrak`, `transaksi`, `peringatan`, lalu `ledger_entri`. `meta_model` diimpor setelahnya.
 
 - CSV registri dan transaksi diimpor dengan `\copy` melalui `psql` atau fitur impor CSV di dashboard (pilih yang berhasil untuk file 19 MB).
-- Ledger awal tidak dibuat lewat `tambah_ledger` satu per satu. Skrip Python membangun rantai dan menghasilkan CSV `ledger_entri` yang diimpor massal. Setelah impor, jalankan verifikasi penuh.
+- `ml/build_initial_ledger.py` membangun satu entri ledger per transaksi dan entri peringatan untuk baris split pengujian yang ditandai oleh hybrid seed 42. Skrip menghasilkan `ledger_entri_awal.csv` dan `peringatan_awal.csv`.
+- Pada database baru, `supabase/seed_supabase.py` mengimpor peringatan sebelum ledger. Ledger awal diimpor massal, bukan lewat `tambah_ledger` satu per satu.
+- Untuk database yang sudah berisi transaksi dan ledger transaksi saja, `supabase/append_initial_alerts.py` menambahkan peringatan seed 42 dan entri ledger terkait tanpa menghapus data.
+- Setelah impor, jalankan verifikasi penuh dengan `python supabase/verify_ledger.py`.
 - Setelah impor, perbarui urutan identity `seq` agar entri baru melanjutkan nomor terakhir.
 
 ## 6. Ukuran dan batas

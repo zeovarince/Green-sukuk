@@ -33,6 +33,8 @@ Asumsi dan keterbatasan prototipe. Teks di bagian "Untuk esai" ditulis agar bisa
 - **Layanan gratis.** Database gratis dijeda saat tidak aktif dan tidak memiliki cadangan otomatis. Fungsi serverless memiliki batas waktu dan mulai dingin.
 - **Dua implementasi logika.** Aturan dan skor ada di Python dan TypeScript. Tes kesesuaian mengurangi risiko perbedaan, tetapi tidak menghapusnya sepenuhnya.
 - **Tidak ada pengujian beban atau keamanan formal.**
+- **Belum di-deploy ke publik.** Latensi di Vercel dan skenario URL publik belum diukur. Nilai Vercel `0.0` di artefak evaluasi adalah placeholder, bukan hasil.
+- **Mode perusakan demo belum siap di database aktif.** Proyek Supabase yang memakai skema lama memerlukan migrasi `supabase/phase8_demo_backup.sql`; migrasi itu belum diterapkan.
 
 ## 5. Cakupan
 
@@ -42,8 +44,10 @@ Asumsi dan keterbatasan prototipe. Teks di bagian "Untuk esai" ditulis agar bisa
 
 ## 6. Untuk esai
 
-Teks berikut dapat dipakai sebagai dasar:
+Teks berikut dapat dipakai sebagai dasar, setelah angka dan batas di atas disertakan:
 
 > Prototipe diuji pada data simulasi yang dibuat penulis, dengan anomali yang disuntikkan. Hasilnya merupakan bukti awal bahwa kombinasi aturan dan skor anomali dapat memprioritaskan pemeriksaan pada skenario yang dirancang, bukan bukti kinerja pada data riil. Anomali kontekstual dirancang tidak tertangkap oleh aturan, sehingga keunggulan pendekatan gabungan sebagian mencerminkan rancangan skenario. Ledger pada prototipe berupa rantai hash di satu basis data. Ia membuat perubahan terdeteksi, tetapi belum memiliki sifat terdistribusi dan konsensus antar lembaga seperti pada jaringan permissioned. Validasi dengan data riil, pemisahan peran, dan jaringan permissioned sungguhan merupakan tahap pengembangan berikutnya.
 
 Sesuaikan kalimat dengan angka hasil nyata dan dengan istilah yang dipakai di esai.
+
+Rangkuman angka dan usulan teks yang sudah disesuaikan dengan hasil tersedia di `docs/ESSAY_UPDATE.md`. Naskah esai sumber belum tersedia di repo atau sesi dokumen, jadi teks tersebut belum dimasukkan ke naskah asli.

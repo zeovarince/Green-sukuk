@@ -188,11 +188,20 @@ def bangun_golden_cases(df_trx, df_prj, df_ktr, model, ambang: float, cfg, out_p
             "kontrak_id": str(kid),
             "masukan": masukan,
             "riwayat": riwayat,
+            "konteks": {
+                "project_id_kontrak": str(peta_kontrak.get(kid, "")),
+                "project_id_sah": str(row["project_id"]) in proyek_sah,
+                "pagu_alokasi_kontrak": int(pagu),
+                "nilai_kontrak": int(nilai_k),
+                "tanggal_mulai_kontrak": str(tgl_mulai),
+                "kumulatif_cair_sebelumnya": int(kum_prev),
+            },
             "jawaban": {
-                "fitur": {k: round(v, 6) for k, v in fitur_dict.items()},
+                "fitur": {k: float(v) for k, v in fitur_dict.items()},
                 "aturan": sorted(aturan_terpicu),
                 "lolos_aturan": lolos_aturan,
-                "skor": round(skor_raw, 6),
+                "skor": skor_raw,
+                "ambang": float(ambang),
                 "keputusan": keputusan,
             },
         })
@@ -267,8 +276,11 @@ def main():
 
     # 1. rules_config.json sudah ada, pastikan valid
     rules_cfg_path = os.path.join(ARTIFACTS_DIR, "rules_config.json")
+    cfg_export = dict(cfg)
+    cfg_export["versi_skema"] = 1
+    cfg_export["dibuat_pada"] = datetime.now().strftime("%Y-%m-%d")
     with open(rules_cfg_path, "w", encoding="utf-8") as f:
-        json.dump(cfg, f, ensure_ascii=False, indent=2)
+        json.dump(cfg_export, f, ensure_ascii=False, indent=2)
 
     # 2. model_if.json
     model_out_path = os.path.join(ARTIFACTS_DIR, "model_if.json")

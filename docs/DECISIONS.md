@@ -80,3 +80,10 @@ Catatan keputusan teknis dan alasannya. Format: konteks, keputusan, alasan, kons
 - Alasan: URL demo publik, tetapi sistem login penuh di luar cakupan prototipe.
 - Konsekuensi: tidak ada jejak siapa melakukan apa. Dicatat di `LIMITATIONS.md`.
 - Status: berlaku.
+
+## D-013: Pembatas laju API demo per instance
+- Konteks: endpoint tulis perlu menolak lonjakan permintaan tanpa menambah layanan atau kredensial eksternal.
+- Keputusan: gunakan jendela tetap satu menit dalam memori proses Node.js; route transaksi membatasi 20 permintaan per alamat IP dan route demo membatasi 5.
+- Alasan: cukup untuk demo satu instance dan tidak memerlukan komponen baru.
+- Konsekuensi: hitungan tidak dibagi antar-instance serverless dan dapat kembali kosong saat cold start. Ini pengaman operasional ringan, bukan pertahanan DDoS. Untuk trafik publik, ganti dengan limiter terdistribusi.
+- Status: berlaku untuk prototipe.

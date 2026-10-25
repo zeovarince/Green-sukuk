@@ -117,6 +117,8 @@ False alarm pada kelompok `normal_tidak_lazim_sah` (n = 1.401):
 
 Latensi inferensi lokal: 0,03 ms per transaksi.
 
+Latensi Vercel belum diukur. Nilai `0.0` pada kunci `latensi_ms.vercel` di artefak adalah nilai bawaan, bukan pengukuran. Waktu deteksi pola beruntun dan kelengkapan tautan alokasi juga belum tersedia.
+
 ## 9. Format `hasil_evaluasi.json`
 
 ```json

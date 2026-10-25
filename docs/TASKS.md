@@ -54,49 +54,57 @@ DoD: berkas ada dan lolos validasi format. Ukuran berkas masuk akal untuk ikut t
 
 ## Fase 6: Database
 
-- [ ] Tulis `supabase/schema.sql` sesuai `docs/DATABASE_SPEC.md` (tabel, indeks, RLS, fungsi `tambah_ledger`).
-- [ ] Buat proyek Supabase dan jalankan skema.
-- [ ] Impor registri dan transaksi simulasi.
-- [ ] Bangun ledger awal berurutan untuk semua transaksi simulasi dan impor.
+- [x] Tulis `supabase/schema.sql` sesuai `docs/DATABASE_SPEC.md` (tabel, indeks, RLS, fungsi `tambah_ledger`).
+- [x] Buat proyek Supabase dan jalankan skema.
+- [x] Impor registri dan transaksi simulasi.
+- [x] Bangun dan impor ledger awal transaksi; verifikasi penuh valid untuk 58.023 entri.
+- [x] Tambahkan entri ledger peringatan untuk transaksi yang ditandai pada evaluasi seed 42, sesuai `docs/LEDGER_SPEC.md` bagian 8.
 
 DoD: jumlah baris sama dengan CSV, verifikasi rantai penuh menyatakan valid.
 
+Status saat ini: tabel `registri_proyek` (800), `registri_kontrak` (2.719), dan `transaksi` (58.023) cocok dengan artefak lokal. Sebanyak 574 peringatan seed 42 sudah ditambahkan ke Supabase; verifikasi penuh berhasil untuk 58.597 entri ledger.
+
 ## Fase 7: Library TypeScript dan tes kesesuaian
 
-- [ ] `web/lib/fitur.ts`, `aturan.ts`, `iforest.ts`, `ledger.ts`, `store.ts`.
-- [ ] Tes Vitest terhadap `golden_cases.json`: fitur, aturan, skor.
+- [x] `web/lib/fitur.ts`, `aturan.ts`, `iforest.ts`, `ledger.ts`, `store.ts`.
+- [x] Tes Vitest terhadap `golden_cases.json`: fitur, aturan, skor.
 
 DoD: semua kasus lulus dalam toleransi `docs/EXPORT_SPEC.md`.
 
 ## Fase 8: Route API
 
-- [ ] Route sesuai `docs/API_SPEC.md`: periksa, peringatan, kontrak, ledger, metrik, dan demo.
-- [ ] Validasi input, kode akses untuk penulisan, pembatasan laju.
+- [x] Route sesuai `docs/API_SPEC.md`: periksa, peringatan, kontrak, ledger, metrik, dan demo.
+- [x] Validasi input, kode akses untuk penulisan, pembatasan laju.
 
 DoD: tiap route punya tes dasar. Pemeriksaan satu transaksi menghasilkan hasil yang sama dengan Python pada kasus emas.
 
+Catatan: route demo memerlukan migrasi `supabase/phase8_demo_backup.sql` bila proyek Supabase sudah menjalankan skema lama. Pembatas laju dalam memori berlaku per instance Node.js; lihat D-013.
+
 ## Fase 9: Halaman web
 
-- [ ] Halaman sesuai `docs/WEB_SPEC.md`, urut prioritas P0 ke P2.
-- [ ] Teks UI mengikuti aturan penulisan di `docs/WEB_SPEC.md`.
+- [x] Halaman sesuai `docs/WEB_SPEC.md`, urut prioritas P0 ke P2.
+- [x] Teks UI mengikuti aturan penulisan di `docs/WEB_SPEC.md`.
 
-DoD: alur F1 sampai F6 dapat dijalankan di lokal dari awal sampai akhir.
+Status: rute F1 sampai F6 tersedia; typecheck, 517 tes, dan build produksi lulus. Pemeriksaan HTTP halaman menghasilkan 200. Panggilan API dari sandbox tidak dapat keluar; uji baca langsung yang diizinkan ke Supabase mengembalikan 401 untuk secret key server. DoD alur F1 sampai F6 end-to-end belum terkonfirmasi. Uji visual manual juga belum dijalankan.
 
 ## Fase 10: Deploy dan uji
 
-- [ ] Ikuti `docs/DEPLOY.md`.
-- [ ] Jalankan daftar periksa sebelum demo.
-- [ ] Jalankan seluruh skenario di `docs/DEMO_SCRIPT.md` di URL publik.
+- [ ] Deploy ke Vercel mengikuti `docs/DEPLOY.md`.
+- [ ] Jalankan daftar periksa sebelum demo di lingkungan publik.
+- [ ] Jalankan seluruh skenario di `docs/DEMO_SCRIPT.md` di URL publik dan catat hasilnya.
 
 DoD: demo penuh berjalan di Vercel. Hasil nyata tiap skenario dicatat.
 
+Status 2026-10-25: build siap, tetapi belum ada konfigurasi proyek atau token Vercel pada lingkungan ini. URL publik belum tersedia. Secret key server yang ada mendapat HTTP 401 saat uji baca langsung. Migrasi `supabase/phase8_demo_backup.sql` belum diterapkan, jadi mode demo dan uji tulis belum siap.
+
 ## Fase 11: Selaraskan dengan esai
 
-- [ ] Isi `docs/TRACEABILITY.md` dengan hasil nyata dan cocokkan tiap klaim ke teks esai.
-- [ ] Masukkan tabel hasil evaluasi dan keterbatasan ke esai.
-- [ ] Periksa bahwa esai tidak mengklaim melebihi yang dibangun (terutama soal blockchain dan data riil).
+- [x] Isi hasil implementasi dan evaluasi yang tersedia di `docs/TRACEABILITY.md`.
+- [ ] Cocokkan setiap klaim dengan teks esai asli dan tandai kolom Cocok.
+- [ ] Masukkan tabel evaluasi dan keterbatasan dari `docs/ESSAY_UPDATE.md` ke naskah esai asli.
+- [x] Siapkan koreksi klaim yang melampaui hasil terukur di `docs/ESSAY_UPDATE.md`.
 
-DoD: tidak ada klaim esai yang bertentangan dengan `docs/LIMITATIONS.md`.
+DoD: menunggu naskah esai asli. Dokumen sumber tidak ditemukan di repo atau sesi dokumen tersambung, jadi kecocokan dan penyisipan ke naskah belum dapat dikonfirmasi.
 
 ## Ringkasan prioritas jika waktu mepet
 
