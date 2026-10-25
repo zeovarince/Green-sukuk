@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f8f5">
+    <meta name="description" content="Jelajahi Green Sukuk Traceability Protocol melalui adegan Three.js dan data simulasi.">
+    <title>GSTP | Pelacakan alokasi Green Sukuk</title>
+    <link rel="stylesheet" href="/landing.css">
+    <script type="module" src="/landing.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#coba">Lewati ke aplikasi pemeriksaan</a>
+    <header class="masthead">
+      <a class="brand" href="/" aria-label="GSTP, beranda">
+        <span class="brand-mark" aria-hidden="true">G</span>
+        <span><strong>GSTP</strong><small>Green Sukuk Traceability Protocol</small></span>
+      </a>
+      <nav aria-label="Navigasi aplikasi"><a href="/ringkasan">Ringkasan <span aria-hidden="true">↗</span></a></nav>
+    </header>
+
+    <div class="scene" aria-hidden="true">
+      <svg class="poster poster-brain is-active" data-poster="0" viewBox="0 0 900 620" role="presentation">
+        <g fill="none" stroke="var(--brain-line)" stroke-width="2">
+          <path d="M448 157c-32-60-112-75-172-42-41 23-53 58-58 92-39 13-62 54-54 96-23 43-5 95 36 116 12 48 65 77 111 61 34 29 82 14 104-18 22 31 71 45 104 16 48 17 100-12 112-60 42-21 59-74 36-116 8-42-14-83-54-96-5-34-18-69-58-92-59-33-139-18-171 43Z" />
+          <path d="M450 156c-11 47-10 98 0 151 10 52 10 107 0 155" />
+          <path d="M419 183c-31-24-76-20-98 11-24 31-14 73 12 94-37 12-52 54-29 83 18 25 51 32 78 19m64-202c26 25 30 60 9 88m-4 37c-20 28-20 62 1 91" />
+          <path d="M481 183c31-24 76-20 98 11 24 31 14 73-12 94 37 12 52 54 29 83-18 25-51 32-78 19m-64-202c-26 25-30 60-9 88m4 37c20 28 20 62-1 91" />
+          <path d="M369 151c-17 22-17 49-1 69m-73 25c21 2 38 17 41 37m-84 18c23-8 46-2 61 15m-42 61c20-18 47-22 69-10m45 31c-16-19-18-43-5-64m101-182c17 22 17 49 1 69m73 25c-21 2-38 17-41 37m84 18c-23-8-46-2-61 15m42 61c-20-18-47-22-69-10m-45 31c16-19 18-43 5-64" />
+        </g>
+        <g fill="var(--brain-dot)">
+          <circle cx="301" cy="164" r="4"/><circle cx="354" cy="143" r="3"/><circle cx="392" cy="194" r="3"/><circle cx="319" cy="220" r="4"/><circle cx="365" cy="267" r="3"/><circle cx="281" cy="288" r="3"/><circle cx="337" cy="327" r="4"/><circle cx="393" cy="353" r="3"/><circle cx="361" cy="393" r="3"/>
+          <circle cx="599" cy="164" r="4"/><circle cx="546" cy="143" r="3"/><circle cx="508" cy="194" r="3"/><circle cx="581" cy="220" r="4"/><circle cx="535" cy="267" r="3"/><circle cx="619" cy="288" r="3"/><circle cx="563" cy="327" r="4"/><circle cx="507" cy="353" r="3"/><circle cx="539" cy="393" r="3"/>
+        </g>
+        <g fill="var(--brain-alert)"><circle cx="270" cy="245" r="5"/><circle cx="387" cy="226" r="4"/><circle cx="333" cy="365" r="5"/><circle cx="630" cy="245" r="5"/><circle cx="513" cy="226" r="4"/><circle cx="567" cy="365" r="5"/></g>
+      </svg>
+      <svg class="poster poster-curve" data-poster="1" viewBox="0 0 720 520" role="presentation">
+        <path d="M90 400H650M112 420V90" fill="none" stroke="var(--brain-line)" stroke-width="2" />
+        <path id="poster-progress" d="M115 380C180 350 210 335 270 300S355 248 405 210 505 153 645 115" fill="none" stroke="var(--text)" stroke-width="5" />
+        <path id="poster-cash" d="M115 390C190 365 215 320 278 290S350 270 410 225 500 160 645 105" fill="none" stroke="var(--mint)" stroke-width="5" />
+        <path id="poster-marker" d="M406 210V225" stroke="var(--amber)" stroke-width="5" />
+        <path id="poster-flag" d="M397 208L415 208L406 191Z" fill="var(--amber)" />
+      </svg>
+      <canvas id="scene-canvas"></canvas>
+      <div class="scene-label"><span class="live-dot"></span><span id="scene-status">Pola data · visualisasi konseptual</span></div>
+    </div>
+    <nav class="chapter-rail" aria-label="Navigasi bab landing">
+      <a href="#awal" data-rail="0" aria-label="Ke pembuka"></a>
+      <a href="#kurva" data-rail="1" aria-label="Ke bab pencairan dan progres"></a>
+      <a href="#transaksi" data-rail="2" aria-label="Ke bab transaksi"></a>
+      <a href="#penyaringan" data-rail="3" aria-label="Ke bab penyaringan"></a>
+      <a href="#ledger" data-rail="4" aria-label="Ke bab rantai hash"></a>
+      <a href="#evaluasi" data-rail="5" aria-label="Ke bab evaluasi"></a>
+      <a href="#coba" data-rail="6" aria-label="Ke aplikasi pemeriksaan"></a>
+    </nav>
+
+    <main id="konten" class="story">
+      <section class="chapter chapter-intro" data-scene="0" id="awal">
+        <div class="copy-panel intro-panel">
+          <p class="eyebrow">Pelacakan alokasi Green Sukuk</p>
+          <h1>Telusuri jejak dana Green Sukuk hingga progres proyek.</h1>
+          <p>Kurva pencairan, aturan pemeriksaan, skor anomali, dan ledger membantu menyoroti transaksi yang perlu ditinjau.</p>
+          <p class="note">Bentuk otak adalah metafora visual, bukan arsitektur model GSTP.</p>
+          <p class="sim-label"><span class="live-dot"></span> Prototipe dengan data simulasi</p>
+          <a class="scroll-cue" href="#kurva">Lihat alur penelusuran <span aria-hidden="true">↓</span></a>
+        </div>
+        <span class="chapter-index">00 / 06</span>
+      </section>
+
+      <section class="chapter" data-scene="1" id="kurva">
+        <div class="copy-panel">
+          <p class="eyebrow">01 / Pencairan dan progres</p>
+          <h2>Dua kurva memperlihatkan selisih yang perlu ditelaah.</h2>
+          <p>Kontrak contoh <strong id="contract-id">memuat data simulasi</strong> memiliki selisih <strong id="curve-gap">—</strong> poin persentase antara pencairan dan progres pada titik yang ditandai.</p>
+          <p class="note">Selisih adalah sinyal untuk ditinjau, bukan bukti pelanggaran.</p>
+          <div class="legend"><span class="key key-progress">Progres fisik</span><span class="key key-cash">Pencairan kumulatif</span></div>
+        </div>
+        <span class="chapter-index">01 / 06</span>
+      </section>
+
+      <section class="chapter" data-scene="2" id="transaksi">
+        <div class="copy-panel">
+          <p class="eyebrow">02 / Transaksi simulasi</p>
+          <h2>Satu titik mewakili satu transaksi.</h2>
+          <p><strong id="source-total">—</strong> transaksi dibuat, termasuk <strong id="source-anomalies">—</strong> anomali sintetis. Adegan menampilkan sampel <strong id="sample-total">—</strong> titik.</p>
+          <div class="table-scroll"><table>
+            <tbody>
+              <tr><th>Proporsi anomali dalam data sumber</th><td id="source-rate">—</td></tr>
+              <tr><th>Proporsi anomali dalam sampel gambar</th><td id="sample-rate">—</td></tr>
+            </tbody>
+          </table></div>
+          <p class="note">Sampel visual dibuat berstrata, sehingga proporsi anomali lebih tinggi dari data sumber. Sampel ini tidak menggambarkan kejadian nyata.</p>
+        </div>
+        <span class="chapter-index">02 / 06</span>
+      </section>
+
+      <section class="chapter" data-scene="3" id="penyaringan">
+        <div class="copy-panel">
+          <p class="eyebrow">03 / Aturan lalu skor</p>
+          <h2>Aturan memeriksa syarat pasti. Skor menambah konteks.</h2>
+          <p>Tujuh aturan deterministik dijalankan lebih dahulu. Transaksi yang lolos aturan dinilai dengan Isolation Forest. Ambang hybrid: <strong id="threshold">—</strong>.</p>
+          <div class="table-scroll"><table>
+            <tbody>
+              <tr><th>Ditandai aturan pada sampel</th><td id="rule-count">—</td></tr>
+              <tr><th>Skor melewati ambang</th><td id="score-count">—</td></tr>
+              <tr><th>Ditandai hybrid</th><td id="hybrid-count">—</td></tr>
+            </tbody>
+          </table></div>
+          <p class="note">Peringatan menjadi prioritas pemeriksaan. Skor bukan bukti fraud dan tidak menetapkan keputusan.</p>
+        </div>
+        <span class="chapter-index">03 / 06</span>
+      </section>
+
+      <section class="chapter" data-scene="4" id="ledger">
+        <div class="copy-panel">
+          <p class="eyebrow">04 / Rantai hash</p>
+          <h2>Hubungan antarentri membantu menunjukkan perubahan.</h2>
+          <p>Contoh visual menandai tautan yang diputus pada entri <strong id="broken-entry">—</strong>. Ini ilustrasi, bukan manipulasi pada ledger produksi.</p>
+          <p class="note note-danger">Ledger prototipe memakai hash-chain dalam satu basis data. Pengelola tetap dapat menulis ulang seluruh rantai.</p>
+        </div>
+        <span class="chapter-index">04 / 06</span>
+      </section>
+
+      <section class="chapter" data-scene="5" id="evaluasi">
+        <div class="copy-panel panel-wide">
+          <p class="eyebrow">05 / Hasil pengujian</p>
+          <h2>Simulasi menunjukkan kompromi antara tangkapan dan alarm.</h2>
+          <p>Tiga pendekatan dibandingkan pada data uji seed <strong id="evaluation-seed">—</strong>.</p>
+          <div class="table-scroll"><table class="results-table">
+            <thead><tr><th>Pendekatan</th><th>Precision</th><th>Recall</th><th>F1</th><th>FAR</th><th>Peringatan / 1.000</th></tr></thead>
+            <tbody id="evaluation-rows"><tr><td colspan="6">Memuat evaluasi simulasi…</td></tr></tbody>
+          </table></div>
+          <p class="note">Data simulasi. Anomali kontekstual dirancang lolos dari aturan. Pada seed ini hybrid tidak unggul secara keseluruhan.</p>
+          <p class="note" id="multi-seed">—</p>
+        </div>
+        <span class="chapter-index">05 / 06</span>
+      </section>
+
+      <section class="chapter chapter-end" data-scene="6" id="coba">
+        <div class="copy-panel">
+          <p class="eyebrow">06 / Jelajahi aplikasi</p>
+          <h2>Lanjutkan ke pemeriksaan transaksi.</h2>
+          <p>Masukkan transaksi untuk melihat pemicu aturan dan skor anomali. Semua hasil demo memakai data simulasi.</p>
+          <div class="action-row">
+            <a class="button button-primary" href="/periksa">Periksa transaksi <span aria-hidden="true">→</span></a>
+            <a class="button" href="/ringkasan">Buka ringkasan</a>
+          </div>
+          <button class="motion-toggle" id="toggle-3d" type="button" aria-pressed="false" disabled hidden>Aktifkan adegan 3D</button>
+          <p class="model-note">Model <span id="model-version">—</span> · ambang hybrid <span id="footer-threshold">—</span> · seed data 42</p>
+        </div>
+        <span class="chapter-index">06 / 06</span>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-title"><strong>Green Sukuk Traceability Protocol</strong><span>Catatan teknis prototipe · Data simulasi</span></div>
+      <div class="copyright-row">
+        <p>© 2026 tim GSTP. Prototipe esai Universitas Trunojoyo Madura.</p>
+        <ul class="team-list" aria-label="Anggota tim GSTP">
+          <li><img src="/tim/hendrik.jpeg" width="64" height="76" alt="Foto M. Hendrik Purwanto"><span><small>Tim GSTP</small><strong>M. Hendrik Purwanto</strong></span></li>
+          <li><img src="/tim/nana.jpeg" width="64" height="76" alt="Foto Nana Adelia Saputri"><span><small>Tim GSTP</small><strong>Nana Adelia Saputri</strong></span></li>
+          <li><img src="/tim/choiril.jpeg" width="64" height="76" alt="Foto A. Choiril Anwar EL-Asfihani Risydan"><span><small>Tim GSTP</small><strong>A. Choiril Anwar EL-Asfihani Risydan</strong></span></li>
+        </ul>
+      </div>
+      <p class="disclaimer">Peringatan anomali menjadi prioritas pemeriksaan, bukan penetapan fraud.</p>
+    </footer>
+  </body>
+</html>

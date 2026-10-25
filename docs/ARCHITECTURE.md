@@ -9,7 +9,7 @@ Prototipe terdiri dari tiga tempat kerja:
 | Tempat | Bahasa | Dijalankan di | Tugas |
 |---|---|---|---|
 | `ml/` | Python | Laptop (offline) | Membuat data, melatih model, mengevaluasi, mengekspor artefak |
-| `web/` | TypeScript (Next.js) | Vercel | Form periksa, daftar peringatan, ledger, evaluasi, route API |
+| `web/` | HTML/CSS/JavaScript + TypeScript (Next.js) | Vercel | Landing Three.js statis di `/`; aplikasi periksa, daftar peringatan, ledger, evaluasi, dan route API di Next.js |
 | Database | SQL (Postgres) | Supabase | Menyimpan registri, transaksi, peringatan, dan ledger |
 
 Python tidak berjalan di Vercel. Python menghasilkan artefak (`model_if.json`, `golden_cases.json`, `rules_config.json`, `hasil_evaluasi.json`) yang dibaca oleh `web/`. Alasannya satu: hanya Node.js dan database yang perlu hidup saat demo, sehingga risiko build campuran di Vercel dihindari.
@@ -62,8 +62,10 @@ Catatan penting:
 - `export_artifacts.py`: menulis artefak untuk web.
 - `tests/`: tes Python.
 
-### `web/` (Next.js)
-- `app/`: halaman (lihat `docs/WEB_SPEC.md`) dan route API (lihat `docs/API_SPEC.md`).
+### `web/` (landing statis dan Next.js)
+- `public/index.html`, `public/landing.js`, `public/landing.css`: landing mandiri dengan Three.js langsung, tanpa React atau halaman Next.js.
+- `public/landing-data/` dan `public/vendor/three/`: data JSON simulasi dan modul Three.js lokal.
+- `app/`: halaman aplikasi (lihat `docs/WEB_SPEC.md`) dan route API (lihat `docs/API_SPEC.md`). Rute `/` ditulis ulang ke dokumen landing statis.
 - `lib/aturan.ts`, `lib/fitur.ts`, `lib/iforest.ts`: padanan TypeScript dari Python.
 - `lib/ledger.ts`: SHA-256, rantai, verifikasi.
 - `lib/store.ts`: satu-satunya lapisan akses data. Halaman dan route tidak boleh memanggil Supabase langsung.
@@ -76,7 +78,7 @@ Lihat `docs/DATABASE_SPEC.md`. Akses hanya dari server dengan service role key.
 ## 5. Topologi deploy
 
 ```
-Browser  ->  Vercel (Next.js: halaman + route API, runtime Node.js)
+Browser  ->  Vercel (landing HTML statis + Next.js: halaman aplikasi dan route API)
                  |-- membaca data/artifacts/*.json (ikut ter-bundle)
                  '-- Supabase Postgres (service role, hanya dari server)
 ```

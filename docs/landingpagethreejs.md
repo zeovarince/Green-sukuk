@@ -1,14 +1,14 @@
 # Landing Page Three.js GSTP
 
-Spesifikasi landing page 3D untuk GSTP: Three.js, Next.js, dan scroll. Halaman ini menjadi `/` dan berakhir di tombol yang mengarah ke halaman pemeriksaan (`/periksa`). Dokumen ini melengkapi `docs/DESIGN.md` dan menjadi pengecualian tunggal untuk aturan gerak di dokumen itu (lihat bagian 12).
+Spesifikasi landing page 3D GSTP mandiri dengan HTML, CSS, JavaScript, dan Three.js. Landing tampil di `/` sebelum pengunjung menuju aplikasi Next.js melalui `/periksa`, `/peringatan`, `/ledger`, `/evaluasi`, atau `/ringkasan`. Dokumen ini melengkapi `docs/DESIGN.md`.
 
-Status: diterapkan di `web/`. Typecheck dan build produksi lulus. Pemeriksaan visual lintas perangkat dan Lighthouse belum dilakukan.
+Status: landing mandiri dengan palet terang GSTP diterapkan di `web/public/`. Next.js tetap dipakai untuk halaman aplikasi. Typecheck dan sintaks JavaScript lulus. Percobaan build terbaru tertahan oleh `EPERM` saat Next.js menghapus cache `.next` di folder OneDrive; pemeriksaan visual lintas perangkat dan Lighthouse belum dilakukan.
 
 ## 1. Tujuan
 
 1. Memperkenalkan GSTP dalam satu kali scroll: pencairan dibandingkan dengan progres, lalu aturan, skor, peringatan, dan ledger.
 2. Membuat pengunjung (juri, pembaca esai) ingin mencoba sistem, lewat tombol "Periksa transaksi".
-3. Menampilkan data nyata dari prototipe dalam bentuk 3D, bukan hiasan.
+3. Menampilkan data simulasi dan hasil evaluasi prototipe sebagai grafik yang membantu pengunjung memahami alurnya.
 
 Bukan tujuan: mengganti dashboard, menjadi game, atau memamerkan efek.
 
@@ -18,8 +18,10 @@ Bukan tujuan: mengganti dashboard, menjadi game, atau memamerkan efek.
 |---|---|
 | Rute | Landing menjadi `/`. Dashboard Ringkasan yang sekarang pindah ke `/ringkasan` |
 | Splash screen lama | Dinonaktifkan. Landing punya pembuka sendiri |
-| Teknologi 3D | Three.js lewat React Three Fiber dan drei |
-| Scroll | GSAP ScrollTrigger yang membaca kemajuan scroll. Scroll tidak dibajak |
+| Teknologi 3D | Three.js JavaScript module secara langsung, tanpa React Three Fiber |
+| Halaman landing | `web/public/index.html`, `landing.css`, dan `landing.js`; tanpa React atau hidrasi Next.js |
+| Hubungan rute | Next.js menyajikan rute aplikasi; `/` menampilkan berkas statis landing dari `public/` |
+| Scroll | JavaScript biasa membaca posisi bab. Scroll tidak dibajak |
 | Data | Berkas JSON statis hasil ekspor Python, bukan query database |
 | Aset | Tanpa model 3D atau tekstur eksternal. Semua geometri dibuat dengan kode |
 | Cadangan | Versi statis tanpa WebGL untuk perangkat lemah, mode kurang gerak, atau pengguna yang mematikan 3D |
@@ -29,14 +31,14 @@ Alasan data statis: landing harus tetap tampil walau proyek Supabase sedang dije
 
 ## 3. Konsep visual
 
-Dunia 3D adalah **lembar gambar teknik yang hidup**, melanjutkan konsep di `DESIGN.md`. Kameranya ortografis atau berperspektif sangat sempit, miring seperti gambar isometrik. Semua objek berwarna datar dari token warna `DESIGN.md`, tanpa cahaya neon, tanpa bloom, tanpa partikel melayang acak.
+Dunia 3D memakai panggung terang seperti lembar `--lembar` dari `DESIGN.md`, dengan ruang kosong dan tipografi besar yang ringan. Bab pembuka menampilkan konstelasi tiga dimensi berbentuk dua belahan otak, dibuat dari titik dan lipatan garis hijau-teal. Bentuk itu hanya metafora untuk membaca pola, bukan diagram arsitektur Isolation Forest atau representasi literal data otak. Warna peringatan dan merah mengikuti aturan semantik GSTP. Bab selanjutnya memakai grafik kurva, awan transaksi, gerbang pemeriksaan, ledger, dan hasil evaluasi yang bersumber dari JSON simulasi. Referensi Dala memberi arah pada susunan panggung dan motif otak; latar hitam, ungu, isi, dan identitas visualnya tidak dipakai.
 
 Aturan keras:
-- Setiap objek 3D mewakili satu data nyata. Kalau tidak mewakili data, jangan ada.
-- Latar memakai `--lembar` (tema terang). Tidak ada mode gelap.
-- Bahan: `MeshBasicMaterial` atau `MeshLambertMaterial` datar. Tidak ada tekstur, tidak ada peta bayangan.
-- Warna jingga patok hanya untuk transaksi yang ditandai. Merah rusak hanya untuk tautan ledger yang putus.
-- Satu hal mencolok per bab, dan hanya itu yang bergerak.
+- Adegan otak dinyatakan jelas sebagai metafora visual. Grafik pada bab lain tetap menampilkan data prototipe.
+- Latar terang `#F7F8F5`; teks utama `#12262A`; aksen utama hijau-teal `#0E5A5F`.
+- Jingga `#B8450B` hanya untuk peringatan; merah `#A3191F` hanya untuk tautan ledger yang putus.
+- Bentuk memakai geometri dan material sederhana dari kode lokal, tanpa model atau tekstur eksternal, bloom, atau warna ungu.
+- Gerak lembut hanya pada bab yang aktif. Tidak ada scroll yang dikunci atau musik otomatis.
 
 ## 4. Alur halaman (bab saat scroll)
 
@@ -44,7 +46,7 @@ Panjang scroll sekitar enam sampai tujuh tinggi layar. Kemajuan scroll `p` berki
 
 | Bab | Rentang `p` | Judul (HTML) | Adegan 3D | Data |
 |---|---|---|---|---|
-| 0 | 0,00 sampai 0,14 | Pembuka | Dua kurva-S sebagai pita 3D yang naik berdampingan | `kurva_contoh.json` |
+| 0 | 0,00 sampai 0,14 | Pembuka | Konstelasi otak konseptual dari partikel dan garis lipatan | Tidak mewakili data model |
 | 1 | 0,14 sampai 0,34 | Dua kurva | Pencairan melonjak mendahului progres, patok 3D tertancap, garis ukur selisih | `kurva_contoh.json` |
 | 2 | 0,34 sampai 0,54 | Satu per satu transaksi | Awan transaksi (waktu, nilai, kontrak), kamera meluncur sepanjang sumbu waktu | `awan_transaksi.json` |
 | 3 | 0,54 sampai 0,70 | Aturan lalu skor | Dua gerbang: titik yang melanggar aturan menyimpang di gerbang pertama, titik berskor tinggi terangkat melewati bidang ambang di gerbang kedua | `awan_transaksi.json` |
@@ -60,32 +62,30 @@ Aturan bab:
 
 ## 5. Adegan secara rinci
 
-### Bab 0 dan 1: dua kurva
-- Dua pita tipis: progres fisik (`--tinta`) dan pencairan kumulatif (`--air`). Bentuk berasal dari data kontrak contoh, memakai fungsi kurva yang sama dengan `web/lib/kurvaS.ts`.
-- Lonjakan pencairan digambarkan sebagai anak tangga pada pita pencairan.
-- Patok: tiang silinder tipis dan bendera segitiga `--patok`, ditancapkan dengan GSAP saat bab 1 aktif.
-- Garis ukur: dua garis pendek dan satu garis tegak antara dua pita, dengan label HTML "selisih N poin" (N dari data).
+### Bab 0: konstelasi otak konseptual
+- Dua belahan organik dibentuk dari geometri, titik faceted, dan garis lipatan berwarna hijau-teal. Beberapa titik amber memberi aksen, bukan label anomali nyata.
+- Catatan HTML menyatakan bentuk ini metafora visual, bukan arsitektur model GSTP.
+- Adegan bergerak perlahan saat bab pembuka aktif; preferensi kurang gerak dan tombol 3D tetap dihormati.
+
+### Bab 1: dua kurva
+- Garis progres fisik (`--tinta`) dan pencairan kumulatif (`--air`) berasal dari data kontrak contoh.
+- Penanda selisih memakai garis ukur dan kerucut kecil `--patok`; angka selisih ditampilkan sebagai HTML.
+- Poster SVG statis diperbarui dari data kurva ketika JavaScript aktif.
 
 ### Bab 2: awan transaksi
-- Satu `InstancedMesh` kubus kecil atau `Points`. Sumbu x: waktu, y: nilai (skala log), z: urutan kontrak.
-- Warna: normal `--garis-tegas`, ditandai `--patok`. Bentuk tidak dibedakan, warna ditambah keterangan di HTML.
-- Sampel berstrata dari seluruh data (lihat bagian 8). Keterangan di HTML wajib menyebut bahwa proporsi anomali pada sampel lebih tinggi dari data asli.
-- Kamera bergerak pelan sepanjang sumbu waktu.
+- Titik `Points` dibentuk dari JSON; warna normal diredam dan transaksi yang ditandai memakai `--patok`.
+- Keterangan HTML menyebut ukuran sampel dan bahwa proporsi anomali pada sampel lebih tinggi dari data sumber.
 
 ### Bab 3: aturan lalu skor
-- Gerbang pertama: bingkai tipis. Titik dengan `aturan = 1` bergeser ke samping saat melewatinya.
-- Gerbang kedua: bidang ambang tipis (garis tepi saja, tanpa isian tebal). Titik dengan skor di atas ambang naik melewati bidang. Label HTML menyebut nilai ambang dari data.
-- Titik yang lolos kedua gerbang tetap di jalurnya.
-- Gerak menggunakan interpolasi posisi di shader atau di `useFrame` dengan array terstruktur, bukan satu tween GSAP per titik.
+- Dua bingkai tipis mewakili gerbang aturan dan skor.
+- Titik dari setiap tahap dikelompokkan pada sisi bingkai; jumlah transaksi dan ambang ditulis di HTML.
 
 ### Bab 4: rantai
-- 18 sampai 24 blok kecil bertaut garis. Satu tautan di tengah putus: garis putus-putus `--rusak`.
-- Sapuan sorotan dari blok pertama ke blok yang rusak saat bab aktif (GSAP, maksimal 1,5 detik).
-- Label HTML: "Rantai rusak pada entri N. Entri sebelumnya masih konsisten." (N dari data). Ini rantai contoh, bukan ledger sungguhan, dan harus disebut begitu.
+- Blok ledger bertaut dengan satu garis putus-putus merah `--rusak`.
+- Label HTML menyebut nomor entri dari data dan menjelaskan bahwa rantai ini hanya ilustrasi.
 
 ### Bab 5: hasil
-- Tiga kelompok kolom untuk pendekatan, masing-masing menampilkan metrik utama (misalnya F1 dan laju peringatan palsu).
-- Grafik batang 3D sulit dibaca presisi. Karena itu setiap kolom diberi label angka HTML dan tabel ringkas muncul di bawah adegan.
+- Tiga batang menunjukkan F1; tabel HTML menampilkan precision, recall, F1, FAR, dan peringatan per 1.000.
 - Teks keterbatasan wajib mengikuti hasil evaluasi: "Data simulasi. Anomali kontekstual dirancang lolos dari aturan. Pada seed ini hybrid tidak unggul secara keseluruhan."
 
 ### Bab 6: ajakan
@@ -95,8 +95,8 @@ Aturan bab:
 
 ## 6. Tombol CTA
 
-- CTA utama: "Periksa transaksi", `next/link` ke `/periksa`.
-- Tombol yang sama muncul di header mulai bab 2, supaya ajakan tidak hanya ada di ujung scroll.
+- CTA utama: "Periksa transaksi", tautan HTML ke `/periksa` pada bab terakhir.
+- Navigasi header menuju Ringkasan. Landing dan aplikasi merupakan halaman berbeda.
 - Satu aksi utama per layar. Tidak ada banyak tombol bersaing.
 - Fokus keyboard terlihat. Tombol bisa dijangkau tanpa melewati seluruh halaman (lihat tautan lewati di bagian 9).
 
@@ -106,21 +106,22 @@ Bahasa Indonesia lugas, tanpa em dash, tanpa frasa klise. Angka dalam kurung kur
 
 | Tempat | Teks |
 |---|---|
-| H1 | "Memeriksa apakah dana Green Sukuk dicairkan sejalan dengan kemajuan proyek." |
-| Sub | "GSTP membandingkan pencairan dengan progres fisik, menandai transaksi yang perlu ditinjau, dan mencatat setiap langkah dalam rantai yang bisa diverifikasi." |
-| Bab 1 | "Pencairan yang mendahului progres adalah sinyal pertama. Pada kontrak contoh ini selisihnya {selisih} poin." |
-| Bab 2 | "{total} transaksi simulasi. {anomali} di antaranya sengaja disuntikkan sebagai anomali untuk menguji sistem." |
-| Bab 3 | "Tujuh aturan memeriksa hal yang pasti. Skor anomali menilai pola yang tidak lazim pada transaksi yang lolos. Ambang skor {ambang}." |
+| H1 | "Telusuri jejak dana Green Sukuk hingga progres proyek." |
+| Sub | "Kurva pencairan, aturan pemeriksaan, skor anomali, dan ledger membantu menyoroti transaksi yang perlu ditinjau." |
+| Catatan visual | "Bentuk otak adalah metafora visual, bukan arsitektur model GSTP." |
+| Bab 1 | "Kontrak contoh {kontrak_id} memiliki selisih {selisih} poin persentase pada titik yang ditandai." |
+| Bab 2 | "{total} transaksi simulasi dibuat, termasuk {anomali} anomali sintetis." |
+| Bab 3 | "Tujuh aturan dijalankan lebih dahulu. Transaksi yang lolos aturan dinilai dengan Isolation Forest. Ambang hybrid {ambang}." |
 | Bab 4 | "Setiap kejadian dicatat dalam rantai hash. Jika satu catatan diubah, verifikasi menunjukkan di mana rantai rusak." |
 | Bab 5 | "Tiga pendekatan diuji pada data pengujian. Hasil di bawah berlaku untuk data simulasi." |
-| Bab 6 | "Coba periksa transaksi sendiri." |
+| Bab 6 | "Lanjutkan ke pemeriksaan transaksi." |
 | Tombol | "Periksa transaksi" dan "Lihat ringkasan" |
-| Penanda | "Data simulasi" (selalu terlihat di header) |
+| Penanda | "Prototipe dengan data simulasi" (selalu terlihat di bagian pembuka) |
 | Kaki halaman | "Peringatan anomali menjadi prioritas pemeriksaan, bukan penetapan fraud." |
 
 ## 8. Data
 
-Dihasilkan skrip baru `ml/export_landing_data.py` dari data simulasi dan hasil model. Hasilnya disalin ke `web/data/landing/`. Semua berkas memuat `dibuat_pada`, `seed`, dan `"simulasi": true`.
+Dihasilkan skrip baru `ml/export_landing_data.py` dari data simulasi dan hasil model. Hasilnya ditulis ke `web/public/landing-data/`. Semua berkas memuat `dibuat_pada`, `seed`, dan `"simulasi": true`.
 
 `kurva_contoh.json`
 ```json
@@ -163,32 +164,31 @@ Aturan data:
 ## 9. Performa, cadangan, aksesibilitas
 
 ### Tingkat kualitas
-Ditentukan di klien setelah komponen terpasang (lihat `tier.ts` di bagian 14).
+Dipilih oleh JavaScript landing dari jenis input perangkat dan kemampuan WebGL.
 
 | Tingkat | Kondisi | DPR maksimal | Titik maksimal |
 |---|---|---|---|
-| tinggi | Desktop | 1,75 | 8.000 |
-| sedang | Ponsel biasa | 1,5 | 4.000 |
-| rendah | Ponsel dengan inti atau memori kecil | 1,25 | 2.000 |
+| tinggi | Desktop | 1,5 | 6.000 |
+| sedang | Ponsel biasa | 1,25 | 2.200 |
 | statis | Tanpa WebGL, mode kurang gerak, mode hemat data, atau 3D dimatikan pengguna | tidak ada | tidak ada |
 
 ### Anggaran dan aturan
-- Kode Three.js dimuat lewat `dynamic(() => import(...), { ssr: false })` dan hanya untuk `/`. Halaman lain tidak boleh memuatnya.
+- Modul Three.js dimuat dengan `import()` browser langsung dari `public/vendor/three/`; halaman Next.js tidak mengimpor atau membundelnya.
 - Tanpa pascaproses, tanpa peta bayangan, tanpa model atau tekstur eksternal.
-- `frameloop="demand"` ketika kanvas tidak terlihat atau tab tersembunyi. Render kembali saat kemajuan scroll berubah.
-- Bersihkan geometri dan material saat komponen dilepas.
+- Render berjalan saat bab berganti, ukuran layar berubah, atau kamera masih bergerak menuju posisi bab.
+- Tab tersembunyi menghentikan render. Gerak kamera memakai `requestAnimationFrame` hanya selama perpindahan.
 - Target pengukuran, bukan janji: LCP teks utama kurang dari 2,5 detik pada jaringan 4G terukur, tanpa pergeseran tata letak. Gerak kamera berjalan mulus pada ponsel kelas menengah. Ukur dan catat hasilnya.
 
 ### Versi statis
 - Poster SVG kurva-S ganda (memakai `kurvaS.ts`) menggantikan adegan 3D.
-- Tabel ringkas untuk bab 2, 3, dan 5 menggantikan adegan.
-- Teks, tombol, dan footer identik dengan versi 3D.
-- Poster juga tampil sementara saat kanvas belum siap, lalu memudar (hanya opasitas) ke adegan 3D.
+- HTML, tautan, tabel, dan kredit tim tetap tampil meski JavaScript atau WebGL tidak aktif.
+- Poster SVG kurva menjadi pengganti visual saat adegan 3D tidak aktif. Jika JavaScript hidup, bentuk kurva poster diperbarui dari JSON lokal.
+- Angka tabel diisi JavaScript dari JSON lokal; teks penjelas, navigasi bab, CTA, dan poster tetap tersedia tanpa Three.js.
 
 ### Aksesibilitas
 - Kanvas diberi `aria-hidden="true"`. Semua isi bermakna ada di HTML dalam urutan baca yang benar.
 - Tautan "Lewati ke tombol periksa" sebagai fokus pertama.
-- Tombol "Matikan animasi 3D" di header. Pilihan disimpan di `localStorage` dengan kunci `gstp-3d`.
+- Tombol "Matikan adegan 3D". Pilihan disimpan di `localStorage` dengan kunci `gstp-3d`.
 - Mode kurang gerak otomatis memakai versi statis.
 - Scroll tidak dibajak dan tidak diperlambat. Tidak ada pengunci zoom pada viewport.
 - Status tidak hanya dibedakan dengan warna. Selalu ada teks.
@@ -200,42 +200,33 @@ Ditentukan di klien setelah komponen terpasang (lihat `tier.ts` di bagian 14).
 Teks:
 
 ```
-Hak cipta 2026 [NAMA ANGGOTA 1], [NAMA ANGGOTA 2], [NAMA ANGGOTA 3].
-Prototipe esai GSTP, Universitas Trunojoyo Madura. Data simulasi.
+© 2026 tim GSTP. Prototipe esai Universitas Trunojoyo Madura. Data simulasi.
+M. Hendrik Purwanto · Nana Adelia Saputri · A. Choiril Anwar EL-Asfihani Risydan
 ```
 
 Aturan:
-- Nama tim disimpan di satu berkas `web/lib/tim.ts` sebagai daftar, dan footer membacanya dari sana.
-- **Agen tidak boleh mengarang nama.** Selama nama belum diisi, berkas itu berisi penanda `NAMA ANGGOTA` dan tes build harus gagal pada build produksi jika penanda masih ada.
-- Tulis nama persis seperti yang diminta tim (dengan atau tanpa gelar, urutan sesuai kesepakatan).
+- Nama ditulis sesuai daftar yang diberikan tim; landing statis mencantumkannya di `web/public/index.html`, footer aplikasi membacanya dari `web/lib/tim.ts`.
 - Periksa pedoman kompetisi. Jika penjurian dilakukan buta, nama di situs publik dapat membuka identitas tim. Dalam kasus itu, jangan tampilkan nama sampai penjurian selesai.
-- Footer yang sama dipakai di semua halaman, bukan hanya landing.
+- Nama dan foto tim yang sama tampil di landing statis dan footer aplikasi; footer aplikasi membacanya dari `web/lib/tim.ts`.
 - Tanda hak cipta di sini adalah pernyataan kepemilikan karya tim. Ini bukan nasihat hukum.
 
 ## 11. Struktur file
 
 ```
 web/
-  app/
-    page.tsx                  landing, komponen server berisi HTML bab
+  public/
+    index.html                landing HTML mandiri
+    landing.css               gaya halaman landing
+    landing.js                adegan Three.js langsung
+    landing-data/*.json       data simulasi lokal
+    tim/*.jpeg                foto anggota
+    vendor/three/*.js         modul Three.js lokal
+  app/                        halaman pemeriksaan dan aplikasi Next.js
     ringkasan/page.tsx        dashboard yang dulu di /
-  components/
-    landing/
-      LandingKanvas.tsx       klien, dimuat dinamis, memegang <Canvas>
-      PenggerakScroll.tsx     membaca kemajuan scroll
-      Bab0Kurva.tsx ... Bab5Hasil.tsx   isi adegan per bab
-      RelBab.tsx              rel kemajuan dan navigasi bab
-      PosterStatis.tsx        versi tanpa 3D
-      TombolMatikan3D.tsx
-    Footer.tsx                dipakai semua halaman
-  lib/
-    landing/
-      tier.ts                 deteksi kemampuan perangkat
-      data.ts                 tipe, pemuat, dan validasi JSON
-      palet.ts                nilai hex token untuk Three.js
-      kamera.ts               keyframe kamera per bab
-    tim.ts                    nama tim
-  data/landing/*.json
+  components/Footer.tsx       footer halaman aplikasi
+  lib/tim.ts                  nama tim untuk footer aplikasi
+  data/artifacts/*.json
+  next.config.ts              rewrite `/` ke berkas statis `/index.html`
 ml/
   export_landing_data.py
 ```
@@ -251,18 +242,18 @@ Landing adalah pengecualian tunggal. Di luar `/`, semua aturan `DESIGN.md` tetap
 
 | Aturan di DESIGN.md | Di landing |
 |---|---|
-| GSAP hanya di lima tempat | Ditambah ScrollTrigger dan animasi bab di `/` saja |
-| ScrollTrigger tidak dipakai | Boleh, hanya untuk membaca kemajuan scroll landing |
+| GSAP hanya di lima tempat | Landing mandiri memakai JavaScript biasa, tanpa GSAP |
+| ScrollTrigger tidak dipakai | Tetap tidak dipakai; bab aktif dibaca dari posisi scroll |
 | Boldness hanya di kurva-S dan splash | Landing boleh lebih ekspresif, tetapi tetap memakai token dan konsep lembar gambar |
-| Splash screen di `/` | Dinonaktifkan |
-| Tidak ada gradasi, bayangan, kilau | Tetap berlaku, termasuk di dalam adegan 3D |
+| Splash screen di `/` | Dinonaktifkan; landing statis menjadi halaman pembuka |
+| Gaya visual | Landing memakai panggung terang, tipografi lega, dan metafora otak; semua halaman mengikuti palet terang GSTP dari `DESIGN.md` |
 | Daftar periksa anti-AI-slop | Tetap berlaku (bagian 13 di sini menambahkan butir khusus 3D) |
 
 ## 13. Daftar periksa
 
 Anti-AI-slop khusus landing 3D:
-- [x] Tidak ada partikel hiasan, cahaya neon, bloom, atau gradasi ungu dan biru; titik-titik mewakili transaksi.
-- [x] Tidak ada objek 3D yang tidak mewakili data.
+- [x] Tidak ada cahaya neon, bloom, atau gradasi ungu.
+- [x] Konstelasi otak dinyatakan sebagai metafora; visualisasi data pada bab lain memakai data simulasi lokal.
 - [x] Tidak ada teks di dalam kanvas. Semua teks adalah HTML.
 - [x] Tidak ada teks hero berisi slogan kosong. H1 menjelaskan apa yang dilakukan sistem.
 - [x] Teks tiap bab tetap terlihat tanpa bergantung pada adegan.
@@ -270,168 +261,37 @@ Anti-AI-slop khusus landing 3D:
 - [x] Angka di teks berasal dari berkas data.
 
 Fungsi dan perangkat:
-- [x] Versi statis tersedia saat WebGL tidak tersedia, mode kurang gerak aktif, atau 3D dimatikan lewat tombol.
-- [x] Three.js dimuat dinamis dari `/`; chunk Three.js tercatat pada manifest pemuatan dinamis halaman root saja.
+- [x] HTML dan isi halaman tetap terlihat saat JavaScript atau WebGL tidak tersedia.
+- [x] Modul Three.js dimuat langsung dari `public/vendor/three/` hanya saat WebGL tersedia dan pengguna tidak meminta mode statis.
 - [x] CTA menuju `/periksa`, tombol sekunder menuju `/ringkasan`.
-- [x] Footer memuat nama dan foto tim; build produksi gagal bila nama masih berupa penanda.
+- [x] Footer landing memuat nama dan foto tim.
+- [x] Halaman aplikasi tetap dirender oleh Next.js pada rutenya masing-masing.
 - [ ] Diuji di desktop, satu ponsel Android kelas menengah, dan satu ponsel iPhone bila tersedia.
 - [ ] Diuji dengan Supabase dijeda: landing tetap tampil penuh.
 - [ ] Lighthouse atau pengukuran serupa dijalankan dan hasilnya dicatat.
 
-## 14. Kode acuan
+## 14. Batas teknologi
 
-Pola di bawah menjadi acuan implementasi. Kode yang berjalan dan sumber kebenaran ada di `web/components/landing/` dan `web/lib/landing/`.
-
-### 14.1 `web/lib/landing/tier.ts`
-
-```ts
-export type Tier = "tinggi" | "sedang" | "rendah" | "statis";
-
-export const BATAS = {
-  tinggi: { dpr: 1.75, titik: 8000 },
-  sedang: { dpr: 1.5, titik: 4000 },
-  rendah: { dpr: 1.25, titik: 2000 },
-  statis: { dpr: 1, titik: 0 },
-} as const;
-
-const KUNCI_MATI = "gstp-3d";
-
-function adaWebGL(): boolean {
-  try {
-    const c = document.createElement("canvas");
-    const gl = c.getContext("webgl2") || c.getContext("webgl");
-    if (!gl) return false;
-    (gl as WebGLRenderingContext).getExtension("WEBGL_lose_context")?.loseContext();
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-export function dimatikanPengguna(): boolean {
-  try {
-    return localStorage.getItem(KUNCI_MATI) === "mati";
-  } catch {
-    return false;
-  }
-}
-
-export function setAnimasi3D(nyala: boolean) {
-  try {
-    if (nyala) localStorage.removeItem(KUNCI_MATI);
-    else localStorage.setItem(KUNCI_MATI, "mati");
-  } catch {}
-}
-
-export function tentukanTier(): Tier {
-  if (typeof window === "undefined") return "statis";
-
-  const nav = navigator as Navigator & {
-    connection?: { saveData?: boolean };
-    deviceMemory?: number;
-  };
-
-  const kurangGerak = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const hemat = nav.connection?.saveData === true;
-  if (kurangGerak || hemat || dimatikanPengguna() || !adaWebGL()) return "statis";
-
-  const ponsel = window.matchMedia("(pointer: coarse)").matches;
-  const inti = navigator.hardwareConcurrency ?? 4;
-  const memori = nav.deviceMemory ?? 4;
-
-  if (ponsel && (inti <= 4 || memori <= 3)) return "rendah";
-  if (ponsel) return "sedang";
-  return "tinggi";
-}
-```
-
-### 14.2 `web/components/landing/PenggerakScroll.tsx`
-
-```tsx
-"use client";
-
-import { useEffect, type RefObject } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
-
-export const kemajuan = { nilai: 0 };
-
-export const BAB = [
-  { id: 0, dari: 0.0, sampai: 0.14 },
-  { id: 1, dari: 0.14, sampai: 0.34 },
-  { id: 2, dari: 0.34, sampai: 0.54 },
-  { id: 3, dari: 0.54, sampai: 0.7 },
-  { id: 4, dari: 0.7, sampai: 0.84 },
-  { id: 5, dari: 0.84, sampai: 0.94 },
-  { id: 6, dari: 0.94, sampai: 1.0 },
-] as const;
-
-export function babAktif(p: number): number {
-  const b = BAB.find((x) => p >= x.dari && p < x.sampai);
-  return b ? b.id : BAB[BAB.length - 1].id;
-}
-
-export function useKemajuanScroll(pembungkus: RefObject<HTMLElement | null>) {
-  useEffect(() => {
-    const el = pembungkus.current;
-    if (!el) return;
-    const st = ScrollTrigger.create({
-      trigger: el,
-      start: "top top",
-      end: "bottom bottom",
-      onUpdate: (self) => {
-        kemajuan.nilai = self.progress;
-      },
-    });
-    return () => st.kill();
-  }, [pembungkus]);
-}
-```
-
-Cara dipakai di adegan: di dalam `useFrame`, ambil `kemajuan.nilai`, haluskan dengan `THREE.MathUtils.damp(sekarang, kemajuan.nilai, 4, delta)`, lalu hitung posisi kamera dari keyframe di `kamera.ts` dan keadaan tiap bab dari `babAktif`. Jangan menggunakan `scrub` untuk menggerakkan objek 3D langsung. Pakai satu nilai kemajuan yang dibaca semua adegan.
-
-### 14.3 Pemuatan dinamis di `web/app/page.tsx`
-
-```tsx
-import dynamic from "next/dynamic";
-import PosterStatis from "@/components/landing/PosterStatis";
-
-const LandingKanvas = dynamic(() => import("@/components/landing/LandingKanvas"), {
-  ssr: false,
-  loading: () => null,
-});
-
-export default function Landing() {
-  return (
-    <>
-      <a href="#coba" className="lewati">Lewati ke tombol periksa</a>
-      <PosterStatis />
-      <LandingKanvas />
-      {/* Bab-bab HTML, CTA dengan id="coba", dan Footer di sini */}
-    </>
-  );
-}
-```
-
-`LandingKanvas` memanggil `tentukanTier()` setelah terpasang. Jika hasilnya `statis`, komponen tidak membuat `<Canvas>` sama sekali.
+- Browser membuka / sebagai public/index.html, bukan halaman atau komponen React.
+- next.config.ts menulis ulang / ke /index.html. Halaman aplikasi Next.js tetap berada pada rute seperti /periksa dan /ringkasan.
+- public/landing.js mengambil JSON lokal dan memuat modul Three.js setelah pemeriksaan WebGL, mode hemat data, dan preferensi gerak.
+- HTML, tabel, poster SVG, tautan, dan kredit tim tersedia sebelum adegan 3D aktif.
+- three.module.js, three.core.js, dan lisensi disalin dari paket npm Three.js ke public/vendor/three/.
 
 ## 15. Urutan pengerjaan
 
-Ditambahkan ke `TASKS.md` sebagai Fase 9b.
+Fase ini tercatat di docs/TASKS.md sebagai Fase 9b.
 
-1. [x] Tulis `ml/export_landing_data.py`, hasilkan keempat JSON, dan validasi saat build.
-2. [x] Pindahkan dashboard ke `/ringkasan`, perbarui navigasi, dan lepas splash.
-3. [x] Bangun versi statis (HTML bab, poster SVG, tabel, CTA, footer) agar alur tetap terbaca tanpa 3D.
-4. [x] Tambahkan `tier.ts`, `PenggerakScroll.tsx`, dan `LandingKanvas`.
-5. [x] Bangun bab 0 dan 1 (dua kurva, patok, garis ukur); pemeriksaan rasa visual masih menunggu.
-6. [x] Bangun bab 2 dan 3 (awan transaksi dan dua gerbang).
-7. [x] Bangun bab 4 dan 5 (rantai dan hasil).
-8. [x] Bangun bab 6 (CTA) dan rel bab.
-9. [x] Isi `web/lib/tim.ts` dengan nama tim dan foto yang diberikan.
-10. [ ] Jalankan daftar periksa perangkat di bagian 13 dan catat Lighthouse setelah tersedia.
-
+1. [x] Ekspor empat berkas JSON ke web/public/landing-data dan validasi ukuran.
+2. [x] Sajikan landing dari HTML statis di /; aplikasi tetap memakai rute Next.js.
+3. [x] Bangun HTML bab, poster SVG, tabel, CTA, dan footer agar tetap terbaca tanpa WebGL.
+4. [x] Tambahkan pemeriksaan kemampuan perangkat, tombol 3D, dan pembaca scroll dengan JavaScript biasa.
+5. [x] Bangun adegan kurva dan penanda selisih.
+6. [x] Bangun awan transaksi dan dua gerbang penyaringan.
+7. [x] Bangun contoh rantai ledger dan grafik evaluasi.
+8. [x] Hubungkan CTA ke /periksa dan /ringkasan.
+9. [x] Tambahkan nama dan foto tim pada landing statis dan footer aplikasi.
+10. [ ] Periksa landing di perangkat desktop dan ponsel serta catat pengukuran Lighthouse.
 ## 16. Referensi Three.js
 
 Empat situs berikut dijadikan acuan rasa dan pendekatan, bukan untuk disalin. Jangan menyalin kode, aset, tata letak, atau komposisi visual dari situs mana pun. Hormati hak cipta pembuatnya, dan tulis ulang gagasan dengan cara sendiri sesuai konsep GSTP.
@@ -461,7 +321,8 @@ Catatan pengamatan (diisi tim):
 ## 17. Implementasi yang berjalan
 
 - Data landing dihasilkan dari CSV simulasi dan artefak evaluasi lokal oleh `ml/export_landing_data.py`.
-- Halaman `/` berisi landing; dashboard Ringkasan tetap tersedia di `/ringkasan`.
-- Three.js dimuat dinamis hanya untuk landing. Poster SVG dan isi HTML tetap tersedia pada mode statis.
-- Footer memakai foto yang diberikan di `image/` dan nama yang tercatat di `web/lib/tim.ts`.
+- Halaman `/` berupa `public/index.html` dengan JavaScript dan Three.js langsung; dashboard Ringkasan tersedia di `/ringkasan`.
+- HTML, poster SVG, tabel, dan tautan tetap tersedia dalam mode statis. Modul Three.js berasal dari berkas lokal.
+- Landing memakai foto di `public/tim/`; footer aplikasi membaca nama dari `web/lib/tim.ts`.
+- Gaya visual memakai panggung terang GSTP, konstelasi otak sebagai metafora pembuka, grafik data pada bab berikutnya, dan CTA akhir menuju `/periksa`.
 - Pemeriksaan terakhir: `npm run typecheck` dan `npm run build` lulus. Visual desktop/ponsel dan Lighthouse belum diperiksa.

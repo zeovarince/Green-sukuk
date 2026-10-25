@@ -17,7 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ML_DIR = ROOT / "ml"
 DATA_DIR = ML_DIR / "data_simulasi"
 ARTIFACTS_DIR = ML_DIR / "artifacts"
-OUT_DIR = ROOT / "web" / "data" / "landing"
+OUT_DIR = ROOT / "web" / "public" / "landing-data"
 sys.path.insert(0, str(ML_DIR))
 
 from gstp.aturan import evaluasi_aturan_dataframe, muat_konfigurasi_aturan  # noqa: E402

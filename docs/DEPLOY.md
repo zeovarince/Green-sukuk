@@ -66,7 +66,7 @@ Cek batas waktu aktual di dokumentasi Vercel dan ukur sebelum demo.
 ## 7. Daftar periksa sebelum demo (lakukan sehari sebelumnya, ulangi satu jam sebelumnya)
 
 - [ ] Proyek Supabase aktif, tidak dalam status dijeda.
-- [ ] URL Vercel terbuka dan halaman Ringkasan memuat data.
+- [ ] URL Vercel membuka landing Three.js statis dan `/ringkasan` memuat data aplikasi.
 - [ ] `/api/metrik` mengembalikan hasil terbaru.
 - [ ] Tes kesesuaian Python dan TypeScript lulus di commit yang dideploy.
 - [ ] Verifikasi ledger penuh valid.

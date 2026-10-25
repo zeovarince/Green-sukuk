@@ -92,13 +92,13 @@ Status: rute F1 sampai F6 tersedia; typecheck, 517 tes, dan build produksi lulus
 - [x] Hasilkan empat berkas JSON lokal untuk kurva, awan transaksi, rantai contoh, dan evaluasi; validasi data simulasi serta ukuran kompresi.
 - [x] Pindahkan dashboard ke `/ringkasan`, jadikan `/` landing, perbarui navigasi, dan nonaktifkan splash lama.
 - [x] Bangun isi HTML dan poster SVG terlebih dahulu; tabel tetap tersedia sebagai cadangan statis.
-- [x] Tambahkan deteksi kemampuan perangkat, mode 3D statis, tombol matikan, rel bab, dan ScrollTrigger tanpa membajak scroll.
+- [x] Buat landing statis tanpa React/Next.js, dengan deteksi kemampuan perangkat, mode 3D statis, tombol matikan, rel bab, dan pembacaan scroll tanpa membajak scroll.
 - [x] Buat adegan kurva, awan transaksi, pemeriksaan aturan/skor, rantai, dan hasil dengan geometri berkode.
 - [x] Tambahkan nama serta foto tim pada footer hak cipta seluruh halaman.
 - [x] Typecheck dan build produksi Next.js.
 - [ ] Pemeriksaan visual manual di desktop dan ponsel, serta pengukuran Lighthouse.
 
-DoD implementasi: landing dibangun statis saat WebGL tidak tersedia dan Three.js dimuat dinamis dari `/`. Typecheck dan build lulus. Pemeriksaan visual lintas perangkat dan Lighthouse masih menunggu.
+DoD implementasi: `/` menyajikan HTML/CSS/JavaScript statis dan modul Three.js lokal tanpa halaman React/Next.js. Rute aplikasi tetap memakai Next.js. Typecheck dan build lulus. Pemeriksaan visual lintas perangkat dan Lighthouse masih menunggu.
 
 ## Fase 10: Deploy dan uji
 

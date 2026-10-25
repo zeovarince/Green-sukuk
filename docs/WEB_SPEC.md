@@ -1,6 +1,6 @@
 # WEB_SPEC
 
-Spesifikasi halaman dan komponen web Next.js (`web/app/`). Prioritas mengikuti `PRD.md`.
+Spesifikasi landing statis dan halaman aplikasi GSTP. Landing berada di `web/public/`; halaman pemeriksaan dan komponen aplikasi berada di Next.js `web/app/`. Prioritas mengikuti `PRD.md`.
 
 ## 1. Prinsip
 

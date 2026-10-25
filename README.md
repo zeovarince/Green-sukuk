@@ -23,7 +23,7 @@ gstp-prototype/
     generate_gstp_data.py
     data_simulasi/       keluaran generator (CSV dan metadata)
     artifacts/           model_if.json, golden_cases.json, rules_config.json, hasil_evaluasi.json
-  web/                   Next.js (TypeScript) untuk Vercel
+  web/                   Landing Three.js statis dan aplikasi Next.js (TypeScript) untuk Vercel
   supabase/              schema.sql dan skrip seed
 ```
 
