@@ -94,7 +94,7 @@ Sudut: kolom isian dan tombol 4 px. Lembar utama 0 px. Bendera patok berbentuk b
 
 Kotak judul selalu di kaki setiap halaman utama, dengan garis tegas 1,5 px `--tinta`, berisi: nama sistem, versi model, ambang, status rantai (valid sampai entri berapa), dan penanda "Data simulasi".
 
-### Ringkasan (`/`)
+### Ringkasan (`/ringkasan`)
 
 ```
 +---------------------------------------------------------------------------+

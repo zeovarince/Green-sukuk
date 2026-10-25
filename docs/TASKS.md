@@ -87,6 +87,19 @@ Catatan: route demo memerlukan migrasi `supabase/phase8_demo_backup.sql` bila pr
 
 Status: rute F1 sampai F6 tersedia; typecheck, 517 tes, dan build produksi lulus. Pemeriksaan HTTP halaman menghasilkan 200. Panggilan API dari sandbox tidak dapat keluar; uji baca langsung yang diizinkan ke Supabase mengembalikan 401 untuk secret key server. DoD alur F1 sampai F6 end-to-end belum terkonfirmasi. Uji visual manual juga belum dijalankan.
 
+## Fase 9b: Landing page Three.js
+
+- [x] Hasilkan empat berkas JSON lokal untuk kurva, awan transaksi, rantai contoh, dan evaluasi; validasi data simulasi serta ukuran kompresi.
+- [x] Pindahkan dashboard ke `/ringkasan`, jadikan `/` landing, perbarui navigasi, dan nonaktifkan splash lama.
+- [x] Bangun isi HTML dan poster SVG terlebih dahulu; tabel tetap tersedia sebagai cadangan statis.
+- [x] Tambahkan deteksi kemampuan perangkat, mode 3D statis, tombol matikan, rel bab, dan ScrollTrigger tanpa membajak scroll.
+- [x] Buat adegan kurva, awan transaksi, pemeriksaan aturan/skor, rantai, dan hasil dengan geometri berkode.
+- [x] Tambahkan nama serta foto tim pada footer hak cipta seluruh halaman.
+- [x] Typecheck dan build produksi Next.js.
+- [ ] Pemeriksaan visual manual di desktop dan ponsel, serta pengukuran Lighthouse.
+
+DoD implementasi: landing dibangun statis saat WebGL tidak tersedia dan Three.js dimuat dinamis dari `/`. Typecheck dan build lulus. Pemeriksaan visual lintas perangkat dan Lighthouse masih menunggu.
+
 ## Fase 10: Deploy dan uji
 
 - [ ] Deploy ke Vercel mengikuti `docs/DEPLOY.md`.
@@ -100,11 +113,11 @@ Status 2026-10-25: build siap, tetapi belum ada konfigurasi proyek atau token Ve
 ## Fase 11: Selaraskan dengan esai
 
 - [x] Isi hasil implementasi dan evaluasi yang tersedia di `docs/TRACEABILITY.md`.
-- [ ] Cocokkan setiap klaim dengan teks esai asli dan tandai kolom Cocok.
-- [ ] Masukkan tabel evaluasi dan keterbatasan dari `docs/ESSAY_UPDATE.md` ke naskah esai asli.
+- [x] Cocokkan klaim pada docs/TRACEABILITY.md dengan naskah esai yang diberikan dan tandai kolom Cocok.
+- [x] Masukkan tabel evaluasi dan keterbatasan dari docs/ESSAY_UPDATE.md ke salinan revisi docs/ESSAI_GSTP_REVISI.docx; naskah sumber di Downloads tidak ditimpa.
 - [x] Siapkan koreksi klaim yang melampaui hasil terukur di `docs/ESSAY_UPDATE.md`.
 
-DoD: menunggu naskah esai asli. Dokumen sumber tidak ditemukan di repo atau sesi dokumen tersambung, jadi kecocokan dan penyisipan ke naskah belum dapat dikonfirmasi.
+DoD: naskah sumber sudah diperiksa; klaim dipetakan di docs/TRACEABILITY.md; tabel hasil dan keterbatasan sudah dimasukkan ke docs/ESSAI_GSTP_REVISI.docx. Naskah asli tetap utuh. Render visual belum dapat diperiksa karena LibreOffice tidak tersedia dan otomasi Word gagal; bagian daftar pustaka naskah sumber juga kosong, sehingga daftar sitasi harus dilengkapi dan diverifikasi sebelum naskah final.
 
 ## Ringkasan prioritas jika waktu mepet
 

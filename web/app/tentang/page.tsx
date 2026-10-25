@@ -11,12 +11,8 @@ const flow = [
 ];
 
 export default function TentangPage() {
-  function replay() {
-    try { sessionStorage.removeItem("gstp-splash-v1"); } catch { /* Penyimpanan sesi dapat dinonaktifkan. */ }
-    window.location.assign("/");
-  }
   return <>
-    <header className="page-heading"><div><p className="eyebrow">Ruang lingkup prototipe</p><h1>Tentang GSTP</h1><p>Green Sukuk Traceability Protocol membantu mengurutkan transaksi yang perlu diperiksa dengan aturan, skor anomali, dan catatan perubahan.</p></div><button className="button heading-action" type="button" onClick={replay}>Putar ulang intro</button></header>
+    <header className="page-heading"><div><p className="eyebrow">Ruang lingkup prototipe</p><h1>Tentang GSTP</h1><p>Green Sukuk Traceability Protocol membantu mengurutkan transaksi yang perlu diperiksa dengan aturan, skor anomali, dan catatan perubahan.</p></div></header>
     <section className="section rule-top"><div className="section-heading"><h2>Alur data</h2><span className="provenance">Prototipe tahap awal</span></div><div className="workflow" aria-label="Alur pemeriksaan lima langkah">{flow.map(([title, description], index) => <div className="workflow-step" key={title}><span className="provenance">Langkah {index + 1}</span><strong>{title}</strong><p>{description}</p></div>)}</div><p className="info-note">Sistem membaca data melalui API. Skor membantu menentukan prioritas dan tidak menggantikan pemeriksaan pejabat berwenang.</p></section>
     <section className="section rule-top"><div className="section-heading"><h2>Model kerja Pentahelix</h2><span className="provenance">Rancangan tata kelola, belum menjadi peran aplikasi</span></div><div className="table-scroll"><table><thead><tr><th scope="col">Pihak</th><th scope="col">Fungsi dalam rancangan</th><th scope="col">Status prototipe</th></tr></thead><tbody>
       <tr><th scope="row">Pemerintah dan pelaksana</th><td>Menetapkan program, pagu, kontrak, dan bukti pelaksanaan.</td><td>Data simulasi</td></tr>
@@ -32,6 +28,6 @@ export default function TentangPage() {
       <li>Dokumen asli, enkripsi dokumen, autentikasi pengguna, serta pemisahan kewenangan belum dibangun.</li>
       <li>Pembatasan laju API berada di memori tiap instance. Pengujian beban dan keamanan formal belum dilakukan.</li>
       <li>Latensi pada Vercel dan skenario demo di URL publik belum diukur.</li>
-    </ul><p className="provenance">Rincian serta teks yang disiapkan untuk esai ada di <Link href="/">ringkasan proyek</Link> dan dokumen <code>docs/LIMITATIONS.md</code>.</p></section>
+    </ul><p className="provenance">Rincian serta teks yang disiapkan untuk esai ada di <Link href="/ringkasan">ringkasan proyek</Link> dan dokumen <code>docs/LIMITATIONS.md</code>.</p></section>
   </>;
 }

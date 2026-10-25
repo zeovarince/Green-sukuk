@@ -13,7 +13,8 @@ Spesifikasi halaman dan komponen web Next.js (`web/app/`). Prioritas mengikuti `
 
 | Rute | Nama | Prioritas | Isi |
 |---|---|---|---|
-| `/` | Ringkasan | P0 | Kartu: total transaksi, peringatan baru, status verifikasi ledger, versi model dan ambang. Pintasan ke halaman utama |
+| `/` | Landing GSTP | P0 | Cerita scroll berbasis data simulasi; alur pencairan, penyaringan, rantai, evaluasi, dan CTA pemeriksaan |
+| `/ringkasan` | Ringkasan | P0 | Kartu: total transaksi, peringatan baru, status verifikasi ledger, versi model dan ambang |
 | `/periksa` | Periksa Transaksi | P0 | Form dan hasil |
 | `/peringatan` | Daftar Peringatan | P0 | Tabel dengan filter dan urutan |
 | `/peringatan/[id]` | Detail Peringatan | P0 | Alasan, pembanding, tindak lanjut |

@@ -1,6 +1,6 @@
 # Usulan pembaruan untuk esai
 
-Dokumen ini menyiapkan angka dan paragraf yang dapat dipindahkan ke naskah. Naskah esai asli tidak tersedia di repo atau sesi dokumen tersambung, jadi pembaruan ini belum dimasukkan atau dicocokkan kata per kata. Kolom `Cocok` pada `TRACEABILITY.md` sengaja tetap kosong sampai naskah sumber tersedia.
+Angka dan keterbatasan di bawah ini telah dimasukkan ke salinan revisi docs/ESSAI_GSTP_REVISI.docx setelah dicocokkan dengan naskah sumber yang diberikan. Naskah sumber di Downloads tidak diubah. Kolom Cocok pada docs/TRACEABILITY.md menandai kecocokan isi secara tekstual; verifikasi daftar pustaka masih diperlukan karena bagian daftar pustaka pada sumber kosong.
 
 ## Tabel hasil seed 42
 
