@@ -1,4 +1,6 @@
-# ARCHITECTURE
+# ARCHITECTURE (revisi)
+
+> Versi revisi 2026-11-13, draf menunggu persetujuan pemilik. Menggantikan `ARCHITECTURE.md` setelah disetujui. Revisi: REV-01, REV-11, REV-12 (delapan aturan, alur koreksi dan pemantauan berlanjut). Rincian di `PERUBAHAN_revisi.md`.
 
 Dokumen ini menjelaskan bagaimana bagian-bagian prototipe GSTP terhubung. Spesifikasi rinci tiap bagian ada di `docs/`.
 
@@ -31,34 +33,45 @@ flowchart TD
     A[Form periksa: data pencairan baru] --> B[POST /api/periksa]
     B --> C[Ambil riwayat kontrak dari Supabase]
     C --> D[Hitung fitur turunan]
-    D --> E{Tujuh aturan: lolos?}
+    D --> E{Delapan aturan: lolos?}
     E -- Tidak --> F[Temuan aturan]
     E -- Ya --> G[Hitung skor Isolation Forest]
     G --> H{Skor melewati ambang?}
     H -- Ya --> I[Peringatan skor]
-    H -- Tidak --> J[Tidak ada peringatan baru]
+    H -- Tidak --> J[Tidak ada peringatan baru: pemantauan berlanjut]
     F --> K[Gabungkan daftar peringatan]
     I --> K
     J --> L[Simpan transaksi dan entri ledger]
     K --> L
     L --> M[Kembalikan hasil ke layar]
     M --> N[Auditor menelaah, status kasus, entri ledger baru]
+    N --> O{Perlu klarifikasi?}
+    O -- Ya --> P[Penyedia data mengirim koreksi]
+    P --> B
 ```
 
 Catatan penting:
 - Transaksi yang melanggar aturan tetap masuk daftar peringatan tanpa perlu skor. Ini sesuai alur di Gambar 1 esai.
 - Fitur turunan (hari sejak pencairan sebelumnya, kumulatif, delta progres, dan lainnya) dihitung server dari riwayat di database. Pengguna tidak mengisinya.
 - Peringatan adalah prioritas pemeriksaan, bukan penetapan fraud.
+- Transaksi tanpa peringatan diberi status tindak lanjut "pemantauan berlanjut". Hasil pemeriksaan juga memuat panel bukti (hash dan kelengkapan).
+- Koreksi (panah dari penyedia data kembali ke pemeriksaan) membuat transaksi baru dan memeriksanya ulang. Transaksi lama diberi `digantikan_oleh`, dan entri ledger lama tidak diubah (`docs/LEDGER_SPEC.md` bagian 3A).
+- Temuan R08 dapat ditelaah oleh peran otoritas syariah. Telaah tercatat di ledger tanpa mengubah status.
+
+### Peran simulasi
+
+`web/lib/http.ts` memetakan header `x-kode-akses` ke satu dari empat peran (`docs/API_SPEC.md` bagian 1). Tiap route penulisan memeriksa peran sebelum mengubah apa pun. Bila tiga kode peran kosong, sistem memakai mode satu kode. Ini simulasi tanpa identitas pengguna.
 
 ## 4. Komponen
 
 ### `ml/` (Python, offline)
 - `generate_gstp_data.py`: generator data simulasi.
-- `gstp/aturan.py`: tujuh aturan.
-- `gstp/fitur.py`: fitur turunan dan fitur model.
+- `gstp/aturan.py`: delapan aturan, termasuk `R08_AKAD`, dan tag prinsip tiap aturan.
+- `gstp/fitur.py`: fitur turunan dan 18 fitur model, termasuk tabel referensi kelompok.
 - `gstp/model.py`: pelatihan dan penentuan ambang Isolation Forest.
 - `gstp/ledger.py`: hash-chain untuk membangun ledger awal.
-- `run_evaluasi.py`: evaluasi tiga pendekatan dan beberapa seed.
+- `run_evaluasi.py`: evaluasi tiga pendekatan, beberapa seed, irisan uji konsep, dan metrik tambahan.
+- `ukur_latensi.py`: pengukuran latensi lokal dan URL publik.
 - `export_artifacts.py`: menulis artefak untuk web.
 - `tests/`: tes Python.
 
@@ -73,7 +86,7 @@ Catatan penting:
 - `tests/`: tes kesesuaian terhadap `golden_cases.json`.
 
 ### Database
-Lihat `docs/DATABASE_SPEC.md`. Akses hanya dari server dengan service role key.
+Lihat `docs/DATABASE_SPEC.md`. Migrasi revisi ada di `supabase/revisi_koreksi.sql`. Akses hanya dari server dengan service role key.
 
 ## 5. Topologi deploy
 
@@ -93,6 +106,7 @@ Browser  ->  Vercel (landing HTML statis + Next.js: halaman aplikasi dan route A
 - Row Level Security aktif di semua tabel tanpa kebijakan publik.
 - Route penulisan dijaga kode akses sederhana dan pembatasan laju (`docs/API_SPEC.md`).
 - Endpoint perusakan entri hanya aktif jika `DEMO_MODE=true`.
+- Peran ditentukan server dari kode akses, tidak dari klien. Kode peran hanya di environment server.
 - Tidak ada data pribadi di prototipe. Data sensitif pada rancangan penuh disimpan off-chain terenkripsi, dan itu tidak dibangun di sini.
 
 ## 7. Keputusan arsitektur yang memengaruhi bagian lain
@@ -102,6 +116,8 @@ Browser  ->  Vercel (landing HTML statis + Next.js: halaman aplikasi dan route A
 | Skor dihitung di TypeScript | Perlu tes kesesuaian Python dan TypeScript | `docs/EXPORT_SPEC.md` |
 | Ledger berupa hash-chain di Postgres | Bukan Hyperledger Fabric, harus disebut simulasi | `docs/LEDGER_SPEC.md`, `docs/LIMITATIONS.md` |
 | Satu lapisan akses data | Database bisa diganti tanpa mengubah halaman | `web/lib/store.ts` |
+| Peran simulasi dengan mode satu kode | Demo lama tetap berjalan. Pemisahan peran tidak membuktikan identitas | `docs/DECISIONS.md` D-015 |
+| Koreksi lewat transaksi baru dan penanda `digantikan_oleh` | Riwayat kontrak mengecualikan transaksi yang digantikan | `docs/DECISIONS.md` D-016 |
 | Data simulasi dibuat sendiri | Hasil evaluasi adalah bukti awal, bukan klaim umum | `docs/DATA_SPEC.md`, `docs/LIMITATIONS.md` |
 
 Alasan lengkap tiap keputusan ada di `docs/DECISIONS.md`.

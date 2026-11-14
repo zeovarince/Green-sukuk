@@ -1,4 +1,6 @@
-# DATABASE_SPEC
+# DATABASE_SPEC (revisi)
+
+> Versi revisi 2026-11-13, draf menunggu persetujuan pemilik. Menggantikan `DATABASE_SPEC.md` setelah disetujui. Revisi: REV-01, REV-11 (kolom koreksi, migrasi, isi ulang). Rincian di `PERUBAHAN_revisi.md`.
 
 Skema Supabase Postgres untuk prototipe GSTP. Berkas SQL ada di `supabase/schema.sql`. Dokumen ini menjelaskan isi dan alasannya.
 
@@ -41,12 +43,14 @@ Semua kolom `transaksi_gstp.csv` (lihat `DATA_SPEC.md`), ditambah:
 
 | Kolom | Tipe | Catatan |
 |---|---|---|
-| `sumber` | text | `simulasi` atau `live` |
+| `sumber` | text | `simulasi`, `live`, atau `koreksi` (tanpa CHECK, jadi nilai baru tidak butuh migrasi) |
 | `dibuat_pada` | timestamptz | waktu penyimpanan |
+| `digantikan_oleh` | text, null | `trx_id` transaksi koreksi yang menggantikan baris ini (REV-11) |
+| `koreksi_dari` | text, null | `trx_id` transaksi lama yang dikoreksi oleh baris ini (REV-11) |
 
 Kolom label (`label_anomali`, `kelompok_kasus`, `subtipe_kasus`) dan `split` boleh null untuk transaksi `live`. `project_id` pada transaksi tidak memakai rujukan kunci asing, karena aturan R01 perlu bisa menerima ID yang tidak valid.
 
-Indeks: `(kontrak_id, tanggal)` untuk mengambil riwayat, dan `(tanggal)`.
+Indeks: `(kontrak_id, tanggal)` untuk mengambil riwayat, dan `(tanggal)`. Indeks parsial `(kontrak_id, tanggal) where digantikan_oleh is null` melayani query riwayat. Query riwayat kontrak (kumulatif R02, fitur, grafik) selalu mengecualikan baris dengan `digantikan_oleh` terisi, supaya transaksi yang sudah dikoreksi tidak terhitung dua kali.
 
 ### `peringatan`
 | Kolom | Tipe | Catatan |
@@ -96,7 +100,7 @@ Cadangan sementara untuk endpoint demo yang sengaja mengubah `payload_kanonik`. 
 
 `baru` -> `ditelaah` -> `perlu_klarifikasi` -> `diklarifikasi` -> `ditindaklanjuti` -> `ditutup`
 
-Dari `ditelaah` boleh langsung ke `ditindaklanjuti` jika tidak butuh klarifikasi. Setiap perubahan status menambah entri ledger jenis `status`. Penetapan tindak lanjut menyebut pihak dan alasannya di catatan, mengikuti Gambar 1 esai.
+Dari `ditelaah` boleh langsung ke `ditindaklanjuti` jika tidak butuh klarifikasi. Pembagian perpindahan per peran ada di `API_SPEC.md` bagian 5. Koreksi memindahkan peringatan dari `perlu_klarifikasi` ke `diklarifikasi` (`API_SPEC.md` bagian 5A). Telaah syariah tidak mengubah status. Setiap perubahan status menambah entri ledger jenis `status`. Penetapan tindak lanjut menyebut pihak dan alasannya di catatan, mengikuti Gambar 1 esai.
 
 ## 4. Fungsi `tambah_ledger`
 
@@ -141,6 +145,7 @@ Urutan impor: `registri_proyek`, `registri_kontrak`, `transaksi`, `peringatan`, 
 - Untuk database yang sudah berisi transaksi dan ledger transaksi saja, `supabase/append_initial_alerts.py` menambahkan peringatan seed 42 dan entri ledger terkait tanpa menghapus data.
 - Setelah impor, jalankan verifikasi penuh dengan `python supabase/verify_ledger.py`.
 - Setelah impor, perbarui urutan identity `seq` agar entri baru melanjutkan nomor terakhir.
+- Data simulasi versi revisi berbeda dari versi lama (aturan R08, subtipe baru, split per proyek). Jangan mengimpor data baru ke proyek Supabase yang sudah berisi data lama. Pakai proyek Supabase baru (bagian 9).
 
 ## 6. Ukuran dan batas
 
@@ -156,3 +161,26 @@ Paket gratis tidak menyediakan cadangan otomatis. Simpan CSV sumber dan skrip pe
 - RLS aktif, tidak ada kebijakan publik.
 - Tidak ada data pribadi di tabel mana pun.
 - Endpoint penulisan dijaga kode akses dan pembatasan laju (`API_SPEC.md`).
+- Kode akses peran (`KODE_AKSES_*`) hanya di environment variable server. Peran tidak disimpan di database kecuali sebagai bagian payload ledger.
+
+## 9. Migrasi revisi dan isi ulang
+
+`supabase/revisi_koreksi.sql` aman dijalankan berulang:
+
+```sql
+alter table transaksi add column if not exists digantikan_oleh text;
+alter table transaksi add column if not exists koreksi_dari text;
+create index if not exists idx_transaksi_kontrak_aktif
+  on transaksi (kontrak_id, tanggal) where digantikan_oleh is null;
+```
+
+`supabase/schema.sql` untuk proyek baru memuat kolom dan indeks yang sama, jadi proyek baru tidak perlu menjalankan berkas migrasi.
+
+Ledger lama tidak berubah oleh migrasi. Namun data simulasi versi revisi tidak kompatibel dengan data lama, karena generator, aturan, dan split berubah. Urutan yang disarankan:
+1. Buat proyek Supabase baru, jalankan `schema.sql` (ekstensi `pgcrypto`, fungsi `tambah_ledger`, tabel `demo_pemulihan`).
+2. Bangun ulang data dan ledger awal (bagian 5) dari data hasil generator baru.
+3. Jalankan `python supabase/verify_ledger.py`. Hasil harus valid.
+4. Uji `DEMO_SCRIPT.md` pada URL preview Vercel dengan variabel lingkungan proyek baru.
+5. Setelah lolos, pindahkan variabel lingkungan produksi. Proyek lama tetap sebagai cadangan sampai pemilik memutuskan menghapusnya.
+
+Proyek Supabase gratis dijeda setelah 7 hari tidak aktif, jadi cek status kedua proyek sebelum demo.

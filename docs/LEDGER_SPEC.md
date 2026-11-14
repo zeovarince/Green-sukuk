@@ -1,4 +1,6 @@
-# LEDGER_SPEC
+# LEDGER_SPEC (revisi)
+
+> Versi revisi 2026-11-13, draf menunggu persetujuan pemilik. Menggantikan `LEDGER_SPEC.md` setelah disetujui. Revisi: REV-09 (peran dalam payload), REV-10 (telaah syariah), REV-11 (koreksi). Rincian di `PERUBAHAN_revisi.md`.
 
 Spesifikasi ledger simulasi untuk prototipe GSTP. Ledger ini adalah hash-chain append-only di tabel Postgres. Ini bukan jaringan blockchain permissioned yang terdistribusi, dan tidak boleh disebut Hyperledger Fabric.
 
@@ -19,12 +21,28 @@ Spesifikasi ledger simulasi untuk prototipe GSTP. Ledger ini adalah hash-chain a
 
 | `jenis_entri` | Kapan dibuat | Isi payload (ringkas) |
 |---|---|---|
-| `transaksi` | Transaksi disimpan | `trx_id`, `kontrak_id`, `tanggal`, `nilai_pencairan`, `hash_tercatat`, hasil pemeriksaan |
+| `transaksi` | Transaksi disimpan | `trx_id`, `kontrak_id`, `tanggal`, `nilai_pencairan`, `hash_tercatat`, hasil pemeriksaan. Transaksi yang disimpan lewat API juga memuat `pengusul`, `verifikator`, dan `peran` |
 | `peringatan` | Peringatan dibuat | `peringatan_id`, `trx_id`, kode aturan, skor, ambang, versi model |
-| `status` | Status kasus berubah | `peringatan_id`, status lama dan baru, catatan, waktu |
-| `koreksi` | Data dikoreksi | `seq_dikoreksi`, alasan, nilai baru |
+| `status` | Status kasus berubah, atau telaah syariah dicatat | `peringatan_id`, status lama dan baru, catatan, waktu, `peran`, `jenis_catatan` (`perubahan_status` atau `telaah_syariah`) |
+| `koreksi` | Data dikoreksi | `seq_dikoreksi`, `trx_id_lama`, `trx_id_baru`, alasan, `diajukan_oleh`, `perubahan`, `hasil_baru`, `peran` |
 
 Koreksi tidak mengubah entri lama. Koreksi adalah entri baru yang menunjuk ke entri yang dikoreksi.
+
+### 3A. Alur koreksi (REV-11)
+
+Koreksi hanya untuk peringatan berstatus `perlu_klarifikasi`. Urutan penulisan ke ledger:
+1. Entri `transaksi` untuk transaksi baru (`TRX-LIVE-...`, `sumber = koreksi`).
+2. Entri `peringatan` bila transaksi baru masih menghasilkan peringatan.
+3. Entri `koreksi` yang menunjuk `seq` entri `transaksi` lama (`seq_dikoreksi`), memuat `trx_id_lama`, `trx_id_baru`, alasan, perubahan, dan ringkasan hasil pemeriksaan ulang.
+4. Entri `status` yang memindahkan peringatan lama ke `diklarifikasi`.
+
+Transaksi lama tidak dihapus. Baris `transaksi` lama diberi `digantikan_oleh` (`DATABASE_SPEC.md` bagian 9) supaya riwayat kontrak tidak menghitungnya dua kali. Entri ledger lama tidak berubah.
+
+Payload `koreksi` memuat objek bersarang (`perubahan`, `hasil_baru`). Kanonikalisasi di bagian 4 harus mengurutkan kunci objek bersarang dengan aturan yang sama di Python dan TypeScript. Tambahkan kasus di `golden_cases.json` untuk payload bersarang.
+
+### 3B. Peran dalam payload (REV-09)
+
+Nilai `peran`: `penyedia_data`, `auditor`, `pejabat_berwenang`, `otoritas_syariah`. Server mengisinya dari kode akses yang cocok. Klien tidak mengirim peran. Dalam mode satu kode, `peran` bernilai `umum`. Entri awal dari data simulasi tidak memuat `peran`, `pengusul`, atau `verifikator`, dan verifikasi rantai tidak mensyaratkannya.
 
 ## 4. Rumus hash
 
@@ -91,11 +109,13 @@ Analogi ini membantu menjelaskan, tetapi bukan klaim kesetaraan.
 | Persetujuan endorser | Kolom `persetujuan_diperoleh` dan aturan R03 |
 | Layanan pengurutan | Fungsi `tambah_ledger` dengan kunci |
 | Channel dan organisasi | Tidak ada. Satu database, satu operator |
+| Anggota jaringan dan identitasnya | Satu kode penyedia data dan tiga kode peran. Simulasi, tanpa identitas kriptografis |
 
 ## 10. Yang tidak diberikan hash-chain ini
 
 - Tidak mencegah perubahan. Hanya membuat perubahan terdeteksi, dan hanya jika pihak pemeriksa memegang hash terakhir yang terpercaya.
 - Siapa pun yang punya akses penuh ke database dapat menghitung ulang seluruh rantai dari entri yang diubah. Pencegahan sebenarnya butuh banyak pihak yang menyimpan salinan dan hash jangkar yang dipublikasikan di luar database.
 - Tidak ada konsensus antar organisasi.
+- Field `peran` hanya mencatat kode akses mana yang dipakai. Field itu tidak membuktikan siapa orangnya.
 
 Poin ini ada di `LIMITATIONS.md` dan harus tercermin di esai. Pengembangan lanjutan yang masuk akal: mempublikasikan hash terakhir secara berkala di tempat terpisah, atau memakai Hyperledger Fabric sungguhan.

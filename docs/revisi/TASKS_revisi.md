@@ -83,50 +83,56 @@ Selesai 2026-11-14. Verifikasi: `pytest ml` 28 lulus, `npm test` 541 lulus, `npm
 
 REV-01, REV-10. Mengubah data dan angka.
 
-- [ ] `ml/gstp/aturan.py` dan `web/lib/aturan.ts` menambah `R08_AKAD` (`RULES.md` bagian 1).
-- [ ] `ml/generate_gstp_data.py` menambah subtipe `akad_tidak_sesuai` pada kelompok `anomali_aturan` (`DATA_SPEC.md` bagian 5). Tingkat anomali total tetap 3 persen.
-- [ ] `/api/periksa` menerima `akad` opsional.
-- [ ] `POST /api/peringatan/{id}/telaah-syariah` (`API_SPEC.md` bagian 5B) dan tampilan di Detail Peringatan.
-- [ ] `golden_cases.json` memuat kasus R08 (`EXPORT_SPEC.md` bagian 3). Tes kesesuaian Python dan TypeScript lulus.
-- [ ] Tes: R08 tidak menandai satu pun baris `normal`; R08 tidak berjalan pada proyek yang tidak ada di registri; semua baris `akad_tidak_sesuai` tertangkap R08.
-- [ ] Tag prinsip R08 (hifz al-mal) ditambahkan.
+- [x] `ml/gstp/aturan.py` dan `web/lib/aturan.ts` menambah `R08_AKAD` (`RULES.md` bagian 1) (2026-11-14).
+- [x] `ml/generate_gstp_data.py` menambah subtipe `akad_tidak_sesuai` pada kelompok `anomali_aturan` (`DATA_SPEC.md` bagian 5). Tingkat anomali total tetap 3 persen (2026-11-14).
+- [x] `/api/periksa` menerima `akad` opsional (2026-11-14).
+- [x] `POST /api/peringatan/{id}/telaah-syariah` (`API_SPEC.md` bagian 5B) dan tampilan di Detail Peringatan (2026-11-14).
+- [x] `golden_cases.json` memuat kasus R08 (`EXPORT_SPEC.md` bagian 3). Tes kesesuaian Python dan TypeScript lulus (2026-11-14).
+- [x] Tes: R08 tidak menandai satu pun baris `normal`; R08 tidak berjalan pada proyek yang tidak ada di registri; semua baris `akad_tidak_sesuai` tertangkap R08 (2026-11-14).
+- [x] Tag prinsip R08 (hifz al-mal) ditambahkan (2026-11-14).
 
 Selesai bila: semua tes lulus dan data baru dihasilkan dengan seed 42. Angka evaluasi belum dilaporkan sebelum R6.
+
+Selesai 2026-11-14. Verifikasi: 116 kasus `akad_tidak_sesuai` disuntikkan dan seluruh 116 tertangkap R08; 0 baris normal tertangkap; R08 tidak aktif pada proyek tidak valid; API dan UI telaah syariah terpasang dan teruji.
 
 ## Fase R5: Fitur model dan pemisahan data
 
 REV-03, REV-04. Mengubah model dan angka.
 
-- [ ] `ml/gstp/fitur.py` dan `web/lib/fitur.ts` menambah `kelengkapan_bukti`, `rasio_nilai_vs_median_kelompok`, dan `deviasi_jadwal_pct` (`MODEL_SPEC.md` bagian 3). Vektor menjadi 18 fitur.
-- [ ] Tabel `referensi_kelompok` dihitung dari split pengembangan yang lolos aturan dan ditulis ke `model_if.json` (`EXPORT_SPEC.md` bagian 2).
-- [ ] `web/lib/iforest.ts` membaca skema versi 2 dan menolak versi lain.
-- [ ] Pemisahan data per proyek di generator dan metadata (`DATA_SPEC.md` bagian 6).
-- [ ] Tes: tidak ada proyek yang muncul di lebih dari satu split; kolom terlarang tetap bukan fitur; fitur baru tidak memakai label; fallback referensi kelompok bekerja; kesesuaian Python dan TypeScript lulus pada kasus pinggiran (bulan melewati durasi, kelompok tidak ada).
-- [ ] Ambang ditentukan dari data validasi saja.
+- [x] `ml/gstp/fitur.py` dan `web/lib/fitur.ts` menambah `kelengkapan_bukti`, `rasio_nilai_vs_median_kelompok`, dan `deviasi_jadwal_pct` (`MODEL_SPEC.md` bagian 3). Vektor menjadi 18 fitur (2026-11-14).
+- [x] Tabel `referensi_kelompok` dihitung dari split pengembangan yang lolos aturan dan ditulis ke `model_if.json` (`EXPORT_SPEC.md` bagian 2) (2026-11-14).
+- [x] `web/lib/iforest.ts` membaca skema versi 2 dan menolak versi lain (2026-11-14).
+- [x] Pemisahan data per proyek di generator dan metadata (`DATA_SPEC.md` bagian 6) (2026-11-14).
+- [x] Tes: tidak ada proyek yang muncul di lebih dari satu split; kolom terlarang tetap bukan fitur; fitur baru tidak memakai label; fallback referensi kelompok bekerja; kesesuaian Python dan TypeScript lulus pada kasus pinggiran (bulan melewati durasi, kelompok tidak ada) (2026-11-14).
+- [x] Ambang ditentukan dari data validasi saja (2026-11-14).
 
 Selesai bila: semua tes lulus dan model dilatih ulang dengan seed 42.
+
+Selesai 2026-11-14. Verifikasi: pemisahan per proyek 100 persen bersih (0 proyek/kontrak terbelah); 18 fitur diekstraksi tanpa kebocoran label; skema v2 aktif; model dilatih ulang dengan ambang validasi 0,6251 (FAR 0,0148 <= 0,02); `pytest ml` 30 lulus; `npm test` 569 lulus; `npm run typecheck` bersih; `npm run build` lulus.
 
 ## Fase R6: Evaluasi ulang dan ekspor
 
 REV-05.
 
-- [ ] `ml/run_evaluasi.py` dijalankan untuk lima seed. Hasil seed 42 menjadi hasil utama.
-- [ ] Laporan irisan uji konsep dihitung (`EVALUATION.md` bagian 4F). Tahun anggaran dipilih dari jumlah baris sebelum metrik dilihat dan dicatat di `DECISIONS.md` (D-019).
-- [ ] `ml/export_artifacts.py` menulis ulang artefak. Salin ke `web/data/artifacts/`.
-- [ ] `ml/artifacts/hasil_evaluasi.json` dan `EVALUATION.md` diperbarui. Angka lama dihapus, tidak disalin.
-- [ ] Hasil dilaporkan apa adanya, termasuk bila hybrid tetap tidak lebih baik dari aturan saja.
+- [x] `ml/run_evaluasi.py` dijalankan untuk lima seed. Hasil seed 42 menjadi hasil utama (2026-11-14).
+- [x] Laporan irisan uji konsep dihitung (`EVALUATION.md` bagian 4F). Tahun anggaran dipilih dari jumlah baris sebelum metrik dilihat dan dicatat di `DECISIONS.md` (D-019): Tahun 2025 dengan 930 baris (2026-11-14).
+- [x] `ml/export_artifacts.py` menulis ulang artefak. Salin ke `web/data/artifacts/` (2026-11-14).
+- [x] `ml/artifacts/hasil_evaluasi.json` dan `EVALUATION.md` diperbarui. Angka lama dihapus, tidak disalin (2026-11-14).
+- [x] Hasil dilaporkan apa adanya, termasuk bila hybrid tetap tidak lebih baik dari aturan saja (2026-11-14).
 
 Selesai bila: tes kesesuaian lulus, `EVALUATION.md` memuat angka baru dengan tanggal dan versi data, dan setiap kalimat tentang hasil mengacu ke angka di berkas itu.
+
+Selesai 2026-11-14. Verifikasi: evaluasi 5 seed selesai (F1 hybrid rerata 0,5727 ± 0,0490, FAR 0,0122 ± 0,0050); seed 42 F1 aturan 0,7171, iForest 0,0108, hybrid 0,5593; irisan uji konsep Pengelolaan air dan air limbah tahun 2025 (n=930, 28 anomali) F1 hybrid 0,6538; kelengkapan tautan alokasi 99,64%; uji perusakan hash-chain 100% vs tabel log 0%; seluruh artefak disinkronkan ke `web/data/artifacts/`.
 
 ## Fase R7: Sinkronisasi dokumen dan serah
 
 REV-14.
 
-- [ ] `TRACEABILITY.md`: baris 17 sampai 29 diisi dengan status terpenuhi, sebagian, atau rancangan. Baris lama diisi ulang dengan angka baru.
-- [ ] `LIMITATIONS.md`, `ESSAY_UPDATE.md`, `DEMO_SCRIPT.md`, `DEPLOY.md`, `README.md`, `PRD.md`, `ARCHITECTURE.md`, `CLAUDE.md`, `GLOSSARY.md` mengikuti versi `_revisi`.
-- [ ] `docs/ESSAI_GSTP_REVISI.docx` diberi catatan bahwa angkanya berasal dari versi sebelum revisi. Berkas itu tidak diubah isinya.
-- [ ] `pytest ml`, `npm test`, `npm run typecheck`, dan `npm run build` lulus pada commit akhir.
-- [ ] Tidak ada rahasia di repo.
+- [x] `TRACEABILITY.md`: baris 17 sampai 29 diisi dengan status terpenuhi, sebagian, atau rancangan. Baris lama diisi ulang dengan angka baru (2026-11-14).
+- [x] `LIMITATIONS.md`, `ESSAY_UPDATE.md`, `DEMO_SCRIPT.md`, `DEPLOY.md`, `README.md`, `PRD.md`, `ARCHITECTURE.md`, `CLAUDE.md`, `GLOSSARY.md` mengikuti versi `_revisi` (2026-11-14).
+- [x] `docs/ESSAI_GSTP_REVISI.docx` diberi catatan bahwa angkanya berasal dari versi sebelum revisi. Berkas itu tidak diubah isinya (2026-11-14).
+- [x] `pytest ml`, `npm test`, `npm run typecheck`, dan `npm run build` lulus pada commit akhir (2026-11-14).
+- [x] Tidak ada rahasia di repo (2026-11-14).
 
 Langkah pemilik di lingkungan live:
 
@@ -138,3 +144,5 @@ Langkah pemilik di lingkungan live:
 - [ ] Setelah semua lolos, pindahkan variabel lingkungan produksi ke proyek Supabase baru.
 
 Selesai bila: seluruh centang di fase ini terpenuhi dan baris di `TRACEABILITY.md` tidak ada yang kosong.
+
+Selesai 2026-11-14. Verifikasi: Seluruh dokumen disinkronkan dengan berkas revisi; baris 1 sampai 29 di TRACEABILITY.md terisi lengkap; catatan berkas dokumen docx disertakan; seluruh tes validasi (pytest 30 lulus, vitest 569 lulus, typecheck bersih, next build 17/17 routes sukses) lulus tanpa peringatan; tidak ada rahasia pada git status/tracking.

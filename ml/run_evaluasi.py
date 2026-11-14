@@ -21,7 +21,7 @@ import numpy as np
 import pandas as pd
 
 from gstp.aturan import evaluasi_aturan_dataframe, muat_konfigurasi_aturan
-from gstp.fitur import DAFTAR_FITUR, bangun_fitur_dataframe
+from gstp.fitur import DAFTAR_FITUR, bangun_fitur_dataframe, hitung_referensi_kelompok
 from gstp.ledger import verifikasi_rantai_ledger
 from gstp.metrik import deteksi_pola_beruntun, hitung_biaya, kelengkapan_tautan, uji_perusakan
 from gstp.model import latih_model_isolation_forest, hitung_skor_iforest, tentukan_ambang_validasi
@@ -68,7 +68,12 @@ def evaluasi_satu_dataset(df_trx, df_prj, df_ktr, cfg, seed: int = 42):
 
     # Data latih: split pengembangan, hanya baris lolos aturan, tanpa label
     df_dev_lolos = df_trx[mask_dev & (~melanggar)]
-    X_dev = bangun_fitur_dataframe(df_dev_lolos).values
+    ref_kelompok = hitung_referensi_kelompok(df_dev_lolos)
+    peta_durasi = df_ktr.set_index("kontrak_id")["durasi_bulan"].to_dict()
+
+    X_dev = bangun_fitur_dataframe(
+        df_dev_lolos, referensi_kelompok=ref_kelompok, peta_durasi_kontrak=peta_durasi
+    ).values
 
     # Latih model Isolation Forest
     waktu_latih_mulai = time.perf_counter()
@@ -78,7 +83,9 @@ def evaluasi_satu_dataset(df_trx, df_prj, df_ktr, cfg, seed: int = 42):
     # Validasi
     df_val = df_trx[mask_val].copy().reset_index(drop=True)
     mel_val = melanggar[mask_val].values
-    X_val = bangun_fitur_dataframe(df_val).values
+    X_val = bangun_fitur_dataframe(
+        df_val, referensi_kelompok=ref_kelompok, peta_durasi_kontrak=peta_durasi
+    ).values
     skor_val = hitung_skor_iforest(model, X_val)
     y_val = df_val["label_anomali"].values
 
@@ -93,7 +100,9 @@ def evaluasi_satu_dataset(df_trx, df_prj, df_ktr, cfg, seed: int = 42):
     # Pengujian
     df_test = df_trx[mask_test].copy().reset_index(drop=True)
     mel_test = melanggar[mask_test].values
-    X_test = bangun_fitur_dataframe(df_test).values
+    X_test = bangun_fitur_dataframe(
+        df_test, referensi_kelompok=ref_kelompok, peta_durasi_kontrak=peta_durasi
+    ).values
     skor_test = hitung_skor_iforest(model, X_test)
     y_test = df_test["label_anomali"].values
 
@@ -142,6 +151,54 @@ def evaluasi_satu_dataset(df_trx, df_prj, df_ktr, cfg, seed: int = 42):
         "hybrid": pred_hybrid,
     })
 
+    # Irisan uji konsep (REV-05, D-019)
+    # Kategori: Pengelolaan air dan air limbah, Tahun: 2025
+    tgl_dt = pd.to_datetime(df_test["tanggal"])
+    mask_slice = (df_test["kategori_hijau"] == "Pengelolaan air dan air limbah") & (tgl_dt.dt.year == 2025)
+    n_slice = int(mask_slice.sum())
+
+    y_slice = y_test[mask_slice]
+    pred_aturan_slice = pred_aturan[mask_slice]
+    pred_iforest_slice = pred_iforest[mask_slice]
+    pred_hybrid_slice = pred_hybrid[mask_slice]
+
+    metrik_aturan_slice = hitung_metrik_klasifikasi(pred_aturan_slice, y_slice)
+    metrik_iforest_slice = hitung_metrik_klasifikasi(pred_iforest_slice, y_slice)
+    metrik_hybrid_slice = hitung_metrik_klasifikasi(pred_hybrid_slice, y_slice)
+
+    df_slice = df_test[mask_slice].reset_index(drop=True)
+    subtipe_slice = sorted(df_slice["subtipe_kasus"].unique())
+    recall_subtipe_slice = {}
+    for st in subtipe_slice:
+        m_st = (df_slice["subtipe_kasus"] == st).values
+        n_st = int(m_st.sum())
+        is_anomali = df_slice.loc[m_st, "label_anomali"].iloc[0] == 1
+        if is_anomali:
+            r_at = float(pred_aturan_slice[m_st].sum()) / n_st if n_st > 0 else 0.0
+            r_if = float(pred_iforest_slice[m_st].sum()) / n_st if n_st > 0 else 0.0
+            r_hy = float(pred_hybrid_slice[m_st].sum()) / n_st if n_st > 0 else 0.0
+            recall_subtipe_slice[st] = {
+                "n": n_st,
+                "aturan_saja": round(r_at, 4),
+                "iforest_saja": round(r_if, 4),
+                "hybrid": round(r_hy, 4),
+            }
+
+    irisan_uji_konsep = {
+        "kategori": "Pengelolaan air dan air limbah",
+        "tahun": 2025,
+        "alasan_pemilihan_tahun": "Tahun kalender penuh dengan jumlah baris terbanyak pada irisan data pengujian sebelum melihat metrik (D-019)",
+        "n": n_slice,
+        "anomali_total": int(y_slice.sum()),
+        "pengujian": {
+            "aturan_saja": metrik_aturan_slice,
+            "iforest_saja": metrik_iforest_slice,
+            "hybrid": metrik_hybrid_slice,
+        },
+        "recall_per_subtipe": recall_subtipe_slice,
+        "catatan": "Irisan kecil (n=930); metrik subtipe dengan n sangat kecil tidak stabil.",
+    }
+
     return {
         "ambang_hybrid": ambang_hybrid,
         "f1_val_hybrid": f1_val_h,
@@ -161,6 +218,7 @@ def evaluasi_satu_dataset(df_trx, df_prj, df_ktr, cfg, seed: int = 42):
             "hybrid": round(far_sah_hy, 4),
         },
         "waktu_deteksi_pola": waktu_deteksi_pola,
+        "irisan_uji_konsep": irisan_uji_konsep,
         "model": model,
         "X_test": X_test,
     }
@@ -273,6 +331,7 @@ def main():
         "kelengkapan_tautan": tautan,
         "biaya": biaya,
         "uji_perusakan": perusakan,
+        "irisan_uji_konsep": hasil_42["irisan_uji_konsep"],
     }
 
     os.makedirs(ARTIFACTS_DIR, exist_ok=True)
@@ -293,6 +352,18 @@ def main():
     print("\n=== RECALL PER SUBTIPE (DATA PENGUJIAN) ===")
     df_sub = pd.DataFrame.from_dict(hasil_42["recall_per_subtipe"], orient="index")
     print(df_sub.to_string())
+
+    print("\n=== IRISAN UJI KONSEP (DATA PENGUJIAN: KATEGORI AIR & AIR LIMBAH, TAHUN 2025) ===")
+    df_slice_ringkas = pd.DataFrame([
+        {"Pendekatan": "Aturan saja", **hasil_42["irisan_uji_konsep"]["pengujian"]["aturan_saja"]},
+        {"Pendekatan": "Isolation Forest saja", **hasil_42["irisan_uji_konsep"]["pengujian"]["iforest_saja"]},
+        {"Pendekatan": "Hybrid", **hasil_42["irisan_uji_konsep"]["pengujian"]["hybrid"]},
+    ])
+    print(f"Total baris irisan: {hasil_42['irisan_uji_konsep']['n']}, anomali: {hasil_42['irisan_uji_konsep']['anomali_total']}")
+    print(df_slice_ringkas[kolom_tampil].to_string(index=False))
+    if hasil_42["irisan_uji_konsep"]["recall_per_subtipe"]:
+        print("\nRecall per subtipe pada irisan:")
+        print(pd.DataFrame.from_dict(hasil_42["irisan_uji_konsep"]["recall_per_subtipe"], orient="index").to_string())
 
     print("\n=== EVALUASI BEBERAPA SEED (HYBRID) ===")
     print(f"F1 Hybrid (rerata ± SD) : {f1_hy_mean:.4f} ± {f1_hy_sd:.4f}")

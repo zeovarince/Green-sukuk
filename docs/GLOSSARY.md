@@ -1,4 +1,6 @@
-# GLOSSARY
+# GLOSSARY (revisi)
+
+> Versi revisi 2026-11-13, draf menunggu persetujuan pemilik. Menggantikan `GLOSSARY.md` setelah disetujui. Revisi: REV-14 (istilah baru). Rincian di `PERUBAHAN_revisi.md`.
 
 Istilah yang dipakai di dokumen dan prototipe, ditulis ringkas agar tim punya pemahaman yang sama. Untuk istilah yang juga ada di esai, pakai definisi di esai jika berbeda dari catatan ini.
 
@@ -64,6 +66,7 @@ Istilah yang dipakai di dokumen dan prototipe, ditulis ringkas agar tim punya pe
 | F1 | Rata-rata harmonik precision dan recall |
 | Laju peringatan palsu | Proporsi transaksi normal yang ditandai |
 | Split berdasarkan waktu | Data dibagi menurut urutan waktu, bukan acak |
+| Split per proyek | Satu proyek beserta kontrak dan transaksinya masuk ke satu split. Proyek diurutkan menurut tanggal transaksi pertama (D-017) |
 | Kebocoran data (leakage) | Informasi yang tidak tersedia saat keputusan ikut dipakai di model |
 | Kasus emas (golden case) | Kasus uji dengan jawaban dari implementasi acuan |
 | Tes kesesuaian | Tes bahwa dua implementasi memberi hasil yang sama |
@@ -77,3 +80,25 @@ Istilah yang dipakai di dokumen dan prototipe, ditulis ringkas agar tim punya pe
 | GSTP | Green Sukuk Traceability Protocol, protokol keterlacakan yang diusulkan di esai |
 | PRD | Product Requirements Document, dokumen kebutuhan produk |
 | ADR | Architecture Decision Record, catatan keputusan arsitektur (`DECISIONS.md`) |
+
+## Istilah revisi prototipe
+
+| Istilah | Arti singkat |
+|---|---|
+| R08_AKAD | Aturan yang menandai transaksi bila akadnya berbeda dari akad terdaftar proyek. Mengecek konsistensi, bukan kesesuaian syariah |
+| Tag prinsip | Label amanah atau hifz al-mal pada tiap aturan dan temuan. Pemetaan usulan penulis |
+| Pemantauan berlanjut | Status tindak lanjut untuk transaksi tanpa peringatan baru |
+| Telaah auditor | Status tindak lanjut untuk transaksi yang menghasilkan peringatan |
+| Telaah syariah | Catatan putusan (sesuai, tidak sesuai, perlu dokumen) oleh peran otoritas syariah atas temuan R08 |
+| Peran simulasi | Pembedaan wewenang lewat kode akses. Tidak ada akun atau identitas pengguna |
+| Mode satu kode | Perilaku sebelum revisi: satu kode akses untuk semua penulisan, aktif bila tiga kode peran kosong |
+| Penyedia data | Peran yang mengirim transaksi dan koreksi, memakai `DEMO_PASSCODE` |
+| Pejabat berwenang | Peran yang menetapkan tindak lanjut dan menutup peringatan |
+| Koreksi | Transaksi baru yang menggantikan transaksi lama atas peringatan `perlu_klarifikasi`. Entri ledger lama tidak diubah |
+| `digantikan_oleh` | Penanda pada transaksi lama yang menunjuk transaksi koreksi |
+| Referensi kelompok | Tabel median nilai pencairan per kategori hijau dan tahap proyek, dihitung dari data pengembangan |
+| Deviasi jadwal | Selisih progres fisik terhadap kurva-S acuan pada bulan berjalan |
+| Pola beruntun | Rangkaian transaksi anomali pada satu kontrak, misalnya pemecahan pencairan, yang dinilai pada metrik waktu deteksi |
+| Kelengkapan tautan | Proporsi transaksi dengan proyek, kontrak, hash, dan entri ledger yang saling cocok |
+| Irisan uji konsep | Laporan tambahan pada satu kategori dan satu tahun anggaran di split pengujian |
+| Uji perusakan | Uji yang mengubah, menghapus, menyisipkan, atau menukar entri pada hash-chain dan tabel log biasa untuk membandingkan deteksinya |

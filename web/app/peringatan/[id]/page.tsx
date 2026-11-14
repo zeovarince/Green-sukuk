@@ -8,7 +8,7 @@ import DoubleCurve, { type CurveRow } from "@/components/DoubleCurve";
 import ScoreRuler from "@/components/ScoreRuler";
 import PanelBukti, { type Bukti } from "@/components/PanelBukti";
 import { labelPrinsip, prinsipUntuk } from "@/lib/aturan";
-import { PERAN_LABEL, bolehKoreksi, bolehTransisi, type Peran } from "@/lib/akses";
+import { PERAN_LABEL, bolehKoreksi, bolehTelaahSyariah, bolehTransisi, type Peran } from "@/lib/akses";
 import { api, formatAngka, formatRupiah, formatTanggal, formatRingkas } from "@/lib/format";
 import FormKoreksi, { type HasilKoreksi, type TransaksiKoreksi } from "./FormKoreksi";
 
@@ -27,12 +27,13 @@ type Detail = {
   bukti: Bukti;
   peran: Peran | null;
   pembanding: { median_pencairan_sebelumnya: number; jumlah_pencairan_7_hari: number; rata_rata_delta_progres: number };
-  riwayat_status: { seq: number; jenis?: string; status_lama?: string; status_baru?: string; catatan?: string; waktu?: string; alasan?: string; trx_id_baru?: string; trx_id_lama?: string; seq_dikoreksi?: number; peran?: Peran }[];
+  riwayat_status: { seq: number; jenis?: string; jenis_catatan?: string; putusan?: string; status_lama?: string; status_baru?: string; catatan?: string; waktu?: string; alasan?: string; trx_id_baru?: string; trx_id_lama?: string; seq_dikoreksi?: number; peran?: Peran }[];
 };
 type ContractResponse = { kontrak: { nilai_kontrak_awal: number }; riwayat: CurveRow[] };
 const statusLabel: Record<string, string> = { baru: "Baru", ditelaah: "Ditelaah", perlu_klarifikasi: "Perlu klarifikasi", diklarifikasi: "Diklarifikasi", ditindaklanjuti: "Ditindaklanjuti", ditutup: "Ditutup" };
 const nextSteps: Record<string, string[]> = { baru: ["ditelaah"], ditelaah: ["perlu_klarifikasi", "ditindaklanjuti"], perlu_klarifikasi: ["diklarifikasi"], diklarifikasi: ["ditindaklanjuti"], ditindaklanjuti: ["ditutup"], ditutup: [] };
 const actionLabel: Record<string, string> = { ditelaah: "Telaah", perlu_klarifikasi: "Minta klarifikasi", diklarifikasi: "Tandai diklarifikasi", ditindaklanjuti: "Tetapkan tindak lanjut", ditutup: "Tutup kasus" };
+const putusanLabel: Record<string, string> = { sesuai: "Sesuai ketentuan", tidak_sesuai: "Tidak sesuai ketentuan", perlu_dokumen: "Perlu dokumen pengganti" };
 const ruleDescriptions: Record<string, string> = {
   R01_ID_PROYEK: "ID proyek tidak valid atau tidak sesuai dengan registri kontrak.",
   R02_PAGU: "Kumulatif pencairan melampaui pagu alokasi kontrak.",
@@ -41,6 +42,7 @@ const ruleDescriptions: Record<string, string> = {
   R05_HASH: "Hash dokumen saat ini tidak cocok dengan hash yang tercatat.",
   R06_MILESTONE: "Milestone belum terverifikasi untuk pembayaran termin.",
   R07_BUKTI: "Kelengkapan bukti berada di bawah ambang batas minimal.",
+  R08_AKAD: "Akad pada transaksi berbeda dari akad terdaftar proyek.",
 };
 
 export default function DetailPeringatanPage({ params }: { params: Promise<{ id: string }> }) {
@@ -54,6 +56,9 @@ export default function DetailPeringatanPage({ params }: { params: Promise<{ id:
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [pending, setPending] = useState(false);
+  const [putusanSyariah, setPutusanSyariah] = useState("perlu_dokumen");
+  const [catatanSyariah, setCatatanSyariah] = useState("");
+  const [pendingSyariah, setPendingSyariah] = useState(false);
   const markerRef = useRef<HTMLSpanElement>(null);
   useEffect(() => { void params.then((value) => setId(value.id)); }, [params]);
   const load = useCallback(async () => {
@@ -87,6 +92,27 @@ export default function DetailPeringatanPage({ params }: { params: Promise<{ id:
       setMessage(`Status diperbarui menjadi ${statusLabel[next]}. Perubahan dicatat di ledger.`); await load();
     } catch (e) { setError(e instanceof Error ? e.message : "Status belum dapat diperbarui."); }
     finally { setPending(false); }
+  }
+
+  async function submitTelaahSyariah() {
+    if (!detail) return;
+    if (!applied) { setError("Terapkan kode akses untuk mencatat telaah syariah."); return; }
+    if (catatanSyariah.trim().length < 8) { setError("Catatan telaah syariah wajib minimal 8 karakter."); return; }
+    setPendingSyariah(true); setError(""); setMessage("");
+    try {
+      await api(`/api/peringatan/${encodeURIComponent(id)}/telaah-syariah`, {
+        method: "POST",
+        headers: { "x-kode-akses": applied },
+        body: JSON.stringify({ putusan: putusanSyariah, catatan: catatanSyariah }),
+      });
+      setMessage("Telaah syariah dicatat di ledger.");
+      setCatatanSyariah("");
+      await load();
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Telaah syariah belum dapat dicatat.");
+    } finally {
+      setPendingSyariah(false);
+    }
   }
 
   if (error && !detail) return <><header className="page-heading"><div><p className="eyebrow">Detail kasus</p><h1>Peringatan</h1></div></header><p className="error-state" role="alert">{error} Periksa ID peringatan dan koneksi database.</p><Link className="button" href="/peringatan">Kembali ke daftar</Link></>;
@@ -141,10 +167,62 @@ export default function DetailPeringatanPage({ params }: { params: Promise<{ id:
           </section>
           {detail.status === "perlu_klarifikasi" && bolehKoreksi(detail.peran) && <section className="section rule-top"><h2>Koreksi transaksi</h2><FormKoreksi peringatanId={id} trx={transaction} passcode={applied} onDone={(result) => { setCorrection(result); setMessage("Koreksi dicatat. Transaksi lama tetap tersimpan sebagai riwayat."); void load(); }} /></section>}
           {detail.status === "perlu_klarifikasi" && !bolehKoreksi(detail.peran) && <p className="info-note">Koreksi transaksi hanya untuk peran penyedia data. Peringatan ini menunggu klarifikasi dari penyedia data.</p>}
+          {detail.kode_aturan.includes("R08_AKAD") && (
+            <section className="section rule-top">
+              <h2>Telaah kesesuaian akad</h2>
+              {(() => {
+                const latest = [...detail.riwayat_status].reverse().find((e) => e.jenis_catatan === "telaah_syariah");
+                return latest ? (
+                  <div className="info-note" style={{ marginBottom: "1rem" }}>
+                    <p><strong>Putusan terbaru:</strong> {putusanLabel[latest.putusan ?? ""] ?? latest.putusan}</p>
+                    {latest.catatan && <p><strong>Catatan:</strong> {latest.catatan}</p>}
+                    <small>Dicatat pada entri ledger {latest.seq}{latest.waktu ? `, ${formatTanggal(latest.waktu)}` : ""}</small>
+                  </div>
+                ) : (
+                  <p className="empty-state">Belum ada telaah syariah untuk temuan akad ini.</p>
+                );
+              })()}
+              {bolehTelaahSyariah(detail.peran) ? (
+                <div className="field">
+                  <label htmlFor="putusan-syariah">Putusan otoritas syariah</label>
+                  <select
+                    id="putusan-syariah"
+                    value={putusanSyariah}
+                    onChange={(e) => setPutusanSyariah(e.target.value)}
+                  >
+                    <option value="sesuai">Sesuai ketentuan</option>
+                    <option value="tidak_sesuai">Tidak sesuai ketentuan</option>
+                    <option value="perlu_dokumen">Perlu dokumen pengganti</option>
+                  </select>
+                  <label htmlFor="catatan-syariah" style={{ marginTop: "0.5rem" }}>Catatan telaah</label>
+                  <textarea
+                    id="catatan-syariah"
+                    value={catatanSyariah}
+                    onChange={(e) => setCatatanSyariah(e.target.value)}
+                    placeholder="Catat telaah kesesuaian akad (minimal 8 karakter)."
+                    maxLength={2000}
+                  />
+                  <button
+                    className="button button-small"
+                    type="button"
+                    disabled={pendingSyariah}
+                    onClick={() => void submitTelaahSyariah()}
+                    style={{ marginTop: "0.5rem" }}
+                  >
+                    {pendingSyariah ? "Mencatat..." : "Catat telaah syariah"}
+                  </button>
+                </div>
+              ) : (
+                <p className="provenance">
+                  Pencatatan telaah syariah membutuhkan kode akses otoritas syariah.
+                </p>
+              )}
+            </section>
+          )}
         </aside>
       </div>
       <section className="section rule-top"><h2>Riwayat status pada ledger</h2>
-        {detail.riwayat_status.length ? <ol className="timeline">{detail.riwayat_status.map((event) => <li key={`${event.jenis ?? "status"}-${event.seq}`}>{event.jenis === "koreksi" ? <><span>Koreksi transaksi dicatat</span><small>Entri {event.seq}{event.seq_dikoreksi ? `, menggantikan entri ${event.seq_dikoreksi}` : ""}</small>{event.alasan && <small>Alasan: {event.alasan}</small>}{event.trx_id_baru && <small>Transaksi baru: <code>{event.trx_id_baru}</code></small>}</> : <><span>{statusLabel[event.status_lama ?? ""] ?? event.status_lama} menjadi {statusLabel[event.status_baru ?? ""] ?? event.status_baru}</span><small>Entri {event.seq}{event.waktu ? `, ${formatTanggal(event.waktu)}` : ""}</small>{event.catatan && <small>Catatan: {event.catatan}</small>}</>}{event.peran && <small>Peran: {PERAN_LABEL[event.peran] ?? event.peran}</small>}</li>)}</ol> : <p className="empty-state">Belum ada perubahan status setelah peringatan dibuat.</p>}
+        {detail.riwayat_status.length ? <ol className="timeline">{detail.riwayat_status.map((event) => <li key={`${event.jenis ?? "status"}-${event.seq}`}>{event.jenis === "koreksi" ? <><span>Koreksi transaksi dicatat</span><small>Entri {event.seq}{event.seq_dikoreksi ? `, menggantikan entri ${event.seq_dikoreksi}` : ""}</small>{event.alasan && <small>Alasan: {event.alasan}</small>}{event.trx_id_baru && <small>Transaksi baru: <code>{event.trx_id_baru}</code></small>}</> : event.jenis_catatan === "telaah_syariah" ? <><span>Telaah syariah: {putusanLabel[event.putusan ?? ""] ?? event.putusan}</span><small>Entri {event.seq}{event.waktu ? `, ${formatTanggal(event.waktu)}` : ""}</small>{event.catatan && <small>Catatan: {event.catatan}</small>}</> : <><span>{statusLabel[event.status_lama ?? ""] ?? event.status_lama} menjadi {statusLabel[event.status_baru ?? ""] ?? event.status_baru}</span><small>Entri {event.seq}{event.waktu ? `, ${formatTanggal(event.waktu)}` : ""}</small>{event.catatan && <small>Catatan: {event.catatan}</small>}</>}{event.peran && <small>Peran: {PERAN_LABEL[event.peran] ?? event.peran}</small>}</li>)}</ol> : <p className="empty-state">Belum ada perubahan status setelah peringatan dibuat.</p>}
       </section>
     </>
   );

@@ -82,13 +82,14 @@ AMBANG_3_PERSETUJUAN = 5_000_000_000
 
 # bobot jumlah anomali
 BOBOT_ATURAN = {
-    "id_proyek_tidak_valid": 0.12,
+    "id_proyek_tidak_valid": 0.11,
     "melebihi_pagu": 0.08,
-    "persetujuan_wajib_hilang": 0.20,
-    "kategori_tidak_memenuhi_syarat": 0.12,
-    "hash_tidak_cocok": 0.18,
-    "milestone_belum_terverifikasi": 0.15,
-    "bukti_wajib_hilang": 0.15,
+    "persetujuan_wajib_hilang": 0.16,
+    "kategori_tidak_memenuhi_syarat": 0.11,
+    "hash_tidak_cocok": 0.15,
+    "milestone_belum_terverifikasi": 0.13,
+    "bukti_wajib_hilang": 0.13,
+    "akad_tidak_sesuai": 0.13,
 }
 BOBOT_KONTEKSTUAL = {
     "lonjakan_tanpa_progres": 0.35,
@@ -566,6 +567,17 @@ def suntik_aturan(df, rng, target_tipe):
         df.loc[idx, "kelengkapan_bukti"] = rng.uniform(0.10, 0.70, size=len(idx)).round(2)
         tandai(df, idx, "anomali_aturan", "bukti_wajib_hilang")
     hasil["bukti_wajib_hilang"] = len(idx)
+
+    # 7. akad tidak sesuai (REV-01)
+    idx = ambil(target_tipe.get("akad_tidak_sesuai", 0))
+    if len(idx):
+        for i in idx:
+            curr_akad = df.at[i, "akad"]
+            df.at[i, "akad"] = (
+                "Wakalah" if curr_akad == "Ijarah Asset to Be Leased" else "Ijarah Asset to Be Leased"
+            )
+        tandai(df, idx, "anomali_aturan", "akad_tidak_sesuai")
+    hasil["akad_tidak_sesuai"] = len(idx)
     return df, hasil
 
 
@@ -575,6 +587,7 @@ def suntik_aturan(df, rng, target_tipe):
 def tandai_dengan_aturan(df, reg_proyek, reg_kontrak):
     proyek_sah = set(reg_proyek["project_id"])
     peta_kontrak = reg_kontrak.set_index("kontrak_id")["project_id"]
+    peta_akad = reg_proyek.set_index("project_id")["akad"]
     kategori_sah = set(KATEGORI)
     r1 = ~df["project_id"].isin(proyek_sah) | (
         df["project_id"] != df["kontrak_id"].map(peta_kontrak)
@@ -585,7 +598,8 @@ def tandai_dengan_aturan(df, reg_proyek, reg_kontrak):
     r5 = df["hash_tercatat"] != df["hash_dokumen_saat_ini"]
     r6 = (~df["milestone_terverifikasi"]) & (df["jenis_pembayaran"] == "termin")
     r7 = df["kelengkapan_bukti"] < 0.80
-    return r1 | r2 | r3 | r4 | r5 | r6 | r7
+    r8 = df["project_id"].isin(proyek_sah) & (df["akad"] != df["project_id"].map(peta_akad))
+    return r1 | r2 | r3 | r4 | r5 | r6 | r7 | r8
 
 
 # ---------------------------------------------------------------------------
@@ -667,12 +681,54 @@ def main():
         ["pemeliharaan", "persiapan", "konstruksi"],
         default="penyelesaian",
     )
-    c1, c2 = df["tanggal"].quantile([0.60, 0.80])
-    df["split"] = np.select(
-        [df["tanggal"] <= c1, df["tanggal"] <= c2],
-        ["pengembangan", "validasi"],
-        default="pengujian",
+
+    # Pemisahan data per proyek (REV-04, D-017)
+    peta_ktr_ke_prj = reg_kontrak.set_index("kontrak_id")["project_id"].to_dict()
+    proyek_sebenarnya = df["kontrak_id"].map(peta_ktr_ke_prj)
+
+    grup_prj = df.groupby(proyek_sebenarnya)
+    tgl_pertama_prj = grup_prj["tanggal"].min()
+    n_trx_prj = grup_prj.size()
+
+    df_urutan_prj = (
+        pd.DataFrame({
+            "project_id": tgl_pertama_prj.index,
+            "tgl_pertama": tgl_pertama_prj.values,
+            "n_trx": n_trx_prj.values,
+        })
+        .sort_values(["tgl_pertama", "project_id"], kind="mergesort")
+        .reset_index(drop=True)
     )
+
+    total_trx = len(df)
+    ambang_dev = 0.60 * total_trx
+    ambang_val = 0.80 * total_trx
+
+    df_urutan_prj["kumulatif_trx"] = df_urutan_prj["n_trx"].cumsum()
+    df_urutan_prj["kumulatif_sebelum"] = df_urutan_prj["kumulatif_trx"] - df_urutan_prj["n_trx"]
+
+    def alokasi_split(row):
+        if row["kumulatif_sebelum"] < ambang_dev:
+            return "pengembangan"
+        elif row["kumulatif_sebelum"] < ambang_val:
+            return "validasi"
+        else:
+            return "pengujian"
+
+    df_urutan_prj["split"] = df_urutan_prj.apply(alokasi_split, axis=1)
+    peta_prj_ke_split = df_urutan_prj.set_index("project_id")["split"].to_dict()
+    df["split"] = proyek_sebenarnya.map(peta_prj_ke_split)
+
+    batas_split_meta = {}
+    for s_nama in ["pengembangan", "validasi", "pengujian"]:
+        sub_s = df[df["split"] == s_nama]
+        sub_prj = df_urutan_prj[df_urutan_prj["split"] == s_nama]
+        batas_split_meta[s_nama] = {
+            "proyek": int(len(sub_prj)),
+            "transaksi": int(len(sub_s)),
+            "tanggal_terawal": str(sub_s["tanggal"].min().date()) if len(sub_s) else None,
+            "tanggal_terakhir": str(sub_s["tanggal"].max().date()) if len(sub_s) else None,
+        }
 
     kolom = [
         "trx_id", "tanggal", "seri_penerbitan", "akad", "jenis_pembiayaan",
@@ -736,7 +792,7 @@ def main():
             "2_persetujuan_mulai": AMBANG_2_PERSETUJUAN,
             "3_persetujuan_mulai": AMBANG_3_PERSETUJUAN,
         },
-        "batas_split": {"pengembangan_sampai": str(c1.date()), "validasi_sampai": str(c2.date())},
+        "batas_split": batas_split_meta,
         "label": {
             "label_anomali": "1 jika pencairan disuntik sebagai anomali, 0 jika normal",
             "kelompok_kasus": "normal | normal_tidak_lazim_sah | anomali_aturan | anomali_kontekstual",

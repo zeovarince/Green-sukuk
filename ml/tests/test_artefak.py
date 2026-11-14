@@ -34,9 +34,14 @@ def test_format_model_if():
     with open(path, "r", encoding="utf-8") as f:
         data = json.load(f)
 
-    assert data["versi_skema"] == 1
+    assert data["versi_skema"] == 2
     assert data["seed"] == 42
     assert data["fitur"] == DAFTAR_FITUR
+    assert len(data["fitur"]) == 18
+    assert "referensi_kelompok" in data
+    assert "median_per_kelompok" in data["referensi_kelompok"]
+    assert "median_per_tahap" in data["referensi_kelompok"]
+    assert "median_global" in data["referensi_kelompok"]
     assert data["n_estimators"] == 200
     assert data["max_samples"] == 256
     assert "ambang" in data
@@ -71,6 +76,7 @@ def test_format_rules_config():
         "R05_HASH": "amanah",
         "R06_MILESTONE": "amanah",
         "R07_BUKTI": "hifz_al_mal",
+        "R08_AKAD": "hifz_al_mal",
     }
 
 
@@ -79,7 +85,7 @@ def test_format_golden_cases():
     with open(path, "r", encoding="utf-8") as f:
         data = json.load(f)
 
-    assert data["versi_skema"] == 1
+    assert data["versi_skema"] == 2
     assert "kasus" in data
     kasus = data["kasus"]
     assert len(kasus) >= 200
@@ -98,6 +104,7 @@ def test_format_golden_cases():
     assert "melebihi_pagu" in subtipe_ditemukan
     assert "milestone_belum_terverifikasi" in subtipe_ditemukan
     assert "persetujuan_wajib_hilang" in subtipe_ditemukan
+    assert "akad_tidak_sesuai" in subtipe_ditemukan
 
     # Cek struktur kasus emas
     c0 = kasus[0]

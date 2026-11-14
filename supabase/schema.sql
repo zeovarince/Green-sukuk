@@ -82,6 +82,10 @@ create table if not exists transaksi (
     dibuat_pada timestamptz not null default now()
 );
 
+-- Pastikan kolom koreksi ada jika tabel transaksi sudah dibuat sebelumnya
+alter table transaksi add column if not exists digantikan_oleh text;
+alter table transaksi add column if not exists koreksi_dari text;
+
 create index if not exists idx_transaksi_kontrak_tanggal on transaksi (kontrak_id, tanggal);
 create index if not exists idx_transaksi_tanggal on transaksi (tanggal);
 create index if not exists idx_transaksi_project_id on transaksi (project_id);

@@ -15,6 +15,7 @@ export interface TransaksiUntukAturan {
   jenis_pembayaran: string;
   kelengkapan_bukti: number;
   kumulatif_cair?: number;
+  akad?: string;
 }
 
 export interface KonteksAturan {
@@ -22,6 +23,7 @@ export interface KonteksAturan {
   projectIdKontrak: string;
   paguAlokasiKontrak: number;
   kumulatifCairSebelumnya?: number;
+  akadProyek?: string;
 }
 
 export interface TemuanAturan {
@@ -38,6 +40,7 @@ export const KODE_ATURAN = [
   "R05_HASH",
   "R06_MILESTONE",
   "R07_BUKTI",
+  "R08_AKAD",
 ] as const;
 
 const PETA_PRINSIP = rules.prinsip as Record<string, Prinsip>;
@@ -102,6 +105,12 @@ export function periksaAturanTransaksi(
   }
   if (Number(Number(transaksi.kelengkapan_bukti).toFixed(4)) < Number(Number(rules.ambang_bukti).toFixed(4))) {
     catat("R07_BUKTI", `Kelengkapan bukti (${transaksi.kelengkapan_bukti.toFixed(2)}) di bawah ambang batas minimal (${rules.ambang_bukti.toFixed(2)}).`);
+  }
+  if (konteks.projectIdSah && konteks.akadProyek) {
+    const akadTransaksi = transaksi.akad || konteks.akadProyek;
+    if (akadTransaksi && akadTransaksi !== konteks.akadProyek) {
+      catat("R08_AKAD", `Akad pada transaksi '${akadTransaksi}' berbeda dari akad terdaftar proyek '${konteks.akadProyek}'.`);
+    }
   }
   return temuan;
 }

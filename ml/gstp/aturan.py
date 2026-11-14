@@ -21,6 +21,7 @@ PETA_PRINSIP: Dict[str, str] = {
     "R05_HASH": PRINSIP_AMANAH,
     "R06_MILESTONE": PRINSIP_AMANAH,
     "R07_BUKTI": PRINSIP_HIFZ_AL_MAL,
+    "R08_AKAD": PRINSIP_HIFZ_AL_MAL,
 }
 
 
@@ -69,6 +70,8 @@ def periksa_aturan_transaksi(
     pagu_alokasi_kontrak: float | int,
     kumulatif_cair_sebelumnya: float | int = 0,
     config: Optional[Dict[str, Any]] = None,
+    peta_proyek_ke_akad: Optional[Dict[str, str]] = None,
+    akad_proyek: Optional[str] = None,
 ) -> Dict[str, Any]:
     """
     Memeriksa satu transaksi terhadap 7 aturan deterministik.
@@ -168,6 +171,23 @@ def periksa_aturan_transaksi(
             "pesan": f"Kelengkapan bukti ({kelengkapan_bukti:.2f}) di bawah ambang batas minimal ({ambang_bukti:.2f})."
         })
 
+    # R08_AKAD: akad pada transaksi berbeda dari akad proyek di registri_proyek.
+    # Dievaluasi hanya jika project_id ada di registri
+    if project_id in proyek_sah:
+        target_akad_proyek = akad_proyek
+        if target_akad_proyek is None and peta_proyek_ke_akad is not None:
+            target_akad_proyek = peta_proyek_ke_akad.get(project_id)
+        if target_akad_proyek is None:
+            target_akad_proyek = transaksi.get("akad_proyek")
+
+        if target_akad_proyek:
+            akad_transaksi = transaksi.get("akad") or target_akad_proyek
+            if akad_transaksi and akad_transaksi != target_akad_proyek:
+                temuan.append({
+                    "kode": "R08_AKAD",
+                    "pesan": f"Akad pada transaksi '{akad_transaksi}' berbeda dari akad terdaftar proyek '{target_akad_proyek}'."
+                })
+
     return {
         "lolos": len(temuan) == 0,
         "temuan": [
@@ -187,6 +207,7 @@ def evaluasi_aturan_dataframe(df, reg_proyek, reg_kontrak, config: Optional[Dict
 
     proyek_sah = set(reg_proyek["project_id"])
     peta_kontrak = reg_kontrak.set_index("kontrak_id")["project_id"]
+    peta_akad = reg_proyek.set_index("project_id")["akad"]
     kategori_sah = set(config["kategori_sah"])
     ambang_bukti = float(config.get("ambang_bukti", 0.80))
 
@@ -199,5 +220,6 @@ def evaluasi_aturan_dataframe(df, reg_proyek, reg_kontrak, config: Optional[Dict
     r5 = df["hash_tercatat"] != df["hash_dokumen_saat_ini"]
     r6 = (~df["milestone_terverifikasi"].astype(bool)) & (df["jenis_pembayaran"] == "termin")
     r7 = df["kelengkapan_bukti"] < ambang_bukti
+    r8 = df["project_id"].isin(proyek_sah) & (df["akad"] != df["project_id"].map(peta_akad))
 
-    return r1 | r2 | r3 | r4 | r5 | r6 | r7
+    return r1 | r2 | r3 | r4 | r5 | r6 | r7 | r8

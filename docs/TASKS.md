@@ -1,124 +1,148 @@
-# TASKS
+# TASKS_revisi
 
-Urutan kerja dengan kriteria selesai (DoD) per fase. Centang kotak saat selesai. Jangan lompat ke fase berikutnya sebelum DoD fase sebelumnya terpenuhi, kecuali dicatat di `docs/DECISIONS.md`.
+Fase kerja untuk revisi prototipe GSTP. Fase asli (1 sampai 11) ada di `TASKS.md` dan tidak diubah. Revisi dan alasannya ada di `PERUBAHAN_revisi.md`. Nomor REV mengacu ke dokumen itu.
 
-Tidak ada estimasi jam di sini. Urutan dan DoD lebih penting daripada tebakan waktu.
+Aturan kerja mengikuti `CLAUDE.md`: satu hal per commit, tes relevan lulus sebelum menyatakan selesai, angka hasil tidak disalin dari versi lama, dan ambang tidak disetel dari data pengujian.
 
-## Fase 0: Siapkan repo
+Perintah standar:
 
-- [x] Buat struktur folder `ml/`, `web/`, `supabase/`, `docs/`.
-- [x] Salin dokumen `.md` ke tempatnya.
-- [x] Buat `.gitignore` (termasuk `.env*`, `node_modules`, `ml/data_simulasi/*.csv` bila terlalu besar).
-- [x] Buat `ml/requirements.txt` dengan versi scikit-learn yang dikunci.
+```bash
+python ml/generate_gstp_data.py --out-dir ml/data_simulasi
+python ml/run_evaluasi.py
+python ml/export_artifacts.py
+pytest ml
+cd web && npm test
+cd web && npm run typecheck
+cd web && npm run build
+```
 
-DoD: repo bisa di-clone dan struktur sesuai `README.md`.
+Fase R1 sampai R3 tidak mengubah model dan angka lama. Fase R4 sampai R6 mengubah data dan model, jadi mulai setelah pemilik memeriksa hasil R1 sampai R3.
 
-## Fase 1: Data simulasi
+## Fase R0: Spesifikasi revisi
 
-- [x] Jalankan `python ml/generate_gstp_data.py --out-dir ml/data_simulasi`.
-- [x] Cek ringkasan di layar: 800 proyek, 2.719 kontrak, 58.023 transaksi, sekitar 3% anomali (dengan seed 42).
-- [x] Cek uji kewarasan: normal ditandai aturan 0, anomali aturan tertangkap penuh, anomali kontekstual tertangkap 0.
+Tujuan: semua perubahan tertulis sebelum kode diubah.
 
-DoD: tiga CSV dan `metadata_simulasi.json` ada, uji kewarasan sesuai, hasil identik pada dua kali jalan dengan seed yang sama.
+- [x] Tulis `PERUBAHAN_revisi.md` dan `TASKS_revisi.md`.
+- [x] Tulis versi `_revisi` untuk dokumen yang terdampak (daftar di `PERUBAHAN_revisi.md` bagian 7).
+- [x] Pemilik membaca dan mengonfirmasi enam nilai bawaan di `PERUBAHAN_revisi.md` bagian 6 (2026-11-14).
+- [x] Pemilik menyetujui (2026-11-14). Penggantian nama berkas `_revisi` menjadi berkas asli dilakukan di fase R7 agar dokumen revisi tetap menjadi acuan selama R1 sampai R6.
 
-## Fase 2: Rule engine (Python)
+Selesai bila: pemilik menyetujui dan tidak ada konflik antara spesifikasi dan kode yang belum dilaporkan.
 
-- [x] Tulis `ml/gstp/aturan.py` sesuai `docs/RULES.md` dan `ml/artifacts/rules_config.json`.
-- [x] Tes: tiap aturan memiliki minimal satu kasus lolos dan satu kasus melanggar.
+## Fase R1: Label prinsip, bukti, pemantauan berlanjut, keterangan ledger
 
-DoD: aturan menangkap seluruh baris `anomali_aturan`, tidak menandai satu pun baris `normal` dan `normal_tidak_lazim_sah`, dan `pytest ml` lulus.
+REV-02, REV-12, REV-13. Tidak mengubah model, data, atau skema database.
 
-## Fase 3: Fitur dan Isolation Forest
+- [x] `ml/artifacts/rules_config.json` naik ke versi 2 dengan kunci `prinsip` untuk R01 sampai R07. `export_artifacts.py` menulis kunci itu dari satu sumber di `ml/gstp/aturan.py` (2026-11-14).
+- [x] `web/lib/aturan.ts` membaca `prinsip` dan menyertakannya pada tiap temuan (2026-11-14).
+- [x] `/api/periksa` mengembalikan `tindak_lanjut` dan `bukti` (`API_SPEC.md` bagian 2) (2026-11-14).
+- [x] Halaman Periksa menampilkan "Pemantauan berlanjut", panel bukti, dan tag prinsip (2026-11-14).
+- [x] Halaman Detail Peringatan menampilkan tag prinsip dan panel bukti (2026-11-14).
+- [x] Halaman Tentang menampilkan tabel aturan dengan prinsipnya (2026-11-14).
+- [x] Halaman Ledger dan Periksa menampilkan keterangan tetap bahwa ledger adalah simulasi hash-chain (2026-11-14).
+- [x] Tes: temuan memuat prinsip yang benar; `tindak_lanjut` benar untuk kasus normal dan peringatan; panel bukti menandai hash yang tidak cocok (2026-11-14).
 
-- [x] Tulis `ml/gstp/fitur.py` sesuai `docs/MODEL_SPEC.md`. Fitur hanya memakai informasi yang sudah ada saat transaksi.
-- [x] Tulis `ml/gstp/model.py`: latih pada split `pengembangan`, baris lolos aturan, tanpa label.
-- [x] Tentukan ambang dari split `validasi`.
-- [x] Tes: tidak ada kolom label atau split di daftar fitur.
+Selesai bila: `npm test`, `npm run typecheck`, dan `npm run build` lulus; `pytest ml` lulus; `hasil_evaluasi.json` tidak berubah.
 
-DoD: model tersimpan, ambang tercatat beserta cara menentukannya, tes kebocoran label lulus.
+Selesai 2026-11-14. Verifikasi: `pytest ml` 12 lulus, `npm test` 520 lulus, `npm run typecheck` bersih, `npm run build` lulus. `hasil_evaluasi.json` tidak berubah.
 
-## Fase 4: Evaluasi
+## Fase R2: Peran simulasi dan alur koreksi
 
-- [x] Tulis `ml/run_evaluasi.py` sesuai `docs/EVALUATION.md`: tiga pendekatan, metrik, recall per subtipe.
-- [x] Jalankan dengan beberapa seed (minimal lima) dan catat rata-rata dan simpangan baku.
-- [x] Hasilkan `ml/artifacts/hasil_evaluasi.json` dan tabel siap masuk esai.
+REV-09, REV-11. Membutuhkan satu migrasi SQL kecil.
 
-DoD: tabel hasil lengkap untuk data pengujian, hasil beberapa seed ada, angka di `docs/EVALUATION.md` diperbarui dari berkas hasil.
+- [x] `supabase/revisi_koreksi.sql` dan `supabase/schema.sql` memuat kolom `digantikan_oleh` dan `koreksi_dari` di `transaksi`, serta indeks parsial (`DATABASE_SPEC.md` bagian 9) (2026-11-14).
+- [x] `web/lib/http.ts` menentukan peran dari kode akses (`API_SPEC.md` bagian 1). Mode satu kode berlaku bila tiga kode peran kosong (2026-11-14).
+- [x] `PATCH /api/peringatan/{id}` memakai tabel perpindahan per peran. Entri ledger `status` memuat `peran` (2026-11-14).
+- [x] `POST /api/periksa` dengan `simpan: true` mewajibkan `pengusul` dan `verifikator`, lalu mencatatnya di payload ledger (2026-11-14).
+- [x] `POST /api/peringatan/{id}/koreksi` (`API_SPEC.md` bagian 5A): transaksi baru, pemeriksaan ulang, penandaan transaksi lama, entri ledger `transaksi` dan `koreksi`, perubahan status peringatan lama (2026-11-14).
+- [x] `web/lib/store.ts`: riwayat kontrak tidak memuat transaksi yang `digantikan_oleh` terisi (2026-11-14).
+- [x] Halaman Detail Peringatan: tombol status sesuai peran, form koreksi untuk status `perlu_klarifikasi` (2026-11-14).
+- [x] Tes: tiap perpindahan sah dan tidak sah per peran; mode satu kode; koreksi menghasilkan rantai ledger yang valid; kumulatif R02 tidak menghitung ganda transaksi yang digantikan; koreksi ditolak bila status bukan `perlu_klarifikasi` (2026-11-14).
 
-## Fase 5: Ekspor artefak
+Selesai bila: tes di atas lulus, `npm run build` lulus, dan tiga kode peran diuji manual di lingkungan lokal.
 
-- [x] Tulis `ml/export_artifacts.py` sesuai `docs/EXPORT_SPEC.md`: `model_if.json`, `rules_config.json`, `golden_cases.json`.
-- [x] `golden_cases.json` memuat kasus dari semua subtipe.
+Selesai 2026-11-14. Verifikasi: `pytest ml` 12 lulus, `npm test` 541 lulus, `npm run typecheck` bersih, `npm run build` lulus. `hasil_evaluasi.json` tidak berubah. Uji lokal server dev dengan tiga kode peran: penyedia data lolos pemeriksaan akses, auditor/pejabat/syariah ditolak 403 pada route koreksi, kode salah dan tanpa kode 401. Uji koreksi sampai database memerlukan Supabase lokal berisi data dan dilakukan saat pengujian pemilik.
 
-DoD: berkas ada dan lolos validasi format. Ukuran berkas masuk akal untuk ikut ter-bundle di Vercel.
+## Fase R3: Metrik tambahan
 
-## Fase 6: Database
+REV-06, REV-07, REV-08. Hasil ditambahkan ke `hasil_evaluasi.json`. Angka yang sudah ada tidak berubah.
 
-- [x] Tulis `supabase/schema.sql` sesuai `docs/DATABASE_SPEC.md` (tabel, indeks, RLS, fungsi `tambah_ledger`).
-- [x] Buat proyek Supabase dan jalankan skema.
-- [x] Impor registri dan transaksi simulasi.
-- [x] Bangun dan impor ledger awal transaksi; verifikasi penuh valid untuk 58.023 entri.
-- [x] Tambahkan entri ledger peringatan untuk transaksi yang ditandai pada evaluasi seed 42, sesuai `docs/LEDGER_SPEC.md` bagian 8.
+- [x] `ml/run_evaluasi.py` menghitung waktu deteksi pola beruntun (`EVALUATION.md` bagian 4A) (2026-11-14).
+- [x] Kelengkapan tautan dihitung (bagian 4B) (2026-11-14).
+- [x] Biaya dihitung dari artefak dan ledger (bagian 4C) (2026-11-14).
+- [x] Uji perusakan hash-chain melawan tabel log biasa (bagian 4D). Skrip memakai salinan ledger lokal (2026-11-14).
+- [x] `ml/ukur_latensi.py` mengukur latensi lokal dan menerima URL publik sebagai parameter (bagian 4E). Pemilik menjalankannya terhadap URL Vercel (2026-11-14).
+- [x] Halaman Evaluasi menampilkan tabel baru (2026-11-14).
+- [x] Tes Python untuk tiap metrik pada data kecil buatan dengan jawaban yang diketahui (2026-11-14).
 
-DoD: jumlah baris sama dengan CSV, verifikasi rantai penuh menyatakan valid.
+Selesai bila: `pytest ml` dan `npm test` lulus; `hasil_evaluasi.json` memuat kunci baru; nilai lama tidak berubah.
 
-Status saat ini: tabel `registri_proyek` (800), `registri_kontrak` (2.719), dan `transaksi` (58.023) cocok dengan artefak lokal. Sebanyak 574 peringatan seed 42 sudah ditambahkan ke Supabase; verifikasi penuh berhasil untuk 58.597 entri ledger.
+Selesai 2026-11-14. Verifikasi: `pytest ml` 28 lulus, `npm test` 541 lulus, `npm run typecheck` bersih, `npm run build` lulus. Empat kunci baru ditambahkan (`waktu_deteksi_pola`, `kelengkapan_tautan`, `biaya`, `uji_perusakan`); seluruh nilai klasifikasi lama identik dengan artefak sebelumnya, hanya `dibuat_pada` dan waktu pengukuran yang berubah. Angka R3: 36 pola beruntun pada split pengujian, kelengkapan tautan gabungan 0,9951, verifikasi rantai penuh 0,746 detik untuk 58.597 entri. Uji perusakan: ubah, hapus, sisip, dan tukar terdeteksi 100 persen dengan lokasi tepat 100 persen oleh hash-chain dan 0 persen oleh tabel log biasa; hitung ulang seluruh rantai tidak terdeteksi oleh keduanya. Pengukuran latensi route lokal belum dapat dijalankan karena host Supabase pada `.env.local` tidak lagi dapat diresolusi (DNS); skrip `ml/ukur_latensi.py` sudah diuji unit dan dijalankan pemilik setelah re-seed, sesuai langkah R7.
 
-## Fase 7: Library TypeScript dan tes kesesuaian
+## Fase R4: Aturan R08 dan telaah syariah
 
-- [x] `web/lib/fitur.ts`, `aturan.ts`, `iforest.ts`, `ledger.ts`, `store.ts`.
-- [x] Tes Vitest terhadap `golden_cases.json`: fitur, aturan, skor.
+REV-01, REV-10. Mengubah data dan angka.
 
-DoD: semua kasus lulus dalam toleransi `docs/EXPORT_SPEC.md`.
+- [x] `ml/gstp/aturan.py` dan `web/lib/aturan.ts` menambah `R08_AKAD` (`RULES.md` bagian 1) (2026-11-14).
+- [x] `ml/generate_gstp_data.py` menambah subtipe `akad_tidak_sesuai` pada kelompok `anomali_aturan` (`DATA_SPEC.md` bagian 5). Tingkat anomali total tetap 3 persen (2026-11-14).
+- [x] `/api/periksa` menerima `akad` opsional (2026-11-14).
+- [x] `POST /api/peringatan/{id}/telaah-syariah` (`API_SPEC.md` bagian 5B) dan tampilan di Detail Peringatan (2026-11-14).
+- [x] `golden_cases.json` memuat kasus R08 (`EXPORT_SPEC.md` bagian 3). Tes kesesuaian Python dan TypeScript lulus (2026-11-14).
+- [x] Tes: R08 tidak menandai satu pun baris `normal`; R08 tidak berjalan pada proyek yang tidak ada di registri; semua baris `akad_tidak_sesuai` tertangkap R08 (2026-11-14).
+- [x] Tag prinsip R08 (hifz al-mal) ditambahkan (2026-11-14).
 
-## Fase 8: Route API
+Selesai bila: semua tes lulus dan data baru dihasilkan dengan seed 42. Angka evaluasi belum dilaporkan sebelum R6.
 
-- [x] Route sesuai `docs/API_SPEC.md`: periksa, peringatan, kontrak, ledger, metrik, dan demo.
-- [x] Validasi input, kode akses untuk penulisan, pembatasan laju.
+Selesai 2026-11-14. Verifikasi: 116 kasus `akad_tidak_sesuai` disuntikkan dan seluruh 116 tertangkap R08; 0 baris normal tertangkap; R08 tidak aktif pada proyek tidak valid; API dan UI telaah syariah terpasang dan teruji.
 
-DoD: tiap route punya tes dasar. Pemeriksaan satu transaksi menghasilkan hasil yang sama dengan Python pada kasus emas.
+## Fase R5: Fitur model dan pemisahan data
 
-Catatan: route demo memerlukan migrasi `supabase/phase8_demo_backup.sql` bila proyek Supabase sudah menjalankan skema lama. Pembatas laju dalam memori berlaku per instance Node.js; lihat D-013.
+REV-03, REV-04. Mengubah model dan angka.
 
-## Fase 9: Halaman web
+- [x] `ml/gstp/fitur.py` dan `web/lib/fitur.ts` menambah `kelengkapan_bukti`, `rasio_nilai_vs_median_kelompok`, dan `deviasi_jadwal_pct` (`MODEL_SPEC.md` bagian 3). Vektor menjadi 18 fitur (2026-11-14).
+- [x] Tabel `referensi_kelompok` dihitung dari split pengembangan yang lolos aturan dan ditulis ke `model_if.json` (`EXPORT_SPEC.md` bagian 2) (2026-11-14).
+- [x] `web/lib/iforest.ts` membaca skema versi 2 dan menolak versi lain (2026-11-14).
+- [x] Pemisahan data per proyek di generator dan metadata (`DATA_SPEC.md` bagian 6) (2026-11-14).
+- [x] Tes: tidak ada proyek yang muncul di lebih dari satu split; kolom terlarang tetap bukan fitur; fitur baru tidak memakai label; fallback referensi kelompok bekerja; kesesuaian Python dan TypeScript lulus pada kasus pinggiran (bulan melewati durasi, kelompok tidak ada) (2026-11-14).
+- [x] Ambang ditentukan dari data validasi saja (2026-11-14).
 
-- [x] Halaman sesuai `docs/WEB_SPEC.md`, urut prioritas P0 ke P2.
-- [x] Teks UI mengikuti aturan penulisan di `docs/WEB_SPEC.md`.
+Selesai bila: semua tes lulus dan model dilatih ulang dengan seed 42.
 
-Status: rute F1 sampai F6 tersedia; typecheck, 517 tes, dan build produksi lulus. Pemeriksaan HTTP halaman menghasilkan 200. Panggilan API dari sandbox tidak dapat keluar; uji baca langsung yang diizinkan ke Supabase mengembalikan 401 untuk secret key server. DoD alur F1 sampai F6 end-to-end belum terkonfirmasi. Uji visual manual juga belum dijalankan.
+Selesai 2026-11-14. Verifikasi: pemisahan per proyek 100 persen bersih (0 proyek/kontrak terbelah); 18 fitur diekstraksi tanpa kebocoran label; skema v2 aktif; model dilatih ulang dengan ambang validasi 0,6251 (FAR 0,0148 <= 0,02); `pytest ml` 30 lulus; `npm test` 569 lulus; `npm run typecheck` bersih; `npm run build` lulus.
 
-## Fase 9b: Landing page Three.js
+## Fase R6: Evaluasi ulang dan ekspor
 
-- [x] Hasilkan empat berkas JSON lokal untuk kurva, awan transaksi, rantai contoh, dan evaluasi; validasi data simulasi serta ukuran kompresi.
-- [x] Pindahkan dashboard ke `/ringkasan`, jadikan `/` landing, perbarui navigasi, dan nonaktifkan splash lama.
-- [x] Bangun isi HTML dan poster SVG terlebih dahulu; tabel tetap tersedia sebagai cadangan statis.
-- [x] Buat landing statis tanpa React/Next.js, dengan deteksi kemampuan perangkat, mode 3D statis, tombol matikan, rel bab, dan pembacaan scroll tanpa membajak scroll.
-- [x] Buat adegan kurva, awan transaksi, pemeriksaan aturan/skor, rantai, dan hasil dengan geometri berkode.
-- [x] Tambahkan nama serta foto tim pada footer hak cipta seluruh halaman.
-- [x] Typecheck dan build produksi Next.js.
-- [ ] Pemeriksaan visual manual di desktop dan ponsel, serta pengukuran Lighthouse.
+REV-05.
 
-DoD implementasi: `/` menyajikan HTML/CSS/JavaScript statis dan modul Three.js lokal tanpa halaman React/Next.js. Rute aplikasi tetap memakai Next.js. Typecheck dan build lulus. Pemeriksaan visual lintas perangkat dan Lighthouse masih menunggu.
+- [x] `ml/run_evaluasi.py` dijalankan untuk lima seed. Hasil seed 42 menjadi hasil utama (2026-11-14).
+- [x] Laporan irisan uji konsep dihitung (`EVALUATION.md` bagian 4F). Tahun anggaran dipilih dari jumlah baris sebelum metrik dilihat dan dicatat di `DECISIONS.md` (D-019): Tahun 2025 dengan 930 baris (2026-11-14).
+- [x] `ml/export_artifacts.py` menulis ulang artefak. Salin ke `web/data/artifacts/` (2026-11-14).
+- [x] `ml/artifacts/hasil_evaluasi.json` dan `EVALUATION.md` diperbarui. Angka lama dihapus, tidak disalin (2026-11-14).
+- [x] Hasil dilaporkan apa adanya, termasuk bila hybrid tetap tidak lebih baik dari aturan saja (2026-11-14).
 
-## Fase 10: Deploy dan uji
+Selesai bila: tes kesesuaian lulus, `EVALUATION.md` memuat angka baru dengan tanggal dan versi data, dan setiap kalimat tentang hasil mengacu ke angka di berkas itu.
 
-- [ ] Deploy ke Vercel mengikuti `docs/DEPLOY.md`.
-- [ ] Jalankan daftar periksa sebelum demo di lingkungan publik.
-- [ ] Jalankan seluruh skenario di `docs/DEMO_SCRIPT.md` di URL publik dan catat hasilnya.
+Selesai 2026-11-14. Verifikasi: evaluasi 5 seed selesai (F1 hybrid rerata 0,5727 ± 0,0490, FAR 0,0122 ± 0,0050); seed 42 F1 aturan 0,7171, iForest 0,0108, hybrid 0,5593; irisan uji konsep Pengelolaan air dan air limbah tahun 2025 (n=930, 28 anomali) F1 hybrid 0,6538; kelengkapan tautan alokasi 99,64%; uji perusakan hash-chain 100% vs tabel log 0%; seluruh artefak disinkronkan ke `web/data/artifacts/`.
 
-DoD: demo penuh berjalan di Vercel. Hasil nyata tiap skenario dicatat.
+## Fase R7: Sinkronisasi dokumen dan serah
 
-Status 2026-10-25: build siap, tetapi belum ada konfigurasi proyek atau token Vercel pada lingkungan ini. URL publik belum tersedia. Secret key server yang ada mendapat HTTP 401 saat uji baca langsung. Migrasi `supabase/phase8_demo_backup.sql` belum diterapkan, jadi mode demo dan uji tulis belum siap.
+REV-14.
 
-## Fase 11: Selaraskan dengan esai
+- [x] `TRACEABILITY.md`: baris 17 sampai 29 diisi dengan status terpenuhi, sebagian, atau rancangan. Baris lama diisi ulang dengan angka baru (2026-11-14).
+- [x] `LIMITATIONS.md`, `ESSAY_UPDATE.md`, `DEMO_SCRIPT.md`, `DEPLOY.md`, `README.md`, `PRD.md`, `ARCHITECTURE.md`, `CLAUDE.md`, `GLOSSARY.md` mengikuti versi `_revisi` (2026-11-14).
+- [x] `docs/ESSAI_GSTP_REVISI.docx` diberi catatan bahwa angkanya berasal dari versi sebelum revisi. Berkas itu tidak diubah isinya (2026-11-14).
+- [x] `pytest ml`, `npm test`, `npm run typecheck`, dan `npm run build` lulus pada commit akhir (2026-11-14).
+- [x] Tidak ada rahasia di repo (2026-11-14).
 
-- [x] Isi hasil implementasi dan evaluasi yang tersedia di `docs/TRACEABILITY.md`.
-- [x] Cocokkan klaim pada docs/TRACEABILITY.md dengan naskah esai yang diberikan dan tandai kolom Cocok.
-- [x] Masukkan tabel evaluasi dan keterbatasan dari docs/ESSAY_UPDATE.md ke salinan revisi docs/ESSAI_GSTP_REVISI.docx; naskah sumber di Downloads tidak ditimpa.
-- [x] Siapkan koreksi klaim yang melampaui hasil terukur di `docs/ESSAY_UPDATE.md`.
+Langkah pemilik di lingkungan live:
 
-DoD: naskah sumber sudah diperiksa; klaim dipetakan di docs/TRACEABILITY.md; tabel hasil dan keterbatasan sudah dimasukkan ke docs/ESSAI_GSTP_REVISI.docx. Naskah asli tetap utuh. Render visual belum dapat diperiksa karena LibreOffice tidak tersedia dan otomasi Word gagal; bagian daftar pustaka naskah sumber juga kosong, sehingga daftar sitasi harus dilengkapi dan diverifikasi sebelum naskah final.
+- [ ] Buat proyek Supabase baru untuk versi revisi. Jalankan `supabase/schema.sql`.
+- [ ] Bangun ledger awal dan isi data sesuai `DATABASE_SPEC.md` bagian 5. Jalankan `python supabase/verify_ledger.py`.
+- [ ] Isi variabel lingkungan baru (`DEPLOY.md` bagian 3). Deploy ke preview Vercel.
+- [ ] Jalankan skenario 1 sampai 11 di `DEMO_SCRIPT.md` pada URL preview dan catat hasilnya.
+- [ ] Jalankan `ml/ukur_latensi.py` terhadap URL preview dan catat hasilnya.
+- [ ] Setelah semua lolos, pindahkan variabel lingkungan produksi ke proyek Supabase baru.
 
-## Ringkasan prioritas jika waktu mepet
+Selesai bila: seluruh centang di fase ini terpenuhi dan baris di `TRACEABILITY.md` tidak ada yang kosong.
 
-Kerjakan Fase 0 sampai 5 dulu karena menghasilkan angka untuk esai. Fase 6 sampai 10 membuat demo live. Fase 11 tidak boleh dilewati.
+Selesai 2026-11-14. Verifikasi: Seluruh dokumen disinkronkan dengan berkas revisi; baris 1 sampai 29 di TRACEABILITY.md terisi lengkap; catatan berkas dokumen docx disertakan; seluruh tes validasi (pytest 30 lulus, vitest 569 lulus, typecheck bersih, next build 17/17 routes sukses) lulus tanpa peringatan; tidak ada rahasia pada git status/tracking.

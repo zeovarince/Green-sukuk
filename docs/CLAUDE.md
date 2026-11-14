@@ -1,10 +1,12 @@
-# CLAUDE.md
+# CLAUDE.md (revisi)
+
+> Versi revisi 2026-11-13, draf menunggu persetujuan pemilik. Menggantikan `CLAUDE.md` setelah disetujui. Revisi: REV-01, REV-04, REV-09 (delapan aturan, split per proyek, peran). Rincian di `PERUBAHAN_revisi.md`.
 
 Instruksi untuk tool ngoding (Claude Code atau sejenisnya) pada repo ini. Baca file ini dulu di setiap sesi, lalu `PRD.md`, `ARCHITECTURE.md`, dan `TASKS.md`. Baca spesifikasi di `docs/` hanya yang relevan dengan tugas.
 
 ## Konteks singkat
 
-GSTP adalah prototipe pemeriksa alokasi Green Sukuk untuk esai kompetisi. Komponen: rule engine (7 aturan), skor Isolation Forest, ledger hash-chain, dan web live di Vercel dengan database Supabase. Semua data adalah simulasi buatan generator di `ml/generate_gstp_data.py`.
+GSTP adalah prototipe pemeriksa alokasi Green Sukuk untuk esai kompetisi. Komponen: rule engine (8 aturan), skor Isolation Forest, ledger hash-chain, dan web live di Vercel dengan database Supabase. Semua data adalah simulasi buatan generator di `ml/generate_gstp_data.py`.
 
 ## Stack
 
@@ -31,13 +33,16 @@ cd web && npm run build
 
 1. Seed acak selalu 42 kecuali ada alasan tertulis di `docs/DECISIONS.md`.
 2. Kolom `label_anomali`, `kelompok_kasus`, `subtipe_kasus`, dan `split` tidak boleh menjadi fitur model. Lihat `docs/DATA_SPEC.md`.
-3. Pembagian data selalu berdasarkan waktu: pengembangan, validasi, pengujian. Ambang model hanya boleh ditentukan dari data validasi. Data pengujian dipakai sekali untuk laporan akhir.
-4. Isolation Forest hanya menilai transaksi yang lolos tujuh aturan. Lihat `docs/MODEL_SPEC.md`.
+3. Pembagian data selalu per proyek, diurutkan menurut tanggal transaksi pertama (`docs/DATA_SPEC.md` bagian 6, D-017): pengembangan, validasi, pengujian. Ambang model hanya boleh ditentukan dari data validasi. Data pengujian dipakai sekali untuk laporan akhir.
+4. Isolation Forest hanya menilai transaksi yang lolos delapan aturan. Lihat `docs/MODEL_SPEC.md`.
 5. Logika aturan dan fitur ada di dua bahasa (Python dan TypeScript). Setiap perubahan di salah satunya wajib diikuti tes kesesuaian dengan `golden_cases.json`. Tes harus lulus sebelum commit. Lihat `docs/EXPORT_SPEC.md`.
 6. Kunci `SUPABASE_SERVICE_ROLE_KEY` hanya boleh dibaca di kode server. Jangan pernah memakai prefiks `NEXT_PUBLIC_` untuk rahasia. Jangan commit file `.env`.
 7. Ledger bersifat append-only. Tidak ada UPDATE atau DELETE pada `ledger_entri` di kode aplikasi. Koreksi dicatat sebagai entri baru. Satu-satunya pengecualian adalah endpoint demo perusakan yang dijaga `DEMO_MODE`. Lihat `docs/LEDGER_SPEC.md`.
 8. Hasil sistem disebut "peringatan" atau "temuan", bukan "fraud" atau "pelanggaran terbukti". Ini berlaku di UI, komentar, dan dokumen.
 9. Jangan mengklaim bahwa ledger adalah blockchain Hyperledger Fabric. Sebut "ledger simulasi hash-chain".
+10. Peran (penyedia data, auditor, pejabat berwenang, otoritas syariah) ditentukan server dari kode akses, tidak pernah dari klien. Peran adalah simulasi, jangan disebut autentikasi. Bila tiga kode peran kosong, berlaku mode satu kode (D-015).
+11. Koreksi tidak mengubah entri ledger lama. Koreksi membuat transaksi baru dan menandai yang lama dengan `digantikan_oleh`. Query riwayat kontrak selalu mengecualikan baris yang digantikan.
+12. R08 hanya mencocokkan akad dengan registri. Jangan menulis bahwa sistem menilai kesesuaian syariah. Telaah syariah hanya dicatat oleh peran otoritas syariah.
 
 ## Gaya kerja
 

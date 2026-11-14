@@ -2,120 +2,126 @@
   "dibuat_pada": "2026-11-14",
   "seed_utama": 42,
   "ambang": {
-    "nilai": 0.665,
+    "nilai": 0.6251,
     "cara": "maks F1 validasi baris lolos aturan dengan batas FAR 2 persen",
-    "f1_validasi": 0.0,
-    "far_validasi": 0.02,
-    "ambang_iforest_saja": 0.7039
+    "f1_validasi": 0.0166,
+    "far_validasi": 0.0148,
+    "ambang_iforest_saja": 0.6464
   },
   "pengujian": {
     "aturan_saja": {
       "precision": 1.0,
-      "recall": 0.4935,
-      "f1": 0.6608,
+      "recall": 0.559,
+      "f1": 0.7171,
       "far": 0.0,
-      "peringatan_per_1000": 16.32,
-      "tp": 189,
+      "peringatan_per_1000": 15.56,
+      "tp": 180,
       "fp": 0,
-      "fn": 194,
-      "tn": 11200
+      "fn": 142,
+      "tn": 11249
     },
     "iforest_saja": {
-      "precision": 0.8333,
-      "recall": 0.0392,
-      "f1": 0.0748,
-      "far": 0.0003,
-      "peringatan_per_1000": 1.55,
-      "tp": 15,
-      "fp": 3,
-      "fn": 368,
-      "tn": 11197
+      "precision": 0.0408,
+      "recall": 0.0062,
+      "f1": 0.0108,
+      "far": 0.0042,
+      "peringatan_per_1000": 4.23,
+      "tp": 2,
+      "fp": 47,
+      "fn": 320,
+      "tn": 11202
     },
     "hybrid": {
-      "precision": 0.3293,
-      "recall": 0.4935,
-      "f1": 0.395,
-      "far": 0.0344,
-      "peringatan_per_1000": 49.56,
-      "tp": 189,
-      "fp": 385,
-      "fn": 194,
-      "tn": 10815
+      "precision": 0.5476,
+      "recall": 0.5714,
+      "f1": 0.5593,
+      "far": 0.0135,
+      "peringatan_per_1000": 29.04,
+      "tp": 184,
+      "fp": 152,
+      "fn": 138,
+      "tn": 11097
     }
   },
   "recall_per_subtipe": {
+    "akad_tidak_sesuai": {
+      "n": 27,
+      "aturan_saja": 1.0,
+      "iforest_saja": 0.0,
+      "hybrid": 1.0
+    },
     "bukti_wajib_hilang": {
-      "n": 26,
+      "n": 22,
       "aturan_saja": 1.0,
       "iforest_saja": 0.0,
       "hybrid": 1.0
     },
     "hash_tidak_cocok": {
-      "n": 32,
+      "n": 20,
       "aturan_saja": 1.0,
       "iforest_saja": 0.0,
       "hybrid": 1.0
     },
     "id_proyek_tidak_valid": {
-      "n": 25,
+      "n": 22,
       "aturan_saja": 1.0,
       "iforest_saja": 0.0,
       "hybrid": 1.0
     },
     "kategori_tidak_memenuhi_syarat": {
-      "n": 19,
+      "n": 18,
       "aturan_saja": 1.0,
       "iforest_saja": 0.0,
       "hybrid": 1.0
     },
     "lonjakan_tanpa_progres": {
-      "n": 55,
+      "n": 59,
       "aturan_saja": 0.0,
       "iforest_saja": 0.0,
-      "hybrid": 0.0
+      "hybrid": 0.0678
     },
     "melebihi_pagu": {
-      "n": 26,
+      "n": 3,
       "aturan_saja": 1.0,
-      "iforest_saja": 0.5769,
+      "iforest_saja": 0.6667,
       "hybrid": 1.0
     },
     "milestone_belum_terverifikasi": {
-      "n": 23,
+      "n": 31,
       "aturan_saja": 1.0,
       "iforest_saja": 0.0,
       "hybrid": 1.0
     },
     "pemecahan_pencairan": {
-      "n": 36,
+      "n": 28,
       "aturan_saja": 0.0,
       "iforest_saja": 0.0,
       "hybrid": 0.0
     },
     "pencairan_setelah_selesai": {
-      "n": 50,
+      "n": 13,
       "aturan_saja": 0.0,
       "iforest_saja": 0.0,
       "hybrid": 0.0
     },
     "persetujuan_wajib_hilang": {
-      "n": 38,
+      "n": 37,
       "aturan_saja": 1.0,
       "iforest_saja": 0.0,
       "hybrid": 1.0
     },
     "progres_stagnan_tapi_cair": {
-      "n": 53,
+      "n": 42,
       "aturan_saja": 0.0,
       "iforest_saja": 0.0,
       "hybrid": 0.0
     }
   },
   "false_alarm_normal_tidak_lazim_sah": {
-    "n": 1401,
+    "n": 1397,
     "aturan_saja": 0.0,
-    "iforest_saja": 0.0021,
-    "hybrid": 0.2748
+    "iforest_saja": 0.0336,
+    "hybrid": 0.1088
   },
   "beberapa_seed": {
     "seed": [
@@ -125,17 +131,17 @@
       45,
       46
     ],
-    "f1_hybrid_rerata": 0.3894,
-    "f1_hybrid_sd": 0.0049,
-    "far_hybrid_rerata": 0.0356,
-    "far_hybrid_sd": 0.0011
+    "f1_hybrid_rerata": 0.5727,
+    "f1_hybrid_sd": 0.049,
+    "far_hybrid_rerata": 0.0122,
+    "far_hybrid_sd": 0.005
   },
   "latensi_ms": {
     "lokal": 0.03,
     "vercel": 0.0
   },
   "waktu_deteksi_pola": {
-    "jumlah_pola": 36,
+    "jumlah_pola": 27,
     "aturan_saja": {
       "terdeteksi_pct": 0.0,
       "median_posisi": null
@@ -159,15 +165,6 @@
         }
       },
       {
-        "kontrak_id": "PRJ-0036-K01",
-        "panjang": 3,
-        "posisi_terdeteksi": {
-          "aturan_saja": null,
-          "iforest_saja": null,
-          "hybrid": null
-        }
-      },
-      {
         "kontrak_id": "PRJ-0042-K04",
         "panjang": 2,
         "posisi_terdeteksi": {
@@ -177,8 +174,8 @@
         }
       },
       {
-        "kontrak_id": "PRJ-0085-K02",
-        "panjang": 2,
+        "kontrak_id": "PRJ-0054-K03",
+        "panjang": 4,
         "posisi_terdeteksi": {
           "aturan_saja": null,
           "iforest_saja": null,
@@ -213,15 +210,6 @@
         }
       },
       {
-        "kontrak_id": "PRJ-0184-K02",
-        "panjang": 3,
-        "posisi_terdeteksi": {
-          "aturan_saja": null,
-          "iforest_saja": null,
-          "hybrid": null
-        }
-      },
-      {
         "kontrak_id": "PRJ-0264-K03",
         "panjang": 2,
         "posisi_terdeteksi": {
@@ -249,26 +237,8 @@
         }
       },
       {
-        "kontrak_id": "PRJ-0302-K01",
-        "panjang": 2,
-        "posisi_terdeteksi": {
-          "aturan_saja": null,
-          "iforest_saja": null,
-          "hybrid": null
-        }
-      },
-      {
         "kontrak_id": "PRJ-0341-K04",
         "panjang": 2,
-        "posisi_terdeteksi": {
-          "aturan_saja": null,
-          "iforest_saja": null,
-          "hybrid": null
-        }
-      },
-      {
-        "kontrak_id": "PRJ-0359-K01",
-        "panjang": 1,
         "posisi_terdeteksi": {
           "aturan_saja": null,
           "iforest_saja": null,
@@ -321,24 +291,6 @@
         }
       },
       {
-        "kontrak_id": "PRJ-0457-K03",
-        "panjang": 3,
-        "posisi_terdeteksi": {
-          "aturan_saja": null,
-          "iforest_saja": null,
-          "hybrid": null
-        }
-      },
-      {
-        "kontrak_id": "PRJ-0497-K03",
-        "panjang": 3,
-        "posisi_terdeteksi": {
-          "aturan_saja": null,
-          "iforest_saja": null,
-          "hybrid": null
-        }
-      },
-      {
         "kontrak_id": "PRJ-0507-K02",
         "panjang": 3,
         "posisi_terdeteksi": {
@@ -348,8 +300,8 @@
         }
       },
       {
-        "kontrak_id": "PRJ-0550-K03",
-        "panjang": 4,
+        "kontrak_id": "PRJ-0510-K01",
+        "panjang": 3,
         "posisi_terdeteksi": {
           "aturan_saja": null,
           "iforest_saja": null,
@@ -366,34 +318,7 @@
         }
       },
       {
-        "kontrak_id": "PRJ-0628-K02",
-        "panjang": 2,
-        "posisi_terdeteksi": {
-          "aturan_saja": null,
-          "iforest_saja": null,
-          "hybrid": null
-        }
-      },
-      {
         "kontrak_id": "PRJ-0663-K02",
-        "panjang": 2,
-        "posisi_terdeteksi": {
-          "aturan_saja": null,
-          "iforest_saja": null,
-          "hybrid": null
-        }
-      },
-      {
-        "kontrak_id": "PRJ-0666-K02",
-        "panjang": 1,
-        "posisi_terdeteksi": {
-          "aturan_saja": null,
-          "iforest_saja": null,
-          "hybrid": null
-        }
-      },
-      {
-        "kontrak_id": "PRJ-0674-K05",
         "panjang": 2,
         "posisi_terdeteksi": {
           "aturan_saja": null,
@@ -476,28 +401,28 @@
     ]
   },
   "kelengkapan_tautan": {
-    "n": 11583,
-    "proyek_valid": 0.9978,
-    "kontrak_milik_proyek": 0.9978,
-    "hash_cocok": 0.9972,
+    "n": 11571,
+    "proyek_valid": 0.9981,
+    "kontrak_milik_proyek": 0.9981,
+    "hash_cocok": 0.9983,
     "entri_ledger": 1.0,
-    "gabungan": 0.9951,
+    "gabungan": 0.9964,
     "seluruh_data": {
       "n": 58023,
-      "proyek_valid": 0.9982,
-      "kontrak_milik_proyek": 0.9982,
-      "hash_cocok": 0.9972,
+      "proyek_valid": 0.9983,
+      "kontrak_milik_proyek": 0.9983,
+      "hash_cocok": 0.9977,
       "entri_ledger": 1.0,
-      "gabungan": 0.9954
+      "gabungan": 0.996
     }
   },
   "biaya": {
-    "ukuran_model_kb": 622.67,
-    "waktu_latih_detik": 0.745,
-    "waktu_inferensi_ms": 0.031,
-    "waktu_verifikasi_penuh_detik": 0.746,
+    "ukuran_model_kb": 591.81,
+    "waktu_latih_detik": 0.444,
+    "waktu_inferensi_ms": 0.028,
+    "waktu_verifikasi_penuh_detik": 0.478,
     "baris_transaksi": 58023,
-    "ukuran_transaksi_csv_kb": 18685.77,
+    "ukuran_transaksi_csv_kb": 18685.32,
     "baris_ledger": 58597,
     "ukuran_ledger_csv_kb": 34955.47,
     "catatan": "Ukuran tabel Supabase dan paket layanan Vercel/Supabase diisi pemilik dari dashboard saat pengukuran deployment."
@@ -557,5 +482,92 @@
       }
     },
     "catatan": "Tabel log biasa tidak memiliki hash, sehingga tidak mendeteksi perubahan apa pun. Skenario hitung ulang seluruh rantai tidak terdeteksi oleh keduanya. Pemotongan entri terakhir juga tidak terdeteksi tanpa hash jangkar di luar basis data, jadi skenario hapus dibatasi pada entri yang memiliki penerus."
+  },
+  "irisan_uji_konsep": {
+    "kategori": "Pengelolaan air dan air limbah",
+    "tahun": 2025,
+    "alasan_pemilihan_tahun": "Tahun kalender penuh dengan jumlah baris terbanyak pada irisan data pengujian sebelum melihat metrik (D-019)",
+    "n": 930,
+    "anomali_total": 28,
+    "pengujian": {
+      "aturan_saja": {
+        "precision": 1.0,
+        "recall": 0.5714,
+        "f1": 0.7273,
+        "far": 0.0,
+        "peringatan_per_1000": 17.2,
+        "tp": 16,
+        "fp": 0,
+        "fn": 12,
+        "tn": 902
+      },
+      "iforest_saja": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "far": 0.0011,
+        "peringatan_per_1000": 1.08,
+        "tp": 0,
+        "fp": 1,
+        "fn": 28,
+        "tn": 901
+      },
+      "hybrid": {
+        "precision": 0.7083,
+        "recall": 0.6071,
+        "f1": 0.6538,
+        "far": 0.0078,
+        "peringatan_per_1000": 25.81,
+        "tp": 17,
+        "fp": 7,
+        "fn": 11,
+        "tn": 895
+      }
+    },
+    "recall_per_subtipe": {
+      "bukti_wajib_hilang": {
+        "n": 2,
+        "aturan_saja": 1.0,
+        "iforest_saja": 0.0,
+        "hybrid": 1.0
+      },
+      "hash_tidak_cocok": {
+        "n": 2,
+        "aturan_saja": 1.0,
+        "iforest_saja": 0.0,
+        "hybrid": 1.0
+      },
+      "id_proyek_tidak_valid": {
+        "n": 3,
+        "aturan_saja": 1.0,
+        "iforest_saja": 0.0,
+        "hybrid": 1.0
+      },
+      "lonjakan_tanpa_progres": {
+        "n": 7,
+        "aturan_saja": 0.0,
+        "iforest_saja": 0.0,
+        "hybrid": 0.1429
+      },
+      "milestone_belum_terverifikasi": {
+        "n": 6,
+        "aturan_saja": 1.0,
+        "iforest_saja": 0.0,
+        "hybrid": 1.0
+      },
+      "persetujuan_wajib_hilang": {
+        "n": 3,
+        "aturan_saja": 1.0,
+        "iforest_saja": 0.0,
+        "hybrid": 1.0
+      },
+      "progres_stagnan_tapi_cair": {
+        "n": 5,
+        "aturan_saja": 0.0,
+        "iforest_saja": 0.0,
+        "hybrid": 0.0
+      }
+    },
+    "catatan": "Irisan kecil (n=930); metrik subtipe dengan n sangat kecil tidak stabil."
   }
 }

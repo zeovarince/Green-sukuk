@@ -1,4 +1,6 @@
-# GSTP Prototype
+# GSTP Prototype (revisi)
+
+> Versi revisi 2026-11-13, draf menunggu persetujuan pemilik. Menggantikan `README.md` setelah disetujui. Revisi: REV-01, REV-14 (delapan aturan, penunjuk ke dokumen revisi). Rincian di `docs/PERUBAHAN_revisi.md`.
 
 Prototipe Green Sukuk Traceability Protocol (GSTP): sistem pemeriksa alokasi dana Green Sukuk yang menggabungkan aturan deterministik, skor anomali Isolation Forest, dan catatan hash-chain yang tidak bisa diubah diam-diam.
 
@@ -7,11 +9,12 @@ Seluruh data adalah simulasi. Angka, kode seri, dan nama proyek bersifat ilustra
 ## Apa yang dilakukan prototipe ini
 
 1. Menerima data pencairan baru lewat form web.
-2. Memeriksa tujuh aturan (identitas proyek, pagu, persetujuan, kategori, hash dokumen, milestone, kelengkapan bukti).
+2. Memeriksa delapan aturan (identitas proyek, pagu, persetujuan, kategori, hash dokumen, milestone, kelengkapan bukti, kesesuaian akad).
 3. Untuk transaksi yang lolos aturan, menghitung skor anomali Isolation Forest.
 4. Menggabungkan temuan menjadi daftar peringatan untuk auditor. Peringatan adalah prioritas pemeriksaan, bukan penetapan fraud.
 5. Mencatat setiap kejadian ke ledger hash-chain dan menyediakan verifikasi rantai.
 6. Membandingkan tiga pendekatan (aturan saja, Isolation Forest saja, hybrid) pada data simulasi.
+7. Membedakan peran penyedia data, auditor, pejabat berwenang, dan otoritas syariah lewat kode akses (simulasi), serta mencatat koreksi data sebagai entri baru.
 
 ## Struktur repo
 
@@ -42,6 +45,10 @@ cd web && npm install && npm run dev
 ```
 
 Urutan lengkap dan kriteria selesai ada di `TASKS.md`. Cara deploy ada di `docs/DEPLOY.md`.
+
+## Revisi prototipe
+
+Revisi menyelaraskan prototipe dengan esai dan slide. Esai dan slide tidak berubah. Setiap berkas `*_revisi.md` di `docs/` adalah versi lengkap dari berkas aslinya, dan berkas asli belum diganti. Mulai dari `docs/PERUBAHAN_revisi.md` (daftar revisi REV-01 sampai REV-14 dan nilai bawaan yang perlu dikonfirmasi), lalu `docs/TASKS_revisi.md` (fase R0 sampai R7). Setelah pemilik menyetujui, hapus sufiks `_revisi` dan timpa berkas asli. Kode belum diubah.
 
 ## Urutan baca dokumen
 

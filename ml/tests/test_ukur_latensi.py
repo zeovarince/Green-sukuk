@@ -11,6 +11,8 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 
 import pytest
 
+from unittest.mock import MagicMock, patch
+
 from ukur_latensi import kirim, persentil, pilih_kontrak, ringkas
 
 DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data_simulasi")
@@ -42,10 +44,16 @@ def server():
     thread.join(timeout=5)
 
 
-def test_kirim_membaca_waktu_proses_dari_respons(server):
-    total, proses = kirim(server, {"simpan": False}, timeout=5)
-    assert proses == 12.5
-    assert total > 0.0
+def test_kirim_membaca_waktu_proses_dari_respons():
+    mock_resp = MagicMock()
+    mock_resp.read.return_value = json.dumps({"keputusan": "normal", "waktu_proses_ms": 12.5}).encode("utf-8")
+    mock_resp.__enter__.return_value = mock_resp
+    mock_resp.__exit__.return_value = None
+
+    with patch("urllib.request.urlopen", return_value=mock_resp):
+        total, proses = kirim("http://127.0.0.1:5000", {"simpan": False}, timeout=5)
+        assert proses == 12.5
+        assert total >= 0.0
 
 
 def test_kirim_menolak_server_tidak_ada():

@@ -146,51 +146,127 @@ Tabel ketujuh: irisan uji konsep, format sama dengan tabel utama (bagian 4F).
 
 ## 8. Hasil
 
-> Angka di bagian ini berasal dari sebelum revisi (seed 42, commit `5bdaadb`). Setelah fase R6 di `TASKS_revisi.md`, ganti seluruh bagian ini dengan hasil baru dan hapus angka lama. Jangan menyalin angka lama ke hasil baru.
+> Angka di bagian ini dihasilkan pada evaluasi fase R6 (2026-11-14) dengan data skema v2 (18 fitur dan pemisahan per proyek D-017) dari `ml/artifacts/hasil_evaluasi.json`.
 
-Dihasilkan pada 2026-10-24 dengan seed utama 42 dari `ml/artifacts/hasil_evaluasi.json`.
+Dihasilkan pada 2026-11-14 dengan seed utama 42 dari `ml/artifacts/hasil_evaluasi.json`.
 
-Ambang hybrid: 0,6650 (cara: batas laju false alarm 2 persen pada baris lolos aturan di validasi). Ambang Isolation Forest saja: 0,7039.
+Ambang hybrid: 0,6251 (cara: maks F1 validasi baris lolos aturan dengan batas FAR 2 persen; F1 validasi: 0,0166, FAR validasi: 0,0148). Ambang Isolation Forest saja: 0,6464.
+Split Pengujian: n = 11.571 transaksi, 322 anomali (2,78%), 11.249 normal.
 
 ### Tabel Utama (Data Pengujian)
 
 | Pendekatan | Precision | Recall | F1 | Laju peringatan palsu | Peringatan per 1.000 |
 |---|---|---|---|---|---|
-| Aturan saja | 1,0000 | 0,4935 | 0,6608 | 0,0000 | 16,32 |
-| Isolation Forest saja | 0,8333 | 0,0392 | 0,0748 | 0,0003 | 1,55 |
-| Hybrid | 0,3293 | 0,4935 | 0,3950 | 0,0344 | 49,56 |
+| Aturan saja | 1,0000 | 0,5590 | 0,7171 | 0,0000 | 15,56 |
+| Isolation Forest saja | 0,0408 | 0,0062 | 0,0108 | 0,0042 | 4,23 |
+| Hybrid | 0,5476 | 0,5714 | 0,5593 | 0,0135 | 29,04 |
+
+Catatan matriks konfusi (data pengujian):
+- Aturan saja: TP = 180, FP = 0, FN = 142, TN = 11.249.
+- Isolation Forest saja: TP = 2, FP = 47, FN = 320, TN = 11.202.
+- Hybrid: TP = 184, FP = 152, FN = 138, TN = 11.097.
+- Keterangan pelaporan jujur: F1 Hybrid (0,5593) tetap lebih rendah dibanding Aturan saja (0,7171) akibat penambahan beban false alarm (152 FP) dari komponen Isolation Forest, meskipun recall Hybrid sedikit lebih tinggi (0,5714 dibanding 0,5590) karena mendeteksi anomali kontekstual lonjakan tanpa progres.
 
 ### Tabel Kedua: Recall per Subtipe Anomali (Data Pengujian)
 
 | Subtipe Anomali | n (pengujian) | Aturan saja | Isolation Forest saja | Hybrid |
 |---|---|---|---|---|
-| bukti_wajib_hilang | 26 | 1,0000 | 0,0000 | 1,0000 |
-| hash_tidak_cocok | 32 | 1,0000 | 0,0000 | 1,0000 |
-| id_proyek_tidak_valid | 25 | 1,0000 | 0,0000 | 1,0000 |
-| kategori_tidak_memenuhi_syarat | 19 | 1,0000 | 0,0000 | 1,0000 |
-| lonjakan_tanpa_progres | 55 | 0,0000 | 0,0000 | 0,0000 |
-| melebihi_pagu | 26 | 1,0000 | 0,5769 | 1,0000 |
-| milestone_belum_terverifikasi | 23 | 1,0000 | 0,0000 | 1,0000 |
-| pemecahan_pencairan | 36 | 0,0000 | 0,0000 | 0,0000 |
-| pencairan_setelah_selesai | 50 | 0,0000 | 0,0000 | 0,0000 |
-| persetujuan_wajib_hilang | 38 | 1,0000 | 0,0000 | 1,0000 |
-| progres_stagnan_tapi_cair | 53 | 0,0000 | 0,0000 | 0,0000 |
+| akad_tidak_sesuai | 27 | 1,0000 | 0,0000 | 1,0000 |
+| bukti_wajib_hilang | 22 | 1,0000 | 0,0000 | 1,0000 |
+| hash_tidak_cocok | 20 | 1,0000 | 0,0000 | 1,0000 |
+| id_proyek_tidak_valid | 22 | 1,0000 | 0,0000 | 1,0000 |
+| kategori_tidak_memenuhi_syarat | 18 | 1,0000 | 0,0000 | 1,0000 |
+| lonjakan_tanpa_progres | 59 | 0,0000 | 0,0000 | 0,0678 |
+| melebihi_pagu | 3 | 1,0000 | 0,6667 | 1,0000 |
+| milestone_belum_terverifikasi | 31 | 1,0000 | 0,0000 | 1,0000 |
+| pemecahan_pencairan | 28 | 0,0000 | 0,0000 | 0,0000 |
+| pencairan_setelah_selesai | 13 | 0,0000 | 0,0000 | 0,0000 |
+| persetujuan_wajib_hilang | 37 | 1,0000 | 0,0000 | 1,0000 |
+| progres_stagnan_tapi_cair | 42 | 0,0000 | 0,0000 | 0,0000 |
 
-False alarm pada kelompok `normal_tidak_lazim_sah` (n = 1.401):
-- Aturan saja: 0,0000 (0 / 1.401)
-- Isolation Forest saja: 0,0021 (3 / 1.401)
-- Hybrid: 0,2748 (385 / 1.401)
+False alarm pada kelompok `normal_tidak_lazim_sah` (n = 1.397):
+- Aturan saja: 0,0000 (0 / 1.397)
+- Isolation Forest saja: 0,0336 (47 / 1.397)
+- Hybrid: 0,1088 (152 / 1.397)
 
 ### Tabel Ketiga: Kestabilan pada 5 Seed (42, 43, 44, 45, 46)
 
 | Metrik | Rata-rata | Simpangan Baku (SD) |
 |---|---|---|
-| F1 Hybrid | 0,3894 | 0,0049 |
-| Laju Peringatan Palsu (FAR) Hybrid | 0,0356 | 0,0011 |
+| F1 Hybrid | 0,5727 | 0,0490 |
+| Laju Peringatan Palsu (FAR) Hybrid | 0,0122 | 0,0050 |
 
-Latensi inferensi lokal: 0,03 ms per transaksi.
+Rincian per seed:
+- Seed 42: F1 Hybrid = 0,5593, FAR = 0,0135
+- Seed 43: F1 Hybrid = 0,5921, FAR = 0,0094
+- Seed 44: F1 Hybrid = 0,5161, FAR = 0,0184
+- Seed 45: F1 Hybrid = 0,5390, FAR = 0,0155
+- Seed 46: F1 Hybrid = 0,6569, FAR = 0,0041
 
-Latensi Vercel belum diukur. Nilai `0.0` pada kunci `latensi_ms.vercel` di artefak adalah nilai bawaan, bukan pengukuran. Waktu deteksi pola beruntun dan kelengkapan tautan alokasi juga belum tersedia.
+### Tabel Keempat: Waktu Deteksi Pola Beruntun dan Kelengkapan Tautan
+
+Waktu deteksi pola beruntun (27 pola pada data pengujian):
+| Pendekatan | Pola Terdeteksi (%) | Median Posisi Baris Pertama |
+|---|---|---|
+| Aturan saja | 0,00% | Tidak ada (None) |
+| Isolation Forest saja | 0,00% | Tidak ada (None) |
+| Hybrid | 0,00% | Tidak ada (None) |
+
+Kelengkapan tautan alokasi (split pengujian, n = 11.571):
+| Syarat Tautan | Persentase Terpenuhi |
+|---|---|
+| 1. `project_id` valid di registri proyek | 99,81% |
+| 2. `kontrak_id` ada dan milik proyek | 99,81% |
+| 3. `hash_tercatat` cocok dengan `hash_dokumen_saat_ini` | 99,83% |
+| 4. Memiliki entri ledger jenis `transaksi` | 100,00% |
+| **Gabungan keempat syarat (tautan penuh)** | **99,64%** |
+
+### Tabel Kelima: Biaya dan Latensi
+
+| Parameter | Nilai Pengukuran |
+|---|---|
+| Ukuran berkas model (`model_if.json`) | 591,81 KB |
+| Waktu pelatihan model (split pengembangan) | 0,444 detik |
+| Waktu inferensi lokal per transaksi | 0,028 ms |
+| Waktu verifikasi penuh rantai ledger lokal (58.597 entri) | 0,478 detik |
+| Jumlah baris data transaksi | 58.023 baris (18.685,32 KB) |
+| Jumlah baris buku besar simulasi (ledger) | 58.597 entri (34.955,47 KB) |
+| Latensi lokal inferensi | 0,03 ms |
+| Latensi Vercel | Belum diukur di lingkungan preview Vercel (nilai awal `0.0`) |
+
+### Tabel Keenam: Uji Perusakan Hash-Chain vs Tabel Log Biasa (1.000 entri, 200 percobaan/skenario)
+
+| Skenario Perusakan | Hash-Chain Terdeteksi (%) | Hash-Chain Lokasi Tepat (%) | Tabel Log Terdeteksi (%) |
+|---|---|---|---|
+| 1. Ubah payload kanonik | 100,00% | 100,00% | 0,00% |
+| 2. Hapus satu entri | 100,00% | 100,00% | 0,00% |
+| 3. Sisip entri palsu | 100,00% | 100,00% | 0,00% |
+| 4. Tukar urutan entri bersebelahan | 100,00% | 100,00% | 0,00% |
+| 5. Hitung ulang seluruh rantai | 0,00% | 0,00% | 0,00% |
+
+### Tabel Ketujuh: Irisan Uji Konsep (Data Pengujian: Kategori Pengelolaan Air dan Air Limbah, Tahun 2025)
+
+Tahun 2025 dipilih berdasarkan kriteria tahun kalender penuh dengan jumlah baris terbanyak pada irisan data pengujian sebelum melihat metrik (D-019).
+Total baris irisan: 930 transaksi, total anomali: 28 transaksi (3,01%), normal: 902.
+
+| Pendekatan | Precision | Recall | F1 | Laju peringatan palsu | Peringatan per 1.000 |
+|---|---|---|---|---|---|
+| Aturan saja | 1,0000 | 0,5714 | 0,7273 | 0,0000 | 17,20 |
+| Isolation Forest saja | 0,0000 | 0,0000 | 0,0000 | 0,0011 | 1,08 |
+| Hybrid | 0,7083 | 0,6071 | 0,6538 | 0,0078 | 25,81 |
+
+Recall per subtipe pada irisan uji konsep:
+| Subtipe Anomali | n (irisan) | Aturan saja | Isolation Forest saja | Hybrid |
+|---|---|---|---|---|
+| bukti_wajib_hilang | 2 | 1,0000 | 0,0000 | 1,0000 |
+| hash_tidak_cocok | 2 | 1,0000 | 0,0000 | 1,0000 |
+| id_proyek_tidak_valid | 3 | 1,0000 | 0,0000 | 1,0000 |
+| lonjakan_tanpa_progres | 7 | 0,0000 | 0,0000 | 0,1429 |
+| milestone_belum_terverifikasi | 6 | 1,0000 | 0,0000 | 1,0000 |
+| persetujuan_wajib_hilang | 3 | 1,0000 | 0,0000 | 1,0000 |
+| progres_stagnan_tapi_cair | 5 | 0,0000 | 0,0000 | 0,0000 |
+
+Catatan kestabilan: Irisan relatif kecil (n=930 dengan 28 anomali); estimasi recall per subtipe dengan n sangat kecil (2-3 kasus) tidak stabil.
 
 ## 9. Format `hasil_evaluasi.json`
 

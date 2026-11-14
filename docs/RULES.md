@@ -1,6 +1,8 @@
-# RULES
+# RULES (revisi)
 
-Tujuh aturan deterministik. Aturan ini adalah versi prototipe dari logika smart contract pada rancangan GSTP: kondisi yang dapat dicek tanpa model statistik. Implementasi ada di dua tempat dan harus identik: `ml/gstp/aturan.py` dan `web/lib/aturan.ts`.
+> Versi revisi 2026-11-13, draf menunggu persetujuan pemilik. Menggantikan `RULES.md` setelah disetujui. Revisi: REV-01 (R08_AKAD), REV-02 (tag prinsip syariah). Rincian di `PERUBAHAN_revisi.md`.
+
+Delapan aturan deterministik. Aturan ini adalah versi prototipe dari logika smart contract pada rancangan GSTP: kondisi yang dapat dicek tanpa model statistik. Implementasi ada di dua tempat dan harus identik: `ml/gstp/aturan.py` dan `web/lib/aturan.ts`.
 
 Parameter aturan disimpan di satu berkas bersama, `ml/artifacts/rules_config.json`, dan disalin ke `web/data/artifacts/`. Jangan menanam angka di kode. Dalam rancangan penuh, parameter semacam ini ditetapkan otoritas yang berwenang.
 
@@ -15,14 +17,30 @@ Parameter aturan disimpan di satu berkas bersama, `ml/artifacts/rules_config.jso
 | `R05_HASH` | Hash dokumen tidak cocok | `hash_tercatat` berbeda dari `hash_dokumen_saat_ini` |
 | `R06_MILESTONE` | Milestone belum terverifikasi | `milestone_terverifikasi` salah dan `jenis_pembayaran` adalah `termin` |
 | `R07_BUKTI` | Bukti tidak lengkap | `kelengkapan_bukti` lebih kecil dari ambang bukti (0,80) |
+| `R08_AKAD` | Akad tidak sesuai | `akad` pada transaksi berbeda dari `akad` proyek di `registri_proyek`. Dievaluasi hanya jika `project_id` ada di registri |
 
 Satu transaksi dapat melanggar lebih dari satu aturan. Keluaran selalu mencantumkan semua kode yang terpicu.
+
+### Catatan R08_AKAD
+
+R08 mencocokkan akad pada transaksi dengan akad terdaftar proyek. Aturan ini tidak menilai apakah suatu akad sesuai syariah. Penilaian itu tetap milik otoritas syariah, yang dapat mencatat telaahnya atas peringatan R08 (`API_SPEC.md` bagian 5B). Data simulasi memakai dua akad: `Ijarah Asset to Be Leased` dan `Wakalah`.
+
+Bila `project_id` tidak ada di `registri_proyek`, R08 tidak dievaluasi, karena R01 sudah menandai transaksi itu. Masukan `akad` pada `/api/periksa` bersifat opsional. Bila kosong, server memakai akad terdaftar proyek, sehingga transaksi itu tidak memicu R08.
+
+## 1A. Pemetaan prinsip syariah
+
+Tiap aturan membawa satu tag prinsip. Tag tampil di UI dan tercatat pada tiap temuan. Pemetaan ini usulan penulis dan perlu ditinjau tim. Pemetaan ini bukan penilaian syariah.
+
+| Prinsip | Aturan | Dasar di esai dan slide |
+|---|---|---|
+| `amanah` | R01, R03, R05, R06 | Pihak, persetujuan, riwayat dokumen, dan verifikasi tercatat jelas (slide 7: pengusul dan verifikator tercatat, persetujuan oleh pejabat berwenang, riwayat keputusan dapat ditelusuri) |
+| `hifz_al_mal` | R02, R04, R07, R08 | Dana dipakai dalam batas alokasi, sesuai peruntukan dan akad, dengan bukti lengkap (slide 7) |
 
 ## 2. Parameter di `rules_config.json`
 
 ```json
 {
-  "versi": 1,
+  "versi": 2,
   "ambang_persetujuan_rupiah": { "dua_mulai": 1000000000, "tiga_mulai": 5000000000 },
   "kategori_sah": [
     "Ketahanan terhadap perubahan iklim",
@@ -34,7 +52,17 @@ Satu transaksi dapat melanggar lebih dari satu aturan. Keluaran selalu mencantum
     "Pertanian berkelanjutan",
     "Pengelolaan sumber daya alam dan lahan"
   ],
-  "ambang_bukti": 0.80
+  "ambang_bukti": 0.80,
+  "prinsip": {
+    "R01_ID_PROYEK": "amanah",
+    "R02_PAGU": "hifz_al_mal",
+    "R03_PERSETUJUAN": "amanah",
+    "R04_KATEGORI": "hifz_al_mal",
+    "R05_HASH": "amanah",
+    "R06_MILESTONE": "amanah",
+    "R07_BUKTI": "hifz_al_mal",
+    "R08_AKAD": "hifz_al_mal"
+  }
 }
 ```
 
@@ -46,7 +74,7 @@ Satu transaksi dapat melanggar lebih dari satu aturan. Keluaran selalu mencantum
 {
   "lolos": false,
   "temuan": [
-    { "kode": "R03_PERSETUJUAN", "pesan": "Persetujuan yang diperoleh 2, yang diwajibkan 3." }
+    { "kode": "R03_PERSETUJUAN", "pesan": "Persetujuan yang diperoleh 2, yang diwajibkan 3.", "prinsip": "amanah" }
   ]
 }
 ```
@@ -68,7 +96,8 @@ Aturan ini tidak menangkap pola yang butuh konteks waktu atau perbandingan: lonj
 
 Python dan TypeScript harus memberikan daftar kode yang sama untuk setiap kasus di `golden_cases.json`. Pada data simulasi seed 42:
 - Baris `normal` dan `normal_tidak_lazim_sah` yang ditandai aturan: 0.
-- Baris `anomali_aturan` yang tertangkap: semua.
+- Baris `anomali_aturan` yang tertangkap: semua, termasuk subtipe `akad_tidak_sesuai` oleh R08.
+- Baris dengan `project_id` tidak valid yang memicu R08: 0.
 - Baris `anomali_kontekstual` yang tertangkap: 0.
 
 Jika angka ini berubah setelah modifikasi, cari penyebabnya sebelum melanjutkan.

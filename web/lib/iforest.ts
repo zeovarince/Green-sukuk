@@ -1,6 +1,15 @@
 import model from "@/data/artifacts/model_if.json";
 import { DAFTAR_FITUR, type NamaFitur, type VektorFitur } from "./fitur";
 
+if ((model as { versi_skema?: number }).versi_skema !== 2) {
+  throw new Error(`Skema model_if.json harus versi 2, ditemukan ${(model as { versi_skema?: number }).versi_skema}`);
+}
+if ((model.fitur as readonly string[]).length !== DAFTAR_FITUR.length) {
+  throw new Error(
+    `Jumlah fitur di model_if.json (${model.fitur.length}) tidak cocok dengan DAFTAR_FITUR (${DAFTAR_FITUR.length})`,
+  );
+}
+
 type Pohon = (typeof model.pohon)[number];
 
 function cFactor(n: number): number {

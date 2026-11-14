@@ -1,4 +1,6 @@
-# DATA_SPEC
+# DATA_SPEC (revisi)
+
+> Versi revisi 2026-11-13, draf menunggu persetujuan pemilik. Menggantikan `DATA_SPEC.md` setelah disetujui. Revisi: REV-01 (subtipe akad_tidak_sesuai), REV-04 (pemisahan per proyek). Rincian di `PERUBAHAN_revisi.md`.
 
 Spesifikasi data simulasi GSTP. Sumber kebenaran angka dan definisi adalah `ml/generate_gstp_data.py` dan `ml/data_simulasi/metadata_simulasi.json`. Jika dokumen ini berbeda dengan skrip, skrip yang benar dan dokumen ini harus diperbarui.
 
@@ -28,6 +30,8 @@ Seluruh data bersifat ilustratif. Parameter adalah asumsi penulis, bukan data Ke
 
 Angka ini harus sama pada dua kali jalan dengan parameter yang sama.
 
+Angka di tabel adalah hasil sebelum revisi (commit `5bdaadb`). Subtipe `akad_tidak_sesuai` dan pemisahan per proyek mengubah jumlah anomali per kelompok. Setelah fase R4, jalankan ulang generator dan salin angka dari `metadata_simulasi.json`. Jangan menyalin angka lama.
+
 ## 3. Cara data dibuat
 
 - Empat seri penerbitan ilustratif (`SERI-2021` sampai `SERI-2024`), akad Ijarah Asset to Be Leased atau Wakalah.
@@ -48,15 +52,15 @@ Kolom "Peran": F = boleh jadi bahan fitur (setelah diolah sesuai `MODEL_SPEC.md`
 | `trx_id` | teks | ID urut kronologis, `TRX-000001` dan seterusnya | M |
 | `tanggal` | tanggal | Tanggal pencairan | M |
 | `seri_penerbitan` | teks | Seri penerbitan ilustratif | M |
-| `akad` | teks | Ijarah Asset to Be Leased atau Wakalah | M |
+| `akad` | teks | Ijarah Asset to Be Leased atau Wakalah | M (dipakai aturan R08) |
 | `jenis_pembiayaan` | teks | `pembiayaan_baru` atau `pembiayaan_kembali` | M |
 | `project_id` | teks | ID proyek. Bisa tidak valid pada anomali | M |
 | `kontrak_id` | teks | ID kontrak, contoh `PRJ-0001-K01` | M |
 | `kementerian_pelaksana` | teks | Pelaksana proyek | M |
-| `kategori_hijau` | teks | Kategori pada transaksi. Bisa tidak sah pada anomali | M |
+| `kategori_hijau` | teks | Kategori pada transaksi. Bisa tidak sah pada anomali | M (juga kunci kelompok referensi fitur) |
 | `jenis_pembayaran` | teks | `uang_muka`, `termin`, `retensi` | F |
 | `bulan_ke` | bilangan bulat | Bulan sejak mulai kontrak (0 untuk uang muka) | F |
-| `tahap_proyek` | teks | `persiapan`, `konstruksi`, `penyelesaian`, `pemeliharaan` | M |
+| `tahap_proyek` | teks | `persiapan`, `konstruksi`, `penyelesaian`, `pemeliharaan` | M (juga kunci kelompok referensi fitur) |
 | `nilai_pencairan` | bilangan bulat | Rupiah | F |
 | `nilai_kontrak` | bilangan bulat | Nilai kontrak berlaku saat transaksi | F |
 | `versi_kontrak` | bilangan bulat | 1 atau 2 | M |
@@ -66,7 +70,7 @@ Kolom "Peran": F = boleh jadi bahan fitur (setelah diolah sesuai `MODEL_SPEC.md`
 | `milestone_terverifikasi` | boolean | Milestone sudah diverifikasi | M (dipakai aturan) |
 | `persetujuan_wajib` | bilangan bulat | 1 sampai 3 menurut nilai | F |
 | `persetujuan_diperoleh` | bilangan bulat | Persetujuan yang sudah ada | M (dipakai aturan) |
-| `kelengkapan_bukti` | desimal | 0 sampai 1 | M (dipakai aturan) |
+| `kelengkapan_bukti` | desimal | 0 sampai 1 | M (dipakai aturan dan fitur) |
 | `hash_tercatat` | teks | SHA-256 dipotong 16 heksadesimal, nilai saat dicatat | M |
 | `hash_dokumen_saat_ini` | teks | Hash dokumen saat diperiksa | M (dipakai aturan) |
 | `hari_sejak_pencairan_sebelumnya` | bilangan bulat | Selisih hari di kontrak yang sama | F |
@@ -88,18 +92,29 @@ Ada 34 kolom. Kolom turunan (`hari_sejak_pencairan_sebelumnya` sampai `rasio_nil
 |---|---|---|
 | `normal` | `biasa` | Termin biasa |
 | `normal_tidak_lazim_sah` | `uang_muka`, `retensi`, `akhir_tahun_dipercepat`, `penyesuaian_addendum` | Tampak janggal tetapi sah |
-| `anomali_aturan` | `id_proyek_tidak_valid`, `melebihi_pagu`, `persetujuan_wajib_hilang`, `kategori_tidak_memenuhi_syarat`, `hash_tidak_cocok`, `milestone_belum_terverifikasi`, `bukti_wajib_hilang` | Pelanggaran jelas, bisa dicek aturan |
+| `anomali_aturan` | `id_proyek_tidak_valid`, `melebihi_pagu`, `persetujuan_wajib_hilang`, `kategori_tidak_memenuhi_syarat`, `hash_tidak_cocok`, `milestone_belum_terverifikasi`, `bukti_wajib_hilang`, `akad_tidak_sesuai` | Pelanggaran jelas, bisa dicek aturan |
 | `anomali_kontekstual` | `lonjakan_tanpa_progres`, `pemecahan_pencairan`, `progres_stagnan_tapi_cair`, `pencairan_setelah_selesai` | Lolos aturan, tidak wajar secara konteks |
 
-Kelompok kontekstual sengaja dirancang agar lolos tujuh aturan. Konsekuensinya, keunggulan pendekatan hybrid atas aturan saja sebagian merupakan akibat rancangan data. Ini harus disebut di esai dan di `LIMITATIONS.md`.
+Subtipe `akad_tidak_sesuai` dibuat dari pencairan normal yang kolom `akad`-nya diganti dengan akad lain dari dua akad yang ada. Bobotnya sama dengan subtipe aturan lain, dan tingkat anomali total tetap 3 persen. Pada data sebelum revisi, seluruh 57.916 transaksi dengan proyek valid memiliki akad yang sama dengan registri, jadi aturan R08 tidak menandai baris normal mana pun.
+
+Kelompok kontekstual sengaja dirancang agar lolos delapan aturan. Konsekuensinya, keunggulan pendekatan hybrid atas aturan saja sebagian merupakan akibat rancangan data. Ini harus disebut di esai dan di `LIMITATIONS.md`.
 
 ## 6. Pembagian data
 
-Berdasarkan waktu menurut kuantil tanggal seluruh data: 60% pertama `pengembangan`, 20% berikutnya `validasi`, 20% terakhir `pengujian`. Batas tanggal tercatat di `metadata_simulasi.json`.
+Pembagian mengikuti proyek, bukan baris (REV-04, D-017). Satu proyek, beserta semua kontrak dan transaksinya, masuk ke satu split.
+
+Langkah:
+1. Petakan tiap `kontrak_id` ke proyeknya lewat `registri_kontrak`. Transaksi dengan `project_id` tidak valid (subtipe `id_proyek_tidak_valid`) ikut proyek milik kontraknya, bukan `project_id` yang salah.
+2. Hitung tanggal transaksi pertama tiap proyek.
+3. Urutkan proyek menurut tanggal itu.
+4. Potong daftar pada 60 persen dan 80 persen dari jumlah transaksi kumulatif: 60 persen pertama `pengembangan`, 20 persen berikutnya `validasi`, 20 persen terakhir `pengujian`.
+5. Catat di `metadata_simulasi.json` jumlah proyek, jumlah transaksi, serta tanggal terawal dan terakhir tiap split.
 
 Konsekuensi yang perlu diingat:
-- Jenis anomali yang hanya terjadi pada kontrak yang sudah selesai (`melebihi_pagu`, `pencairan_setelah_selesai`) lebih banyak di data awal. Cek jumlah per split di ringkasan generator sebelum menarik kesimpulan per subtipe.
-- Kontrak yang sama dapat muncul di beberapa split karena transaksinya tersebar menurut waktu. Fitur hanya memakai riwayat sebelum transaksi sehingga tidak ada kebocoran dari masa depan.
+- Rentang tanggal antar split saling tumpang tindih, karena proyek yang mulai lebih awal masih bertransaksi ketika proyek yang mulai lebih akhir sudah masuk split lain. Fitur memakai riwayat kontrak sendiri sebelum transaksi, jadi tidak ada kebocoran dari masa depan di dalam satu kontrak. Antar proyek, model dilatih pada sebagian transaksi yang tanggalnya lebih baru daripada sebagian transaksi pengujian. Batas ini dicatat di `LIMITATIONS.md`.
+- Tidak ada proyek atau kontrak yang terbelah di beberapa split. Model tidak melihat bagian lain dari kontrak yang sama saat pengujian.
+- Jumlah anomali per subtipe di tiap split bisa tidak merata. Cek ringkasan generator sebelum menarik kesimpulan per subtipe.
+- Kolom `split` tetap memakai nilai `pengembangan`, `validasi`, dan `pengujian`.
 
 ## 7. Aturan penggunaan
 

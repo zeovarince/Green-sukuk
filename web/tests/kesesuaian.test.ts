@@ -14,6 +14,10 @@ describe("kesesuaian Python dan TypeScript", () => {
       item.konteks.pagu_alokasi_kontrak,
       item.konteks.nilai_kontrak,
       item.konteks.tanggal_mulai_kontrak,
+      {
+        durasiBulan: (item.konteks as { durasi_bulan?: number }).durasi_bulan,
+        tahapProyek: (item.konteks as { tahap_proyek?: string }).tahap_proyek,
+      },
     );
     for (const [name, expected] of Object.entries(item.jawaban.fitur)) {
       const actual = features[name as keyof typeof features];
@@ -25,6 +29,7 @@ describe("kesesuaian Python dan TypeScript", () => {
       projectIdKontrak: item.konteks.project_id_kontrak,
       paguAlokasiKontrak: item.konteks.pagu_alokasi_kontrak,
       kumulatifCairSebelumnya: item.konteks.kumulatif_cair_sebelumnya,
+      akadProyek: (item.konteks as { akad_proyek?: string }).akad_proyek,
     });
     expect(findings.map((finding) => finding.kode).sort()).toEqual([...item.jawaban.aturan].sort());
     for (const finding of findings) {

@@ -1,4 +1,6 @@
-# WEB_SPEC
+# WEB_SPEC (revisi)
+
+> Versi revisi 2026-11-13, draf menunggu persetujuan pemilik. Menggantikan `WEB_SPEC.md` setelah disetujui. Revisi: REV-02, REV-09 sampai REV-13 (prinsip, peran, koreksi, bukti, keterangan ledger). Rincian di `PERUBAHAN_revisi.md`.
 
 Spesifikasi landing statis dan halaman aplikasi GSTP. Landing berada di `web/public/`; halaman pemeriksaan dan komponen aplikasi berada di Next.js `web/app/`. Prioritas mengikuti `PRD.md`.
 
@@ -7,6 +9,8 @@ Spesifikasi landing statis dan halaman aplikasi GSTP. Landing berada di `web/pub
 - Peringatan adalah prioritas pemeriksaan, bukan penetapan fraud. Kalimat ini tampil permanen di footer atau di dekat daftar peringatan.
 - Setiap hasil menunjukkan alasannya: aturan mana yang terpicu, atau skor, ambang, dan pembanding.
 - Data simulasi diberi tanda yang jelas di UI, misalnya lencana "Data simulasi" di header.
+- Ledger selalu disebut simulasi. Halaman Ledger dan Periksa menampilkan keterangan tetap: "Ledger simulasi hash-chain di satu database. Rancangan penuh memakai permissioned blockchain antar lembaga."
+- Aturan dan temuan menampilkan tag prinsip (Amanah atau Hifz al-mal) sebagai label teks, bukan hanya warna.
 - Halaman tidak berbicara langsung ke database. Semua lewat route API.
 
 ## 2. Peta halaman
@@ -27,15 +31,17 @@ Spesifikasi landing statis dan halaman aplikasi GSTP. Landing berada di `web/pub
 
 Form:
 - Pilih kontrak (pencarian berdasarkan ID). Setelah dipilih, tampilkan ringkasan kontrak: nilai, pagu, kumulatif cair, progres terakhir, tanggal pencairan terakhir.
-- Isi: tanggal, jenis pembayaran, nilai pencairan, progres fisik, milestone terverifikasi, persetujuan diperoleh, kelengkapan bukti, kategori hijau, `project_id`.
+- Isi: tanggal, jenis pembayaran, nilai pencairan, progres fisik, milestone terverifikasi, persetujuan diperoleh, kelengkapan bukti, kategori hijau, akad (bawaan: akad terdaftar proyek), `project_id`.
+- Bila "Simpan hasil ke ledger" dicentang, kolom Pengusul dan Verifikator muncul dan wajib.
 - Opsi "Simpan hasil ke ledger" (butuh kode akses). Bawaan mati, jadi pemeriksaan tidak menulis apa-apa.
 - Tombol contoh cepat: isi form dengan skenario dari `DEMO_SCRIPT.md`.
 
 Hasil:
-- Kartu keputusan: "Tidak ada peringatan baru" atau "Perlu diperiksa".
-- Daftar temuan aturan (kode dan pesan).
+- Kartu keputusan: "Tidak ada peringatan baru" atau "Perlu diperiksa". Di bawahnya, status tindak lanjut: "Pemantauan berlanjut" atau "Telaah auditor".
+- Daftar temuan aturan (kode, pesan, dan tag prinsip). Temuan `R08_AKAD` diberi keterangan bahwa telaah kesesuaian syariah dilakukan otoritas syariah.
 - Jika lolos aturan: skor, ambang, dan penanda posisi skor di atas atau di bawah ambang.
 - Pembanding dari riwayat kontrak: median pencairan sebelumnya, jumlah pencairan 7 hari, delta progres.
+- Panel bukti: hash tercatat, hash dokumen saat ini, status cocok atau tidak, dan kelengkapan bukti terhadap ambang 0,80. Label tetap: "Dokumen asli tidak disimpan pada prototipe. Panel ini menampilkan hash dan kelengkapan."
 - Waktu proses dalam milidetik.
 - Jika disimpan: nomor entri ledger dan hash terakhir.
 
@@ -53,21 +59,27 @@ Keadaan khusus: memuat, galat validasi per kolom, kontrak tidak ditemukan, galat
 - Data transaksi.
 - Panel alasan: temuan aturan, atau skor dan ambang.
 - Panel pembanding dari riwayat kontrak, dengan catatan singkat bahwa ini konteks, bukan penyebab pasti.
-- Alur tindak lanjut: tombol sesuai status saat ini (telaah, minta klarifikasi, tandai diklarifikasi, tetapkan tindak lanjut, tutup) dengan kolom catatan wajib untuk keputusan.
-- Riwayat status dari ledger.
+- Panel bukti seperti di halaman Periksa.
+- Alur tindak lanjut: tombol sesuai status saat ini dan sesuai peran (telaah, minta klarifikasi, tandai diklarifikasi, tetapkan tindak lanjut, tutup) dengan kolom catatan wajib untuk keputusan. Tombol di luar kewenangan peran tidak ditampilkan. Dalam mode satu kode, semua tombol sah tampil.
+- Form koreksi, tampil untuk peran penyedia data bila status `perlu_klarifikasi`: kolom yang boleh diubah (terisi nilai lama), alasan, dan pengaju. Setelah dikirim, tampilkan hasil pemeriksaan ulang dan tautan ke transaksi baru.
+- Bagian telaah syariah, tampil bila temuan memuat `R08_AKAD`: telaah terbaru dan riwayatnya. Peran otoritas syariah melihat form putusan (sesuai, tidak sesuai, perlu dokumen) dengan catatan.
+- Riwayat status dari ledger, termasuk entri koreksi dan telaah syariah.
+- Penanda peran aktif ditampilkan di dekat kolom kode akses, bersumber dari respons server, bukan dari pilihan pengguna.
 
 ## 6. Halaman Ledger
 
 - Tabel entri terbaru dengan `seq`, jenis, waktu, dan hash terpotong (tampilkan penuh saat diarahkan).
 - Tombol "Verifikasi rantai" untuk rentang atau penuh. Hasil: valid atau rusak di `seq` tertentu.
 - Mode demo (tampil hanya jika `DEMO_MODE` aktif): pilih entri, rusak, verifikasi ulang, pulihkan.
-- Penjelasan singkat bahwa ini ledger simulasi dan batasannya, dengan tautan ke halaman Tentang.
+- Keterangan tetap bahwa ini ledger simulasi hash-chain di satu database dan rancangan penuh memakai permissioned blockchain antar lembaga, dengan tautan ke halaman Tentang.
+- Entri `koreksi` menampilkan tautan ke entri yang dikoreksi (`seq_dikoreksi`).
 
 ## 7. Halaman Evaluasi
 
 - Tabel utama dan tabel recall per subtipe dari `/api/metrik`.
 - Rata-rata dan simpangan baku beberapa seed.
 - Catatan permanen: data simulasi, anomali disuntikkan, kelompok kontekstual dirancang lolos aturan.
+- Tabel tambahan dari `/api/metrik`: waktu deteksi pola beruntun, kelengkapan tautan, biaya dan latensi, uji perusakan hash-chain melawan tabel log biasa, dan irisan uji konsep. Tiap tabel menyebut batasnya (`EVALUATION.md` bagian 4A sampai 4F).
 - Tanggal dan versi data dari berkas hasil.
 
 ## 8. Halaman Riwayat Kontrak
@@ -79,7 +91,9 @@ Keadaan khusus: memuat, galat validasi per kolom, kontrak tidak ditemukan, galat
 ## 9. Halaman Tentang
 
 - Alur GSTP (versi sederhana Gambar 1 esai).
-- Pentahelix dengan fungsi pengawasan BPK dan otoritas syariah yang terpisah dari persetujuan operasional.
+- Tabel delapan aturan dengan prinsipnya (amanah, hifz al-mal).
+- Pentahelix dengan fungsi pengawasan BPK dan otoritas syariah yang terpisah dari persetujuan operasional. Tabel menyebut bahwa prototipe memuat peran simulasi (penyedia data, auditor, pejabat berwenang, otoritas syariah) lewat kode akses, tanpa akun pengguna.
+- Teks alur data menyebut delapan aturan.
 - Daftar keterbatasan dari `LIMITATIONS.md`.
 
 ## 10. Aturan teks UI
@@ -107,6 +121,7 @@ Contoh teks:
 ## 12. Tes tampilan minimum
 
 - Alur periksa transaksi normal dan transaksi bermasalah.
-- Perubahan status peringatan.
+- Perubahan status peringatan per peran, dan mode satu kode.
+- Alur koreksi dan telaah syariah.
 - Verifikasi ledger valid dan rusak.
 - Keadaan kosong dan galat tiap halaman utama.

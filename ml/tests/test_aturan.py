@@ -41,7 +41,7 @@ def test_konfigurasi_aturan():
     assert cfg["prinsip"] == PETA_PRINSIP
     assert set(PETA_PRINSIP) == {
         "R01_ID_PROYEK", "R02_PAGU", "R03_PERSETUJUAN", "R04_KATEGORI",
-        "R05_HASH", "R06_MILESTONE", "R07_BUKTI",
+        "R05_HASH", "R06_MILESTONE", "R07_BUKTI", "R08_AKAD",
     }
 
 
@@ -127,8 +127,25 @@ def test_aturan_satuan_tiap_kode():
     assert res_r07["lolos"] is False
     assert any(t["kode"] == "R07_BUKTI" for t in res_r07["temuan"])
 
+    # R08: Akad tidak sesuai (dievaluasi hanya jika project_id sah)
+    peta_akad = {"PRJ-0001": "Ijarah Asset to Be Leased"}
+    # Lolos jika akad sama
+    trx_r08_ok = dict(base_trx, akad="Ijarah Asset to Be Leased")
+    res_r08_ok = periksa_aturan_transaksi(trx_r08_ok, proyek_sah, peta_kontrak, pagu, config=cfg, peta_proyek_ke_akad=peta_akad)
+    assert not any(t["kode"] == "R08_AKAD" for t in res_r08_ok["temuan"])
+    # Melanggar jika akad berbeda
+    trx_r08 = dict(base_trx, akad="Wakalah")
+    res_r08 = periksa_aturan_transaksi(trx_r08, proyek_sah, peta_kontrak, pagu, config=cfg, peta_proyek_ke_akad=peta_akad)
+    assert res_r08["lolos"] is False
+    assert any(t["kode"] == "R08_AKAD" for t in res_r08["temuan"])
+    # Jika project_id tidak valid, R08 tidak dievaluasi (hanya R01)
+    trx_r08_inv = dict(base_trx, project_id="PRJ-9999", akad="Wakalah")
+    res_r08_inv = periksa_aturan_transaksi(trx_r08_inv, proyek_sah, peta_kontrak, pagu, config=cfg, peta_proyek_ke_akad=peta_akad)
+    assert any(t["kode"] == "R01_ID_PROYEK" for t in res_r08_inv["temuan"])
+    assert not any(t["kode"] == "R08_AKAD" for t in res_r08_inv["temuan"])
+
     # Setiap temuan membawa tag prinsip yang sesuai peta tunggal.
-    semua_hasil = [res_r01, res_r02, res_r03, res_r04, res_r05, res_r06, res_r07]
+    semua_hasil = [res_r01, res_r02, res_r03, res_r04, res_r05, res_r06, res_r07, res_r08]
     for hasil in semua_hasil:
         assert hasil["temuan"], "kasus pelanggaran harus menghasilkan temuan"
         for item in hasil["temuan"]:

@@ -18,6 +18,7 @@ export type InputPemeriksaan = {
   hash_tercatat: string;
   hash_dokumen_saat_ini: string;
   bulan_ke: number;
+  akad?: string;
 };
 
 export type HasilEvaluasi = {
@@ -57,6 +58,9 @@ export function validasiPemeriksaan(body: Record<string, unknown>): string | nul
   if (typeof body.milestone_terverifikasi !== "boolean") return "milestone_terverifikasi harus boolean.";
   if (!Number.isInteger(body.persetujuan_diperoleh) || Number(body.persetujuan_diperoleh) < 0 || Number(body.persetujuan_diperoleh) > 100) return "persetujuan_diperoleh harus bilangan bulat antara 0 sampai 100.";
   if (typeof body.kelengkapan_bukti !== "number" || !Number.isFinite(body.kelengkapan_bukti) || body.kelengkapan_bukti < 0 || body.kelengkapan_bukti > 1) return "kelengkapan_bukti harus berada pada rentang 0 sampai 1.";
+  if (body.akad !== undefined && (typeof body.akad !== "string" || !["Ijarah Asset to Be Leased", "Wakalah"].includes(body.akad))) {
+    return 'akad harus "Ijarah Asset to Be Leased" atau "Wakalah".';
+  }
   if (body.simpan !== undefined && typeof body.simpan !== "boolean") return "simpan harus boolean.";
   return null;
 }
@@ -99,6 +103,7 @@ export function siapkanInput(body: Record<string, unknown>, contract: KontrakRow
     persetujuan_diperoleh: Number(body.persetujuan_diperoleh), persetujuan_wajib: approvalRequired,
     kelengkapan_bukti: Number(body.kelengkapan_bukti), kategori_hijau: String(body.kategori_hijau),
     hash_tercatat: recordedHash, hash_dokumen_saat_ini: currentHash, bulan_ke: month,
+    ...(typeof body.akad === "string" ? { akad: body.akad } : {}),
   };
   return { input, recordedHash, currentHash, approvalRequired };
 }
@@ -111,10 +116,21 @@ export function evaluasiTransaksi(
   const priorTotal = history.reduce((total, row) => total + Number(row.nilai_pencairan), 0);
   const latestHistory = history[history.length - 1];
   const nilaiKontrakEfektif = Number(latestHistory?.nilai_kontrak ?? contract.nilai_kontrak_awal);
-  const features = hitungFiturSatuTransaksi(input, history, Number(contract.pagu_alokasi), nilaiKontrakEfektif, contract.tanggal_mulai);
+  const features = hitungFiturSatuTransaksi(
+    input,
+    history,
+    Number(contract.pagu_alokasi),
+    nilaiKontrakEfektif,
+    contract.tanggal_mulai,
+    {
+      durasiBulan: Number(contract.durasi_bulan ?? 12),
+      tahapProyek: tahapProyek(input.jenis_pembayaran, input.progres_fisik_pct),
+    },
+  );
   const findings = periksaAturanTransaksi(input, {
     projectIdSah: Boolean(requestedProject), projectIdKontrak: contractProject.project_id,
     paguAlokasiKontrak: Number(contract.pagu_alokasi), kumulatifCairSebelumnya: priorTotal,
+    akadProyek: requestedProject ? requestedProject.akad : contractProject.akad,
   });
   const modelInfo = ambilInfoModel();
   const skor = findings.length === 0 ? hitungSkorIsolationForest(features) : null;
@@ -157,7 +173,7 @@ export function bangunBarisTransaksi(args: {
   const { input, contract, contractProject, features, approvalRequired, priorTotal, trxId, sumber, nilaiKontrak, versiKontrak, statusAddendum, koreksiDari } = args;
   return {
     trx_id: trxId, tanggal: input.tanggal, seri_penerbitan: contractProject.seri_penerbitan,
-    akad: contractProject.akad, jenis_pembiayaan: contractProject.jenis_pembiayaan,
+    akad: input.akad ?? contractProject.akad, jenis_pembiayaan: contractProject.jenis_pembiayaan,
     project_id: input.project_id, kontrak_id: input.kontrak_id, kementerian_pelaksana: contractProject.kementerian_pelaksana,
     kategori_hijau: input.kategori_hijau, jenis_pembayaran: input.jenis_pembayaran, bulan_ke: input.bulan_ke,
     tahap_proyek: tahapProyek(input.jenis_pembayaran, input.progres_fisik_pct), nilai_pencairan: input.nilai_pencairan,
@@ -178,10 +194,12 @@ export function bangunBarisTransaksi(args: {
 
 export function susunHasil(args: { evaluation: HasilEvaluasi; input: InputPemeriksaan; saved: Tersimpan; started: number }) {
   const { evaluation, input, saved, started } = args;
+  const perluTelaahSyariah = evaluation.findings.some((item) => item.kode === "R08_AKAD");
   return {
     keputusan: evaluation.keputusan,
     jenis_peringatan: evaluation.jenisPeringatan,
     temuan_aturan: evaluation.findings,
+    ...(perluTelaahSyariah ? { perlu_telaah_syariah: true } : {}),
     skor: { nilai: evaluation.skor, ambang: evaluation.ambang, di_atas_ambang: evaluation.diAtasAmbang, versi_model: evaluation.versiModel },
     tindak_lanjut: evaluation.tindakLanjut,
     bukti: {

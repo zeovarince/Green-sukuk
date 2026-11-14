@@ -22,6 +22,7 @@ import { GET as metrik } from "@/app/api/metrik/route";
 import { POST as demoRusak } from "@/app/api/demo/rusak-entri/route";
 import { POST as demoPulihkan } from "@/app/api/demo/pulihkan/route";
 import { POST as koreksiPeringatan } from "@/app/api/peringatan/[id]/koreksi/route";
+import { POST as telaahSyariah } from "@/app/api/peringatan/[id]/telaah-syariah/route";
 import { hitungHashSha256, verifikasiRantaiLedger, type EntriLedger } from "@/lib/ledger";
 
 const request = (url: string, init: RequestInit = {}) => new Request(`http://localhost${url}`, init);
@@ -405,6 +406,110 @@ describe("route API", () => {
       perubahan: { progres_fisik_pct: 15, nilai_pencairan: 70000000 },
       peran: "umum",
     });
+  });
+
+  it("memeriksa aturan R08_AKAD pada /api/periksa", async () => {
+    store.getKontrak.mockResolvedValue({ kontrak_id: "PRJ-1-K01", project_id: "PRJ-1", nilai_kontrak_awal: 100000000, pagu_alokasi: 150000000, tanggal_mulai: "2026-01-01", durasi_bulan: 12 });
+    store.getProyek.mockImplementation(async (id: string) => id === "PRJ-1" ? {
+      project_id: "PRJ-1", nama_proyek: "Proyek", kategori_hijau: "Energi terbarukan", kementerian_pelaksana: "Kementerian",
+      seri_penerbitan: "SBSN", akad: "Ijarah Asset to Be Leased", jenis_pembiayaan: "Proyek", tanggal_mulai: "2026-01-01", pagu_proyek: 1000000000,
+    } : null);
+
+    // 1. akad tidak dikenal ditolak 400
+    const resBad = await periksa(request("/api/periksa", { method: "POST", body: JSON.stringify({
+      kontrak_id: "PRJ-1-K01", project_id: "PRJ-1", tanggal: "2026-02-01", jenis_pembayaran: "termin",
+      nilai_pencairan: 1000000, progres_fisik_pct: 10, milestone_terverifikasi: true,
+      persetujuan_diperoleh: 1, kelengkapan_bukti: 1, kategori_hijau: "Energi terbarukan", akad: "Murabahah",
+    }) }));
+    expect(resBad.status).toBe(400);
+
+    // 2. akad berbeda memicu R08 dan perlu_telaah_syariah
+    const resR08 = await periksa(request("/api/periksa", { method: "POST", body: JSON.stringify({
+      kontrak_id: "PRJ-1-K01", project_id: "PRJ-1", tanggal: "2026-02-01", jenis_pembayaran: "termin",
+      nilai_pencairan: 1000000, progres_fisik_pct: 10, milestone_terverifikasi: true,
+      persetujuan_diperoleh: 1, kelengkapan_bukti: 1, kategori_hijau: "Energi terbarukan", akad: "Wakalah",
+    }) }));
+    expect(resR08.status).toBe(200);
+    const bodyR08 = await resR08.json();
+    expect(bodyR08.temuan_aturan.map((t: { kode: string }) => t.kode)).toContain("R08_AKAD");
+    expect(bodyR08.perlu_telaah_syariah).toBe(true);
+
+    // 3. akad kosong tidak memicu R08
+    const resEmpty = await periksa(request("/api/periksa", { method: "POST", body: JSON.stringify({
+      kontrak_id: "PRJ-1-K01", project_id: "PRJ-1", tanggal: "2026-02-01", jenis_pembayaran: "termin",
+      nilai_pencairan: 1000000, progres_fisik_pct: 10, milestone_terverifikasi: true,
+      persetujuan_diperoleh: 1, kelengkapan_bukti: 1, kategori_hijau: "Energi terbarukan",
+    }) }));
+    expect(resEmpty.status).toBe(200);
+    const bodyEmpty = await resEmpty.json();
+    expect(bodyEmpty.temuan_aturan.map((t: { kode: string }) => t.kode)).not.toContain("R08_AKAD");
+    expect(bodyEmpty.perlu_telaah_syariah).toBeUndefined();
+
+    // 4. project_id tidak valid tidak memicu R08 (hanya R01)
+    const resInvProj = await periksa(request("/api/periksa", { method: "POST", body: JSON.stringify({
+      kontrak_id: "PRJ-1-K01", project_id: "PRJ-9999", tanggal: "2026-02-01", jenis_pembayaran: "termin",
+      nilai_pencairan: 1000000, progres_fisik_pct: 10, milestone_terverifikasi: true,
+      persetujuan_diperoleh: 1, kelengkapan_bukti: 1, kategori_hijau: "Energi terbarukan", akad: "Wakalah",
+    }) }));
+    expect(resInvProj.status).toBe(200);
+    const bodyInvProj = await resInvProj.json();
+    expect(bodyInvProj.temuan_aturan.map((t: { kode: string }) => t.kode)).toContain("R01_ID_PROYEK");
+    expect(bodyInvProj.temuan_aturan.map((t: { kode: string }) => t.kode)).not.toContain("R08_AKAD");
+  });
+
+  it("mencatat telaah syariah oleh otoritas syariah", async () => {
+    pasangModePeran();
+    store.getPeringatan.mockImplementation(async (id: string) => {
+      if (id === "warn-r08") return { id: "warn-r08", trx_id: "trx-1", status: "baru", kode_aturan: ["R08_AKAD"] };
+      if (id === "warn-other") return { id: "warn-other", trx_id: "trx-2", status: "baru", kode_aturan: ["R02_PAGU"] };
+      return null;
+    });
+    store.tambahLedger.mockResolvedValue({ seq: 45 });
+
+    // 1. Ditolak jika tanpa kode akses
+    const resNoAuth = await telaahSyariah(request("/api/peringatan/warn-r08/telaah-syariah", {
+      method: "POST",
+      body: JSON.stringify({ putusan: "sesuai", catatan: "Dokumen akad telah sesuai." }),
+    }), { params: Promise.resolve({ id: "warn-r08" }) });
+    expect(resNoAuth.status).toBe(401);
+
+    // 2. Ditolak jika peran bukan otoritas syariah
+    const resWrongRole = await telaahSyariah(request("/api/peringatan/warn-r08/telaah-syariah", {
+      method: "POST",
+      headers: { "x-kode-akses": "auditor-pass" },
+      body: JSON.stringify({ putusan: "sesuai", catatan: "Dokumen akad telah sesuai." }),
+    }), { params: Promise.resolve({ id: "warn-r08" }) });
+    expect(resWrongRole.status).toBe(403);
+
+    // 3. Ditolak jika peringatan tidak memuat R08_AKAD
+    const resNotR08 = await telaahSyariah(request("/api/peringatan/warn-other/telaah-syariah", {
+      method: "POST",
+      headers: { "x-kode-akses": "syariah-pass" },
+      body: JSON.stringify({ putusan: "sesuai", catatan: "Dokumen akad telah sesuai." }),
+    }), { params: Promise.resolve({ id: "warn-other" }) });
+    expect(resNotR08.status).toBe(400);
+
+    // 4. Ditolak jika putusan tidak valid atau catatan terlalu pendek
+    const resShortNote = await telaahSyariah(request("/api/peringatan/warn-r08/telaah-syariah", {
+      method: "POST",
+      headers: { "x-kode-akses": "syariah-pass" },
+      body: JSON.stringify({ putusan: "sesuai", catatan: "pendek" }),
+    }), { params: Promise.resolve({ id: "warn-r08" }) });
+    expect(resShortNote.status).toBe(400);
+
+    // 5. Berhasil mencatat ke ledger
+    const resOk = await telaahSyariah(request("/api/peringatan/warn-r08/telaah-syariah", {
+      method: "POST",
+      headers: { "x-kode-akses": "syariah-pass" },
+      body: JSON.stringify({ putusan: "perlu_dokumen", catatan: "Mohon klarifikasi adendum akad untuk kontrak ini." }),
+    }), { params: Promise.resolve({ id: "warn-r08" }) });
+    expect(resOk.status).toBe(200);
+    const bodyOk = await resOk.json();
+    expect(bodyOk.sukses).toBe(true);
+    expect(bodyOk.seq_ledger).toBe(45);
+    expect(bodyOk.jenis_catatan).toBe("telaah_syariah");
+    expect(bodyOk.putusan).toBe("perlu_dokumen");
+    expect(bodyOk.peran).toBe("otoritas_syariah");
   });
 });
 

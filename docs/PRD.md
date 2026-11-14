@@ -1,6 +1,8 @@
-# PRD: Prototipe GSTP
+# PRD: Prototipe GSTP (revisi)
 
-Status: draf awal, Oktober 2026
+> Versi revisi 2026-11-13, draf menunggu persetujuan pemilik. Menggantikan `PRD.md` setelah disetujui. Revisi: REV-01, REV-09 sampai REV-12 (peran simulasi, fitur F10 sampai F12). Rincian di `PERUBAHAN_revisi.md`.
+
+Status: draf awal, Oktober 2026. Revisi 2026-11-13 menunggu persetujuan pemilik.
 Pemilik: tim penulis esai GSTP (Universitas Trunojoyo Madura)
 
 ## 1. Latar belakang
@@ -18,7 +20,7 @@ Green Sukuk dijanjikan membiayai proyek hijau, tetapi keterlacakan alokasi dana 
 - Menjalankan jaringan Hyperledger Fabric sungguhan.
 - Memakai data riil Kementerian Keuangan atau kementerian pelaksana.
 - Menetapkan fraud. Sistem hanya memprioritaskan pemeriksaan.
-- Autentikasi, peran pengguna, dan otorisasi tingkat produksi.
+- Autentikasi pengguna dan otorisasi tingkat produksi. Peran disimulasikan lewat kode akses (F10) dan tidak membuktikan identitas.
 - Menyimpan dokumen asli. Prototipe hanya menyimpan hash sebagai pengganti dokumen.
 - Mengklaim performa yang berlaku di data riil.
 
@@ -29,15 +31,16 @@ Green Sukuk dijanjikan membiayai proyek hijau, tetapi keterlacakan alokasi dana 
 | Auditor | Melihat transaksi yang perlu diperiksa lebih dulu beserta alasannya | Daftar peringatan, detail, pembanding |
 | Pengelola atau verifikator | Menjawab klarifikasi dan memperbarui bukti | Status kasus, catatan |
 | Pejabat penetap tindak lanjut | Mencatat keputusan dengan jejak yang jelas | Status akhir, ledger |
+| Otoritas syariah | Menelaah kesesuaian akad pada temuan R08 | Telaah syariah, riwayat telaah |
 | Juri atau pembaca esai | Mencoba sistem dan melihat hasil evaluasi | Form periksa, halaman evaluasi, verifikasi ledger |
 
-Pada prototipe, semua peran dipakai oleh satu antarmuka tanpa login. Pemisahan peran ditampilkan sebagai konsep di halaman Tentang.
+Pada prototipe, semua peran dipakai oleh satu antarmuka tanpa login. Server membedakan penyedia data, auditor, pejabat berwenang, dan otoritas syariah dari kode akses yang dikirim (F10, D-015). Bila kode peran tidak diisi, semua peran memakai satu kode seperti sebelum revisi. Pengawasan BPK dan Pentahelix tetap ditampilkan sebagai konsep di halaman Tentang.
 
 ## 5. Fitur dan prioritas
 
 | Kode | Fitur | Prioritas |
 |---|---|---|
-| F1 | Periksa transaksi baru (tujuh aturan dan skor) | P0 |
+| F1 | Periksa transaksi baru (delapan aturan dan skor) | P0 |
 | F2 | Daftar peringatan dengan filter dan urutan prioritas | P0 |
 | F3 | Detail peringatan dengan alasan aturan atau skor dan pembanding | P0 |
 | F4 | Status kasus dan catatan tindak lanjut | P0 |
@@ -46,16 +49,23 @@ Pada prototipe, semua peran dipakai oleh satu antarmuka tanpa login. Pemisahan p
 | F7 | Riwayat kontrak dengan grafik progres dan pencairan | P1 |
 | F8 | Mode demo perusakan entri untuk menunjukkan verifikasi gagal | P1 |
 | F9 | Halaman Tentang (arsitektur, Pentahelix, keterbatasan) | P2 |
+| F10 | Peran simulasi: batas perpindahan status per peran, pengusul dan verifikator tercatat | P0 |
+| F11 | Alur koreksi data dan telaah syariah atas temuan akad | P0 |
+| F12 | Panel bukti dan status pemantauan berlanjut | P1 |
 
 ## 6. Kebutuhan fungsional
 
 - FR-1: Sistem menghitung fitur turunan dari riwayat kontrak di database, bukan dari input pengguna.
-- FR-2: Sistem menjalankan tujuh aturan di `docs/RULES.md` dan mengembalikan kode aturan beserta pesan.
+- FR-2: Sistem menjalankan delapan aturan di `docs/RULES.md` dan mengembalikan kode aturan beserta pesan.
 - FR-3: Transaksi yang lolos aturan dinilai Isolation Forest. Transaksi yang melanggar aturan tetap masuk daftar peringatan tanpa perlu skor.
 - FR-4: Setiap transaksi yang disimpan, setiap peringatan, dan setiap perubahan status menambah satu entri ledger.
 - FR-5: Verifikasi ledger menghitung ulang rantai dan menyebut nomor entri pertama yang rusak.
-- FR-6: Koreksi data dicatat sebagai entri baru. Entri lama tidak diubah.
+- FR-6: Koreksi data dicatat sebagai entri baru. Entri lama tidak diubah. Koreksi hanya untuk peringatan berstatus `perlu_klarifikasi` dan memicu pemeriksaan ulang.
 - FR-7: Hasil evaluasi ditampilkan dari berkas hasil Python, bukan dihitung ulang di web.
+- FR-8: Server menentukan peran dari kode akses dan membatasi perpindahan status per peran (`docs/API_SPEC.md` bagian 5). Klien tidak mengirim peran.
+- FR-9: Transaksi yang disimpan mencatat pengusul dan verifikator di payload ledger.
+- FR-10: Temuan aturan membawa tag prinsip (amanah atau hifz al-mal). Temuan R08 dapat ditelaah oleh peran otoritas syariah, dan telaah tercatat di ledger tanpa mengubah status.
+- FR-11: Hasil pemeriksaan menampilkan panel bukti (hash dan kelengkapan) dan status tindak lanjut (`pemantauan_berlanjut` atau `telaah_auditor`).
 
 ## 7. Kebutuhan non-fungsional
 
@@ -84,6 +94,8 @@ Tidak ada target angka recall atau precision yang ditetapkan lebih dulu. Angka d
 | Anomali sintetis terlalu mudah | Hasil terlihat terlalu bagus | Sebut sebagai keterbatasan, jalankan beberapa seed |
 | Waktu mepet | Fitur tidak selesai | Kerjakan sesuai prioritas P0 dulu |
 | Siapa saja bisa menulis ke database lewat URL publik | Data demo rusak | Kode akses sederhana dan pembatasan laju, lihat `docs/API_SPEC.md` |
+| Revisi mengubah data dan angka evaluasi | Angka di esai atau docx lama tidak cocok | Revisi diuji di proyek Supabase baru. Angka lama ditandai di `docs/ESSAY_UPDATE.md` |
+| Kode peran bocor | Peran penuh dipegang pihak lain | Peran hanya simulasi. Ganti kode setelah demo, dicatat di `docs/LIMITATIONS.md` |
 
 ## 10. Asumsi
 

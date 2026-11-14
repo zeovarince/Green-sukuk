@@ -1,43 +1,50 @@
-# Usulan pembaruan untuk esai
+# Usulan pembaruan untuk esai (revisi)
 
-Angka dan keterbatasan di bawah ini telah dimasukkan ke salinan revisi docs/ESSAI_GSTP_REVISI.docx setelah dicocokkan dengan naskah sumber yang diberikan. Naskah sumber di Downloads tidak diubah. Kolom Cocok pada docs/TRACEABILITY.md menandai kecocokan isi secara tekstual; verifikasi daftar pustaka masih diperlukan karena bagian daftar pustaka pada sumber kosong.
+> Versi revisi 2026-11-14 setelah penyelesaian fase R6 dan R7. Menggantikan `ESSAY_UPDATE.md`. Angka di bawah ini mencerminkan evaluasi model revisi skema v2 (18 fitur dan pemisahan data per proyek D-017).
+
+Angka dan keterbatasan di bawah ini telah diselaraskan dengan hasil evaluasi fase R6. Kolom Cocok pada docs/TRACEABILITY.md menandai kecocokan isi; berkas biner `docs/ESSAI_GSTP_REVISI.docx` sengaja dibiarkan utuh dan memuat tabel pra-revisi sebagai arsip rujukan, sehingga angka resmi evaluasi revisi merujuk pada dokumen ini dan `docs/EVALUATION.md`.
+
+## Catatan revisi prototipe
+
+Semua angka di berkas ini diperbarui dari hasil evaluasi fase R6 (seed 42 dan lima seed). Revisi mencakup penambahan aturan R08 (kesesuaian akad syariah), tiga fitur model (vektor 18 fitur), pemisahan data per proyek (D-017), dan peran simulasi lewat kode akses (D-015).
+
+Esai PDF dan slide yang ada tidak memuat angka evaluasi kuantitatif, sehingga tidak bertentangan. `docs/ESSAI_GSTP_REVISI.docx` memuat Tabel 2 sampai 5 dengan angka pra-revisi dan dibaca bersama catatan pemutakhiran ini.
 
 ## Tabel hasil seed 42
 
 | Pendekatan | Precision | Recall | F1 | Laju peringatan palsu | Peringatan per 1.000 transaksi |
 |---|---:|---:|---:|---:|---:|
-| Aturan saja | 1,0000 | 0,4935 | 0,6608 | 0,0000 | 16,32 |
-| Isolation Forest saja | 0,8333 | 0,0392 | 0,0748 | 0,0003 | 1,55 |
-| Hybrid | 0,3293 | 0,4935 | 0,3950 | 0,0344 | 49,56 |
+| Aturan saja | 1,0000 | 0,5590 | 0,7171 | 0,0000 | 15,56 |
+| Isolation Forest saja | 0,0408 | 0,0062 | 0,0108 | 0,0042 | 4,23 |
+| Hybrid | 0,5476 | 0,5714 | 0,5593 | 0,0135 | 29,04 |
 
-Ambang hybrid 0,665 ditentukan pada data validasi dengan batas laju peringatan palsu 2 persen. Ambang Isolation Forest saja 0,7039. Pada kelompok `normal_tidak_lazim_sah` (1.401 baris), laju peringatan palsu adalah 0 persen untuk aturan, 0,21 persen untuk Isolation Forest, dan 27,48 persen untuk hybrid.
+Ambang hybrid 0,6251 ditentukan pada data validasi baris lolos aturan dengan batas laju peringatan palsu 2 persen (FAR validasi 1,48%, F1 validasi 0,0166). Ambang Isolation Forest saja 0,6464. Pada kelompok `normal_tidak_lazim_sah` (1.397 baris), laju peringatan palsu adalah 0,00% untuk aturan saja, 3,36% (47 baris) untuk Isolation Forest, dan 10,88% (152 baris) untuk hybrid.
 
-## Kestabilan lima seed
+## Kestabilan lima seed (42, 43, 44, 45, 46)
 
 | Metrik hybrid | Rata-rata | Simpangan baku |
 |---|---:|---:|
-| F1 | 0,3894 | 0,0049 |
-| Laju peringatan palsu | 0,0356 | 0,0011 |
+| F1 | 0,5727 | 0,0490 |
+| Laju peringatan palsu | 0,0122 | 0,0050 |
 
-Nilai terakhir setara dengan laju rata-rata 3,56 persen dan simpangan baku 0,11 poin persentase. Lima seed berasal dari generator yang sama, bukan lima populasi dunia nyata.
+Rata-rata laju peringatan palsu setara dengan 1,22 persen dengan simpangan baku 0,50 poin persentase. Lima seed berasal dari pemodelan pada data simulasi dengan pembagian per proyek.
 
 ## Usulan paragraf hasil
 
-Pada data uji simulasi seed 42, pendekatan aturan memperoleh F1 0,6608 dengan laju peringatan palsu 0 persen. Isolation Forest saja memperoleh F1 0,0748 dan recall 0,0392. Pendekatan hybrid memperoleh recall 0,4935, sama dengan pendekatan aturan, tetapi precision-nya 0,3293, F1 0,3950, dan laju peringatan palsu 3,44 persen. Hybrid menghasilkan 49,56 peringatan per 1.000 transaksi, dibanding 16,32 pada pendekatan aturan. Karena itu, hasil ini tidak menunjukkan bahwa hybrid lebih baik secara keseluruhan pada seed tersebut. Pada lima seed dari generator yang sama, rata-rata F1 hybrid adalah 0,3894 dengan simpangan baku 0,0049; rata-rata laju peringatan palsunya 3,56 persen dengan simpangan baku 0,11 poin persentase.
+Pada data uji simulasi seed 42, pendekatan aturan memperoleh F1 0,7171 dengan laju peringatan palsu 0,00 persen dan recall 0,5590. Isolation Forest saja memperoleh F1 0,0108 dan recall 0,0062. Pendekatan hybrid memperoleh recall 0,5714 (menangkap 4 anomali kontekstual lonjakan tanpa progres yang lolos aturan), dengan precision 0,5476, F1 0,5593, dan laju peringatan palsu 1,35 persen. Hybrid menghasilkan 29,04 peringatan per 1.000 transaksi, dibanding 15,56 pada pendekatan aturan. Hasil dilaporkan apa adanya: hybrid memberikan tambahan cakupan recall anomali kontekstual dibanding aturan saja, namun F1-nya lebih rendah dari aturan deterministik murni akibat beban peringatan palsu tambahan. Pada lima seed, rata-rata F1 hybrid adalah 0,5727 (SD 0,0490) dan rata-rata laju peringatan palsunya 1,22 persen (SD 0,0050).
 
 ## Usulan paragraf keterbatasan
 
-Data dan label pada penelitian ini dibuat dengan generator, bukan transaksi Green Sukuk yang sebenarnya. Beberapa anomali dirancang agar tertangkap aturan dan kelompok kontekstual dirancang lolos dari aturan. Pada seed 42, recall hybrid untuk `lonjakan_tanpa_progres`, `pemecahan_pencairan`, `pencairan_setelah_selesai`, dan `progres_stagnan_tapi_cair` adalah 0. Laju peringatan palsu hybrid pada kelompok transaksi sah yang tampak tidak lazim mencapai 27,48 persen. Hasil tersebut merupakan pengukuran pada skenario buatan dan belum membuktikan kemampuan pada data nyata.
+Data dan label pada penelitian ini dibuat dengan generator simulasi, bukan transaksi nyata kementerian. Model hybrid menangkap sebagian kecil anomali lonjakan progres (recall 0,0678), namun anomali kontekstual berupa pemecahan pencairan, progres stagnan, dan pencairan setelah selesai belum tertangkap pada data uji. Laju peringatan palsu hybrid pada kelompok transaksi sah yang tidak lazim adalah 10,88 persen.
 
-Ledger prototipe merupakan hash-chain dalam satu basis data PostgreSQL. Verifikasi dapat menemukan perubahan pada rantai yang disimpan, tetapi sistem tidak mencegah pengelola basis data menulis ulang seluruh rantai. Prototipe belum memakai konsensus antar lembaga, dokumen asli terenkripsi, autentikasi pengguna, atau pemisahan peran. Pentahelix serta pengawasan BPK dan otoritas syariah masih berupa rancangan tata kelola.
+Ledger prototipe merupakan hash-chain dalam satu basis data relasional. Uji perusakan 1.000 entri membuktikan hash-chain mendeteksi 100% modifikasi data, penghapusan baris, penyisipan, dan penukaran urutan entri (tabel log audit biasa mendeteksi 0%), namun sistem tidak mencegah pihak dengan kendali basis data penuh menghitung ulang seluruh rantai tanpa jangkar eksternal. Pemisahan peran disimulasikan lewat kode akses tanpa autentikasi pengguna individual. Peran otoritas syariah mencatat telaah kesesuaian akad atas temuan aturan R08.
 
 ## Angka yang belum boleh ditulis sebagai hasil
 
-- Latensi Vercel belum diukur. Nilai `0.0` di artefak bukan hasil pengukuran.
-- Waktu deteksi pola beruntun dan kelengkapan tautan alokasi belum diukur.
-- Skenario demo belum dijalankan di URL publik.
-- Prototipe belum memakai jaringan blockchain permissioned dan belum mencegah perubahan data.
+- Latensi Vercel belum diukur di lingkungan preview (nilai `0.0` pada artefak adalah penanda awal).
+- Pengukuran kinerja pada data nyata pembiayaan proyek hijau.
+- Skenario publik terhadap proyek Supabase live baru.
 
 ## Sumber angka
 
-Angka diambil dari `ml/artifacts/hasil_evaluasi.json` dan diringkas di `docs/EVALUATION.md`. Jika esai menggunakan definisi metrik yang berbeda, samakan definisinya sebelum menyalin angka.
+Angka diambil dari `ml/artifacts/hasil_evaluasi.json` dan dirangkum lengkap di `docs/EVALUATION.md`.

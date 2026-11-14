@@ -130,7 +130,7 @@ Catatan keputusan teknis dan alasannya. Format: konteks, keputusan, alasan, kons
 - Keputusan: laporan tambahan pada split pengujian untuk kategori `Pengelolaan air dan air limbah`, satu tahun kalender. Tahun penuh dengan baris terbanyak dipilih sebelum metrik dilihat, lalu dicatat di sini beserta jumlah barisnya.
 - Alasan: menghindari pemilihan tahun yang menguntungkan hasil.
 - Konsekuensi: irisan kecil, jadi metrik per subtipe bisa tidak stabil dan harus ditulis begitu.
-- Tahun terpilih: belum ditentukan (diisi saat fase R6).
+- Tahun terpilih: 2025 (930 baris pada split pengujian, dipilih karena merupakan tahun kalender penuh dengan jumlah baris terbanyak sebelum metrik dihitung; dievaluasi pada fase R6 2026-11-14).
 - Status: berlaku (disetujui pemilik 2026-11-14).
 
 ## D-020: Ambang dihitung ulang setelah perubahan fitur dan data

@@ -48,3 +48,7 @@ export function bolehTransisi(peran: Peran | null | undefined, dari: string, ke:
 export function bolehKoreksi(peran: Peran | null | undefined): boolean {
   return peran === "penyedia_data" || peran === "umum";
 }
+
+export function bolehTelaahSyariah(peran: Peran | null | undefined): boolean {
+  return peran === "otoritas_syariah" || peran === "umum";
+}

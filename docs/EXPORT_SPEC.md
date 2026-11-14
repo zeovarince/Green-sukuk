@@ -1,4 +1,6 @@
-# EXPORT_SPEC
+# EXPORT_SPEC (revisi)
+
+> Versi revisi 2026-11-13, draf menunggu persetujuan pemilik. Menggantikan `EXPORT_SPEC.md` setelah disetujui. Revisi: REV-01, REV-03 (skema versi 2, referensi kelompok, golden cases baru). Rincian di `PERUBAHAN_revisi.md`.
 
 Kontrak berkas antara `ml/` (Python) dan `web/` (TypeScript), serta aturan tes kesesuaian. Karena logika aturan, fitur, dan skor ada di dua bahasa, dokumen ini yang menjaga keduanya tetap sama.
 
@@ -13,18 +15,23 @@ Dihasilkan oleh `ml/export_artifacts.py` ke `ml/artifacts/`, lalu disalin ke `we
 | `golden_cases.json` | Kasus uji dengan jawaban dari Python | Tes TypeScript |
 | `hasil_evaluasi.json` | Hasil evaluasi | Halaman evaluasi |
 
-Setiap berkas memuat `versi_skema` dan `dibuat_pada`. Web menolak memuat berkas dengan `versi_skema` yang tidak dikenal. `rules_config.json` juga mempertahankan `versi` untuk kompatibilitas dengan mesin aturan Python.
+Setiap berkas memuat `versi_skema` dan `dibuat_pada`. Web menolak memuat berkas dengan `versi_skema` yang tidak dikenal. Setelah revisi, `model_if.json` dan `golden_cases.json` berskema 2. `rules_config.json` naik ke `versi` 2 (kunci `prinsip` dan R08), dan `hasil_evaluasi.json` mengikuti `EVALUATION.md`. `rules_config.json` juga mempertahankan `versi` untuk kompatibilitas dengan mesin aturan Python.
 
 ## 2. `model_if.json`
 
 ```json
 {
-  "versi_skema": 1,
+  "versi_skema": 2,
   "dibuat_pada": "tanggal",
-  "versi_model": "if-2026-10-a",
+  "versi_model": "versi model baru, mis. if-2026-11-a",
   "seed": 42,
   "versi_sklearn": "versi yang dipakai saat melatih",
-  "fitur": ["log_nilai", "rasio_nilai_terhadap_kontrak", "..."],
+  "fitur": ["log_nilai", "rasio_nilai_terhadap_kontrak", "...", "kelengkapan_bukti", "rasio_nilai_vs_median_kelompok", "deviasi_jadwal_pct"],
+  "referensi_kelompok": {
+    "median_per_kelompok": { "Kategori hijau|tahap": 0 },
+    "median_per_tahap": { "konstruksi": 0 },
+    "median_global": 0
+  },
   "n_estimators": 200,
   "max_samples": 256,
   "c_max_samples": 0.0,
@@ -45,6 +52,8 @@ Aturan struktur pohon (mengikuti scikit-learn):
 - Simpul ke-i: jika `fitur[i] >= 0`, bandingkan `x[fitur[i]] <= ambang[i]` untuk memilih `kiri[i]`, selain itu `kanan[i]`.
 - Daun ditandai `kiri[i] = -1` dan `fitur[i] = -2`.
 - `n_sampel[i]` dipakai untuk koreksi panjang jalur di daun.
+- `fitur` berjumlah 18, dalam urutan yang sama dengan `MODEL_SPEC.md` bagian 3. `web/lib/iforest.ts` menolak berkas bila `versi_skema` bukan 2 atau jumlah fitur tidak sama dengan panjang vektor yang dibangun `web/lib/fitur.ts`.
+- `referensi_kelompok` dipakai `web/lib/fitur.ts` untuk `rasio_nilai_vs_median_kelompok`. Kunci kelompok ditulis `kategori_hijau|tahap_proyek`. Urutan pencarian: kelompok, lalu tahap, lalu global. Nilai median ditulis dengan presisi penuh.
 - Nilai desimal ditulis dengan presisi penuh (17 digit signifikan) agar perbandingan `<=` memberi hasil yang sama di Python dan JavaScript.
 
 Rumus skor ada di `MODEL_SPEC.md` bagian 5. Ukuran: 200 pohon dengan `max_samples` 256 memberi berkas yang jauh lebih kecil dari batas ukuran fungsi Vercel. Cek ukuran aktual setelah ekspor.
@@ -55,7 +64,7 @@ Setiap kasus berisi masukan mentah, riwayat kontrak, konteks proyek dan kontrak 
 
 ```json
 {
-  "versi_skema": 1,
+  "versi_skema": 2,
   "kasus": [
     {
       "id": "g-0001",
@@ -71,6 +80,7 @@ Setiap kasus berisi masukan mentah, riwayat kontrak, konteks proyek dan kontrak 
         "persetujuan_diperoleh": 3,
         "kelengkapan_bukti": 1.0,
         "kategori_hijau": "Transportasi berkelanjutan",
+        "akad": "Ijarah Asset to Be Leased",
         "hash_tercatat": "0123456789abcdef",
         "hash_dokumen_saat_ini": "0123456789abcdef"
       },
@@ -80,6 +90,10 @@ Setiap kasus berisi masukan mentah, riwayat kontrak, konteks proyek dan kontrak 
       "konteks": {
         "project_id_kontrak": "PRJ-0001",
         "project_id_sah": true,
+        "akad_proyek": "Ijarah Asset to Be Leased",
+        "durasi_bulan": 12,
+        "tahap_proyek": "konstruksi",
+        "bulan_ke": 2,
         "pagu_alokasi_kontrak": 10000000000,
         "nilai_kontrak": 9000000000,
         "tanggal_mulai_kontrak": "2025-01-01",
@@ -101,6 +115,8 @@ Isi kasus di atas hanya contoh bentuk. Angka nyata datang dari data hasil genera
 
 Pemilihan kasus:
 - Stratifikasi: sedikitnya 20 kasus per subtipe, ditambah kasus normal biasa secara acak (minimal 200).
+- Kasus R08: sedikitnya 20 kasus `akad_tidak_sesuai`, kasus akad sama, kasus `akad` kosong, dan kasus proyek tidak valid dengan akad berbeda (R08 tidak berjalan).
+- Kasus fitur baru: `bulan_ke` melewati `durasi_bulan` (u dibatasi 1), `bulan_ke` nol, kelompok `kategori_hijau` dan tahap yang tidak ada di tabel (fallback ke tahap, lalu global), dan kategori tidak sah.
 - Masukkan kasus pinggiran: nilai tepat di ambang persetujuan, kelengkapan bukti tepat 0,80, kumulatif tepat sama dengan pagu, riwayat kosong (transaksi pertama kontrak), dan riwayat satu baris.
 - Riwayat disertakan secukupnya untuk menghitung fitur, bukan seluruh riwayat kontrak, kecuali fitur memang butuh semuanya (median riwayat memakai seluruh pencairan sebelumnya, jadi sertakan semuanya untuk kasus itu).
 
@@ -130,4 +146,4 @@ Jangan mengedit berkas artefak dengan tangan. Jika salah, perbaiki skrip ekspor 
 
 ## 6. Kanonikalisasi untuk ledger
 
-Fungsi pembuat `payload_kanonik` (urutan kunci, format angka) harus identik di Python (`ml/gstp/ledger.py`) dan TypeScript (`web/lib/ledger.ts`). Tambahkan sedikit kasus di `golden_cases.json` khusus untuk ini: masukan payload dan hash yang diharapkan. Lihat `LEDGER_SPEC.md` bagian 4.
+Fungsi pembuat `payload_kanonik` (urutan kunci, format angka) harus identik di Python (`ml/gstp/ledger.py`) dan TypeScript (`web/lib/ledger.ts`). Tambahkan sedikit kasus di `golden_cases.json` khusus untuk ini: masukan payload dan hash yang diharapkan. Lihat `LEDGER_SPEC.md` bagian 4. Tambahkan kasus payload `koreksi` dengan objek bersarang (`perubahan`, `hasil_baru`), karena pengurutan kunci bersarang harus sama di kedua bahasa.

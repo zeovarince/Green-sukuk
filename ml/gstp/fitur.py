@@ -2,15 +2,17 @@
 ml/gstp/fitur.py
 ================
 Ekstraksi dan rekayasa fitur untuk model Isolation Forest GSTP
-sesuai docs/MODEL_SPEC.md bagian 3.
+sesuai docs/MODEL_SPEC.md bagian 3 (revisi 18 fitur).
 """
 
 from __future__ import annotations
+import json
+import os
 import numpy as np
 import pandas as pd
 from typing import Any, Dict, List, Optional, Sequence
 
-# Daftar 15 fitur berurutan persis sesuai MODEL_SPEC.md
+# Daftar 18 fitur berurutan persis sesuai MODEL_SPEC.md bagian 3
 DAFTAR_FITUR: List[str] = [
     "log_nilai",
     "rasio_nilai_terhadap_kontrak",
@@ -27,12 +29,73 @@ DAFTAR_FITUR: List[str] = [
     "rasio_nilai_vs_progres",
     "jumlah_pencairan_7_hari",
     "nilai_vs_median_kontrak",
+    "kelengkapan_bukti",
+    "rasio_nilai_vs_median_kelompok",
+    "deviasi_jadwal_pct",
 ]
 
 
-def bangun_fitur_dataframe(df: pd.DataFrame) -> pd.DataFrame:
+def hitung_referensi_kelompok(df_dev_lolos: pd.DataFrame) -> Dict[str, Any]:
     """
-    Membangun matriks fitur dari DataFrame transaksi yang sudah memiliki riwayat lengkap.
+    Menghitung tabel referensi kelompok dari split pengembangan yang lolos aturan (MODEL_SPEC.md bagian 3).
+    - median_per_kelompok: per pasangan (kategori_hijau, tahap_proyek), kunci: f"{kategori}|{tahap}"
+    - median_per_tahap: per tahap_proyek
+    - median_global: median seluruh split pengembangan lolos aturan
+    """
+    nilai = df_dev_lolos["nilai_pencairan"].astype(float)
+    df_temp = df_dev_lolos.copy()
+    keys = df_temp["kategori_hijau"].astype(str) + "|" + df_temp["tahap_proyek"].astype(str)
+    df_temp["_kelompok_key"] = keys
+    med_kel = df_temp.groupby("_kelompok_key")["nilai_pencairan"].median().to_dict()
+    med_tahap = df_temp.groupby("tahap_proyek")["nilai_pencairan"].median().to_dict()
+    med_global = float(nilai.median()) if len(nilai) > 0 else 1.0
+
+    return {
+        "median_per_kelompok": {str(k): float(v) for k, v in med_kel.items()},
+        "median_per_tahap": {str(k): float(v) for k, v in med_tahap.items()},
+        "median_global": float(med_global),
+    }
+
+
+def cari_median_referensi(
+    kategori_hijau: str,
+    tahap_proyek: str,
+    referensi_kelompok: Optional[Dict[str, Any]] = None,
+) -> float:
+    """Mencari nilai median referensi sesuai urutan: kelompok -> tahap -> global."""
+    if not referensi_kelompok:
+        return 1.0
+    med_kel = referensi_kelompok.get("median_per_kelompok", {})
+    key = f"{kategori_hijau}|{tahap_proyek}"
+    if key in med_kel and med_kel[key] > 0:
+        return float(med_kel[key])
+    med_tahap = referensi_kelompok.get("median_per_tahap", {})
+    if tahap_proyek in med_tahap and med_tahap[tahap_proyek] > 0:
+        return float(med_tahap[tahap_proyek])
+    med_global = referensi_kelompok.get("median_global", 1.0)
+    return float(med_global) if med_global > 0 else 1.0
+
+
+def hitung_deviasi_jadwal(progres_fisik_pct: float, bulan_ke: float, durasi_bulan: float) -> float:
+    """Menghitung deviasi jadwal terhadap kurva-S acuan (MODEL_SPEC.md bagian 3)."""
+    if durasi_bulan <= 0:
+        u = 1.0
+    else:
+        u = min(max(float(bulan_ke) / float(durasi_bulan), 0.0), 1.0)
+    L_u = 1.0 / (1.0 + np.exp(-8.0 * (u - 0.5)))
+    L_0 = 1.0 / (1.0 + np.exp(4.0))
+    L_1 = 1.0 / (1.0 + np.exp(-4.0))
+    jadwal_acuan_pct = 100.0 * (L_u - L_0) / (L_1 - L_0)
+    return float(progres_fisik_pct - jadwal_acuan_pct)
+
+
+def bangun_fitur_dataframe(
+    df: pd.DataFrame,
+    referensi_kelompok: Optional[Dict[str, Any]] = None,
+    peta_durasi_kontrak: Optional[Dict[str, float]] = None,
+) -> pd.DataFrame:
+    """
+    Membangun matriks 18 fitur dari DataFrame transaksi yang sudah memiliki riwayat lengkap.
     df harus memiliki urutan kronologis per kontrak_id.
     """
     df = df.copy()
@@ -95,6 +158,64 @@ def bangun_fitur_dataframe(df: pd.DataFrame) -> pd.DataFrame:
                 else:
                     nilai_vs_median[sub_idx[pos]] = 1.0
 
+    # 6. Tiga fitur baru (REV-03)
+    # 6a. kelengkapan_bukti
+    kelengkapan_bukti = df["kelengkapan_bukti"].astype(float)
+
+    # 6b. rasio_nilai_vs_median_kelompok
+    if referensi_kelompok is None:
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        model_path = os.path.join(base_dir, "artifacts", "model_if.json")
+        if os.path.exists(model_path):
+            try:
+                with open(model_path, "r", encoding="utf-8") as f:
+                    m_data = json.load(f)
+                referensi_kelompok = m_data.get("referensi_kelompok")
+            except Exception:
+                referensi_kelompok = None
+        if referensi_kelompok is None:
+            referensi_kelompok = hitung_referensi_kelompok(df)
+
+    kategori_col = df["kategori_hijau"].astype(str)
+    tahap_col = df["tahap_proyek"].astype(str)
+    nilai_col = df["nilai_pencairan"].astype(float)
+
+    med_kel = referensi_kelompok.get("median_per_kelompok", {})
+    med_tahap = referensi_kelompok.get("median_per_tahap", {})
+    med_global = float(referensi_kelompok.get("median_global", 1.0))
+    if med_global <= 0:
+        med_global = 1.0
+
+    key_series = kategori_col + "|" + tahap_col
+    med_series = key_series.map(med_kel)
+    med_series = med_series.fillna(tahap_col.map(med_tahap))
+    med_series = med_series.fillna(med_global)
+    med_series = med_series.replace(0, med_global).fillna(med_global).astype(float)
+    rasio_nilai_vs_median_kelompok = nilai_col / med_series
+
+    # 6c. deviasi_jadwal_pct
+    if "durasi_bulan" in df.columns:
+        durasi = df["durasi_bulan"].astype(float)
+    elif peta_durasi_kontrak is not None:
+        durasi = df["kontrak_id"].map(peta_durasi_kontrak).fillna(12.0).astype(float)
+    else:
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        reg_ktr_path = os.path.join(base_dir, "data_simulasi", "registri_kontrak.csv")
+        if os.path.exists(reg_ktr_path):
+            df_ktr = pd.read_csv(reg_ktr_path)
+            dur_map = df_ktr.set_index("kontrak_id")["durasi_bulan"].to_dict()
+            durasi = df["kontrak_id"].map(dur_map).fillna(12.0).astype(float)
+        else:
+            durasi = pd.Series(12.0, index=df.index)
+
+    durasi_pos = np.where(durasi.values <= 0, 1.0, durasi.values)
+    u_vals = np.clip(bulan_ke.values / durasi_pos, 0.0, 1.0)
+    L_u = 1.0 / (1.0 + np.exp(-8.0 * (u_vals - 0.5)))
+    L_0 = 1.0 / (1.0 + np.exp(4.0))
+    L_1 = 1.0 / (1.0 + np.exp(-4.0))
+    jadwal_acuan_pct = 100.0 * (L_u - L_0) / (L_1 - L_0)
+    deviasi_jadwal_pct = progres_fisik_pct.values - jadwal_acuan_pct
+
     feat_df = pd.DataFrame({
         "log_nilai": log_nilai,
         "rasio_nilai_terhadap_kontrak": rasio_nilai_terhadap_kontrak,
@@ -111,6 +232,9 @@ def bangun_fitur_dataframe(df: pd.DataFrame) -> pd.DataFrame:
         "rasio_nilai_vs_progres": rasio_nilai_vs_progres,
         "jumlah_pencairan_7_hari": jumlah_7_hari,
         "nilai_vs_median_kontrak": nilai_vs_median,
+        "kelengkapan_bukti": kelengkapan_bukti,
+        "rasio_nilai_vs_median_kelompok": rasio_nilai_vs_median_kelompok,
+        "deviasi_jadwal_pct": deviasi_jadwal_pct,
     })
 
     return feat_df[DAFTAR_FITUR]
@@ -122,9 +246,12 @@ def hitung_fitur_satu_transaksi(
     pagu_alokasi_kontrak: float | int,
     nilai_kontrak: float | int,
     tanggal_mulai_kontrak: Optional[str] = None,
+    referensi_kelompok: Optional[Dict[str, Any]] = None,
+    durasi_bulan: Optional[float | int] = None,
+    tahap_proyek: Optional[str] = None,
 ) -> Dict[str, float]:
     """
-    Menghitung 15 fitur untuk satu transaksi baru berdasarkan riwayat transaksi kontrak sebelumnya.
+    Menghitung 18 fitur untuk satu transaksi baru berdasarkan riwayat transaksi kontrak sebelumnya.
     Dipakai saat transaksi baru masuk (API / golden cases).
     """
     curr_tgl = pd.to_datetime(transaksi["tanggal"])
@@ -171,6 +298,27 @@ def hitung_fitur_satu_transaksi(
     penyebut = max(delta_progres / 100.0, 0.005)
     rasio_nilai_vs_prog = float(rasio_nilai_kontrak / penyebut)
 
+    # 3 Fitur Baru
+    kelengkapan_bukti = float(transaksi.get("kelengkapan_bukti", 1.0))
+
+    tahap = str(tahap_proyek or transaksi.get("tahap_proyek") or "")
+    if not tahap:
+        if jenis == "retensi":
+            tahap = "pemeliharaan"
+        elif curr_progres <= 10:
+            tahap = "persiapan"
+        elif curr_progres < 90:
+            tahap = "konstruksi"
+        else:
+            tahap = "penyelesaian"
+
+    kategori = str(transaksi.get("kategori_hijau", ""))
+    med_ref = cari_median_referensi(kategori, tahap, referensi_kelompok)
+    rasio_kelompok = float(curr_nilai / med_ref) if med_ref > 0 else 1.0
+
+    dur = float(durasi_bulan if durasi_bulan is not None else transaksi.get("durasi_bulan", 12.0))
+    deviasi_jadwal = hitung_deviasi_jadwal(curr_progres, float(transaksi.get("bulan_ke", 1)), dur)
+
     fitur = {
         "log_nilai": float(np.log1p(curr_nilai)),
         "rasio_nilai_terhadap_kontrak": rasio_nilai_kontrak,
@@ -187,6 +335,9 @@ def hitung_fitur_satu_transaksi(
         "rasio_nilai_vs_progres": rasio_nilai_vs_prog,
         "jumlah_pencairan_7_hari": float(cnt_7d),
         "nilai_vs_median_kontrak": float(nilai_vs_med),
+        "kelengkapan_bukti": kelengkapan_bukti,
+        "rasio_nilai_vs_median_kelompok": rasio_kelompok,
+        "deviasi_jadwal_pct": deviasi_jadwal,
     }
 
     return {k: fitur[k] for k in DAFTAR_FITUR}
