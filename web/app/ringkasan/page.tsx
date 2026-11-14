@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import DoubleCurve, { type CurveRow } from "@/components/DoubleCurve";
 import { api, formatAngka, formatRingkas } from "@/lib/format";
+import model from "@/data/artifacts/model_if.json";
 
 type Summary = { total_transaksi: number; total_kontrak: number; peringatan_baru: number; entri_ledger_terakhir: { seq: number; hash_saat_ini: string } | null; model: { versi_model: string; ambang: number } };
 type AlertItem = { id: string; trx_id: string; jenis: string; kode_aturan: string[]; skor: number | null; status: string; dibuat_pada: string; kontrak_id: string | null };
@@ -68,7 +69,7 @@ export default function HomePage() {
             <div><span>Pagu alokasi</span><strong>{formatRingkas(contract.kontrak.pagu_alokasi)}</strong></div>
             <div><span>Pencairan kumulatif</span><strong>{formatRingkas(contract.riwayat.at(-1)?.kumulatif_cair)}</strong></div>
           </dl>}
-          {summary && <p className="provenance" style={{ marginTop: 16 }}>Model {summary.model.versi_model}, ambang skor {formatAngka(summary.model.ambang, 4)}. Data berasal dari simulasi.</p>}
+          <p className="provenance" style={{ marginTop: 16 }}>Model {model.versi_model}, ambang {formatAngka(model.ambang, 4)}. Data berasal dari simulasi.</p>
         </section>
 
         <aside aria-labelledby="queue-title">

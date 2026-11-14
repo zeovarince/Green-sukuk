@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { api, formatAngka } from "@/lib/format";
+import bundledMetrics from "@/data/artifacts/hasil_evaluasi.json";
 
 type RingkasPola = { terdeteksi_pct: number; median_posisi: number | null };
 type RingkasTautan = { n: number; proyek_valid: number; kontrak_milik_proyek: number; hash_cocok: number; entri_ledger: number; gabungan: number };
@@ -58,14 +59,14 @@ const perusakanLabel: Record<string, string> = {
 };
 
 export default function EvaluasiPage() {
-  const [metrics, setMetrics] = useState<Metrics | null>(null);
+  const [metrics, setMetrics] = useState<Metrics>(bundledMetrics as unknown as Metrics);
   const [error, setError] = useState("");
   useEffect(() => {
     let active = true;
     api<Metrics>("/api/metrik").then((value) => { if (active) setMetrics(value); })
-      .catch((reason: unknown) => { if (active) setError(reason instanceof Error ? reason.message : "Hasil evaluasi tidak dapat dimuat."); });
+      .catch((reason: unknown) => { if (active && !metrics) setError(reason instanceof Error ? reason.message : "Hasil evaluasi tidak dapat dimuat."); });
     return () => { active = false; };
-  }, []);
+  }, [metrics]);
 
   const pola = metrics?.waktu_deteksi_pola;
   const tautan = metrics?.kelengkapan_tautan;

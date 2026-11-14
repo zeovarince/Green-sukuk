@@ -230,7 +230,7 @@ export default function PeriksaPage() {
             </div>
             <label className="save-toggle"><input type="checkbox" checked={save} onChange={(event) => setSave(event.target.checked)} /><span><strong>Simpan hasil ke ledger</strong><br /><small>Perlu pengusul, verifikator, dan kode akses penyedia data. Bawaan mati.</small></span></label>
             {save && <div className="form-grid" style={{ marginTop: 12 }}>
-              <div className="field"><label htmlFor="pengusul">Pengusul pencairan</label><input id="pengusul" placeholder="Contoh: PPK Pelaksana Proyek" value={form.pengusul} onChange={(event) => setField("pengusul", event.target.value)} required /></div>
+              <div className="field"><label htmlFor="pengusul">Pengusul</label><input id="pengusul" placeholder="Contoh: PPK Pelaksana Proyek" value={form.pengusul} onChange={(event) => setField("pengusul", event.target.value)} required /></div>
               <div className="field"><label htmlFor="verifikator">Verifikator</label><input id="verifikator" placeholder="Contoh: Verifikator KPPN" value={form.verifikator} onChange={(event) => setField("verifikator", event.target.value)} required /></div>
               <div className="field field-wide"><label htmlFor="passcode">Kode akses penyedia data</label><input id="passcode" type="password" autoComplete="current-password" value={passcode} onChange={(event) => setPasscode(event.target.value)} required /></div>
             </div>}
