@@ -7,6 +7,17 @@ type RingkasPola = { terdeteksi_pct: number; median_posisi: number | null };
 type RingkasTautan = { n: number; proyek_valid: number; kontrak_milik_proyek: number; hash_cocok: number; entri_ledger: number; gabungan: number };
 type HasilPerusakan = { terdeteksi_pct: number; lokasi_tepat_pct: number };
 
+type IrisanUjiKonsep = {
+  kategori: string;
+  tahun: number;
+  alasan_pemilihan_tahun: string;
+  n: number;
+  anomali_total: number;
+  pengujian: Record<string, { precision: number; recall: number; f1: number; far: number; peringatan_per_1000: number }>;
+  recall_per_subtipe: Record<string, { n: number; aturan_saja: number; iforest_saja: number; hybrid: number }>;
+  catatan?: string;
+};
+
 type Metrics = {
   dibuat_pada: string;
   seed_utama: number;
@@ -23,6 +34,7 @@ type Metrics = {
     baris_transaksi: number; ukuran_transaksi_csv_kb: number; baris_ledger: number; ukuran_ledger_csv_kb: number; catatan?: string;
   };
   uji_perusakan?: Record<string, { hash_chain: HasilPerusakan; tabel_log: HasilPerusakan }>;
+  irisan_uji_konsep?: IrisanUjiKonsep;
 };
 
 const names: Record<string, string> = { aturan_saja: "Aturan saja", iforest_saja: "Isolation Forest saja", hybrid: "Hybrid" };
@@ -83,6 +95,17 @@ export default function EvaluasiPage() {
           <tbody>{Object.entries(metrics.recall_per_subtipe).map(([key, row]) => <tr key={key}><th scope="row">{key.replaceAll("_", " ")}</th><td className="num">{row.n}</td><td className="num">{pct(row.aturan_saja)}</td><td className="num">{pct(row.iforest_saja)}</td><td className="num">{pct(row.hybrid)}</td></tr>)}</tbody>
         </table></div>
       </section>
+      {metrics.irisan_uji_konsep && <section className="section rule-top">
+        <div className="section-heading"><h2>Irisan uji konsep (REV-05, D-019)</h2><span className="provenance">{metrics.irisan_uji_konsep.kategori} &bull; Tahun {metrics.irisan_uji_konsep.tahun} (n = {metrics.irisan_uji_konsep.n.toLocaleString("id-ID")})</span></div>
+        <p className="provenance">{metrics.irisan_uji_konsep.alasan_pemilihan_tahun}. Total anomali: {metrics.irisan_uji_konsep.anomali_total} kasus.</p>
+        <div className="table-scroll"><table><thead><tr><th scope="col">Pendekatan</th><th scope="col" className="num">Precision</th><th scope="col" className="num">Recall</th><th scope="col" className="num">F1</th><th scope="col" className="num">Laju peringatan palsu</th><th scope="col" className="num">Peringatan per 1.000</th></tr></thead>
+          <tbody>{Object.entries(metrics.irisan_uji_konsep.pengujian).map(([key, row]) => <tr key={key}><th scope="row">{names[key] ?? key}</th><td className="num">{formatAngka(row.precision, 4)}</td><td className="num">{formatAngka(row.recall, 4)}</td><td className="num">{formatAngka(row.f1, 4)}</td><td className="num">{pct(row.far)}</td><td className="num">{formatAngka(row.peringatan_per_1000, 2)}</td></tr>)}</tbody>
+        </table></div>
+        {metrics.irisan_uji_konsep.recall_per_subtipe && Object.keys(metrics.irisan_uji_konsep.recall_per_subtipe).length > 0 && <div className="table-scroll" style={{ marginTop: "1rem" }}><table className="subtype-table"><thead><tr><th scope="col">Subtipe anomali pada irisan</th><th scope="col" className="num">n</th><th scope="col" className="num">Aturan</th><th scope="col" className="num">Isolation Forest</th><th scope="col" className="num">Hybrid</th></tr></thead>
+          <tbody>{Object.entries(metrics.irisan_uji_konsep.recall_per_subtipe).map(([key, row]) => <tr key={key}><th scope="row">{key.replaceAll("_", " ")}</th><td className="num">{row.n}</td><td className="num">{pct(row.aturan_saja)}</td><td className="num">{pct(row.iforest_saja)}</td><td className="num">{pct(row.hybrid)}</td></tr>)}</tbody>
+        </table></div>}
+        {metrics.irisan_uji_konsep.catatan && <p className="provenance" style={{ marginTop: 8 }}>{metrics.irisan_uji_konsep.catatan}</p>}
+      </section>}
       <section className="section rule-top"><div className="section-heading"><h2>Kestabilan hasil</h2><span className="provenance">Seed {metrics.beberapa_seed.seed.join(", ")}</span></div>
         <div className="table-scroll"><table><thead><tr><th scope="col">Metrik hybrid</th><th scope="col" className="num">Rata-rata</th><th scope="col" className="num">Simpangan baku</th></tr></thead><tbody>
           <tr><th scope="row">F1</th><td className="num">{formatAngka(metrics.beberapa_seed.f1_hybrid_rerata, 4)}</td><td className="num">{formatAngka(metrics.beberapa_seed.f1_hybrid_sd, 4)}</td></tr>

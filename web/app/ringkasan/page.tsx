@@ -88,7 +88,7 @@ export default function HomePage() {
         <div className="workflow" aria-label="Alur kerja lima langkah">
           {["Registri", "Aturan", "Skor", "Peringatan", "Ledger"].map((label, index) => <div className="workflow-step" key={label}>
             <span className="provenance">Langkah {index + 1}</span><strong>{label}</strong>
-            <p>{["Cocokkan proyek dan kontrak.", "Periksa tujuh ketentuan.", "Nilai transaksi yang lolos aturan.", "Urutkan transaksi yang perlu ditinjau.", "Catat perubahan dalam hash-chain."][index]}</p>
+            <p>{["Cocokkan proyek dan kontrak.", "Periksa delapan ketentuan.", "Nilai transaksi yang lolos aturan.", "Urutkan transaksi yang perlu ditinjau.", "Catat perubahan dalam hash-chain."][index]}</p>
           </div>)}
         </div>
       </section>

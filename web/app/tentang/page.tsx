@@ -5,7 +5,7 @@ import { labelPrinsip, prinsipUntuk } from "@/lib/aturan";
 
 const flow = [
   ["Registri", "Data proyek, kategori hijau, pagu, dan kontrak."],
-  ["Pemeriksaan", "Tujuh aturan menilai syarat administratif dan batas transaksi."],
+  ["Pemeriksaan", "Delapan aturan menilai syarat administratif, batas transaksi, dan kesesuaian akad syariah."],
   ["Skor", "Isolation Forest menilai pola transaksi yang lolos aturan."],
   ["Tindak lanjut", "Petugas menelaah peringatan, menambah catatan, dan menentukan langkah."],
   ["Ledger", "Hash-chain menyimpan transaksi dan perubahan status untuk diverifikasi."],
@@ -19,6 +19,7 @@ const aturanInfo: { kode: string; nama: string; kondisi: string }[] = [
   { kode: "R05_HASH", nama: "Hash dokumen tidak cocok", kondisi: "Hash saat ini berbeda dari hash yang tercatat." },
   { kode: "R06_MILESTONE", nama: "Milestone belum terverifikasi", kondisi: "Pembayaran termin diajukan tanpa milestone terverifikasi." },
   { kode: "R07_BUKTI", nama: "Bukti tidak lengkap", kondisi: "Kelengkapan bukti di bawah ambang 0,80." },
+  { kode: "R08_AKAD", nama: "Akad tidak sesuai", kondisi: "Akad pencairan berbeda dari akad yang terdaftar pada registri proyek." },
 ];
 
 export default function TentangPage() {
@@ -33,13 +34,13 @@ export default function TentangPage() {
       <tr><th scope="row">Akademisi</th><td>Mengkaji metode, metrik, dan rancangan evaluasi.</td><td>Dokumentasi dan eksperimen lokal</td></tr>
       <tr><th scope="row">Dunia usaha</th><td>Melaksanakan pekerjaan dan mengirimkan bukti serta progres.</td><td>Tidak terintegrasi</td></tr>
       <tr><th scope="row">Masyarakat</th><td>Memberi masukan dan menggunakan informasi yang dapat dibuka.</td><td>Tidak ada portal publik</td></tr>
-      <tr><th scope="row">BPK dan otoritas syariah</th><td>Melakukan pengawasan sesuai kewenangan, terpisah dari persetujuan operasional.</td><td>Hanya konsep, belum ada akun atau pemisahan peran</td></tr>
+      <tr><th scope="row">BPK dan otoritas syariah</th><td>Melakukan pengawasan sesuai kewenangan, terpisah dari persetujuan operasional.</td><td>Disimulasikan lewat kode akses: otoritas syariah menelaah temuan akad R08, auditor menelaah peringatan, pejabat berwenang menetapkan tindak lanjut (tanpa sistem akun pengguna individu)</td></tr>
     </tbody></table></div></section>
     <section className="section rule-top"><div className="section-heading"><h2>Keterbatasan</h2><span className="provenance">Ruang lingkup yang sudah dibangun</span></div><ul className="finding-list">
       <li>Semua data dan label anomali dibuat melalui generator. Tidak ada data transaksi pemerintah atau data pribadi.</li>
       <li>Anomali kontekstual dirancang lolos dari aturan. Hybrid pada seed utama tidak memiliki F1 tertinggi dan memberi peringatan palsu lebih banyak.</li>
       <li>Ledger berupa hash-chain di satu database Postgres. Perubahan dapat terdeteksi saat verifikasi, tetapi tidak dicegah dan tidak memiliki konsensus antar lembaga.</li>
-      <li>Dokumen asli, enkripsi dokumen, autentikasi pengguna, serta pemisahan kewenangan belum dibangun.</li>
+      <li>Dokumen asli dan enkripsi dokumen belum dibangun. Pemisahan peran baru disimulasikan lewat kode akses tanpa pembuktian identitas login pengguna.</li>
       <li>Pembatasan laju API berada di memori tiap instance. Pengujian beban dan keamanan formal belum dilakukan.</li>
       <li>Latensi pada Vercel dan skenario demo di URL publik belum diukur.</li>
     </ul><p className="provenance">Rincian serta teks yang disiapkan untuk esai ada di <Link href="/ringkasan">ringkasan proyek</Link> dan dokumen <code>docs/LIMITATIONS.md</code>.</p></section>

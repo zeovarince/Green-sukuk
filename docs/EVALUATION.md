@@ -228,9 +228,9 @@ Kelengkapan tautan alokasi (split pengujian, n = 11.571):
 | Ukuran berkas model (`model_if.json`) | 591,81 KB |
 | Waktu pelatihan model (split pengembangan) | 0,444 detik |
 | Waktu inferensi lokal per transaksi | 0,028 ms |
-| Waktu verifikasi penuh rantai ledger lokal (58.597 entri) | 0,478 detik |
+| Waktu verifikasi penuh rantai ledger lokal (58.359 entri) | 0,379 detik |
 | Jumlah baris data transaksi | 58.023 baris (18.685,32 KB) |
-| Jumlah baris buku besar simulasi (ledger) | 58.597 entri (34.955,47 KB) |
+| Jumlah baris buku besar simulasi (ledger) | 58.359 entri (34.798,29 KB) |
 | Latensi lokal inferensi | 0,03 ms |
 | Latensi Vercel | Belum diukur di lingkungan preview Vercel (nilai awal `0.0`) |
 

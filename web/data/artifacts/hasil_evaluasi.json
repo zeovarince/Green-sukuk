@@ -418,13 +418,13 @@
   },
   "biaya": {
     "ukuran_model_kb": 591.81,
-    "waktu_latih_detik": 0.444,
-    "waktu_inferensi_ms": 0.028,
-    "waktu_verifikasi_penuh_detik": 0.478,
+    "waktu_latih_detik": 0.421,
+    "waktu_inferensi_ms": 0.026,
+    "waktu_verifikasi_penuh_detik": 0.379,
     "baris_transaksi": 58023,
     "ukuran_transaksi_csv_kb": 18685.32,
-    "baris_ledger": 58597,
-    "ukuran_ledger_csv_kb": 34955.47,
+    "baris_ledger": 58359,
+    "ukuran_ledger_csv_kb": 34798.29,
     "catatan": "Ukuran tabel Supabase dan paket layanan Vercel/Supabase diisi pemilik dari dashboard saat pengukuran deployment."
   },
   "uji_perusakan": {

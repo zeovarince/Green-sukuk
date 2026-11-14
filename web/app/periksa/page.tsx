@@ -12,7 +12,7 @@ import rules from "@/data/artifacts/rules_config.json";
 
 type ContractResponse = {
   kontrak: { kontrak_id: string; project_id: string; nilai_kontrak_awal: number; pagu_alokasi: number; tanggal_mulai: string };
-  proyek: { kategori_hijau: string } | null;
+  proyek: { kategori_hijau: string; akad?: string } | null;
   riwayat: CurveRow[] & { kumulatif_cair?: number }[];
 };
 type CheckResult = {
@@ -33,7 +33,22 @@ const tindakLanjutLabel: Record<CheckResult["tindak_lanjut"], string> = {
   pemantauan_berlanjut: "Pemantauan berlanjut",
   telaah_auditor: "Telaah auditor",
 };
-const emptyForm = { project_id: "", tanggal: today, jenis_pembayaran: "termin", nilai_pencairan: "1000000000", progres_fisik_pct: "10", milestone_terverifikasi: true, persetujuan_diperoleh: "1", kelengkapan_bukti: "1", kategori_hijau: rules.kategori_sah[0], hash_tercatat: "", hash_dokumen_saat_ini: "" };
+const emptyForm = {
+  project_id: "",
+  tanggal: today,
+  jenis_pembayaran: "termin",
+  nilai_pencairan: "1000000000",
+  progres_fisik_pct: "10",
+  milestone_terverifikasi: true,
+  persetujuan_diperoleh: "1",
+  kelengkapan_bukti: "1",
+  kategori_hijau: rules.kategori_sah[0],
+  akad: "Ijarah Asset to Be Leased",
+  pengusul: "",
+  verifikator: "",
+  hash_tercatat: "",
+  hash_dokumen_saat_ini: "",
+};
 
 export default function PeriksaPage() {
   const [contractId, setContractId] = useState("");
@@ -71,7 +86,12 @@ export default function PeriksaPage() {
     try {
       const found = await api<ContractResponse>(`/api/kontrak/${encodeURIComponent(clean)}`);
       setContract(found);
-      setForm((current) => ({ ...current, project_id: found.kontrak.project_id, kategori_hijau: found.proyek?.kategori_hijau ?? current.kategori_hijau }));
+      setForm((current) => ({
+        ...current,
+        project_id: found.kontrak.project_id,
+        kategori_hijau: found.proyek?.kategori_hijau ?? current.kategori_hijau,
+        akad: found.proyek?.akad ?? current.akad,
+      }));
     } catch (e) {
       setContract(null);
       setLookupError(e instanceof Error ? e.message : "Kontrak tidak ditemukan. Periksa ID kontrak, contohnya PRJ-0001-K01.");
@@ -82,10 +102,12 @@ export default function PeriksaPage() {
     setForm((current) => ({ ...current, [name]: value }));
   }
 
-  function quickExample(kind: "wajar" | "aturan" | "lonjakan" | "hash") {
+  function quickExample(kind: "wajar" | "aturan" | "lonjakan" | "hash" | "akad") {
     const baseline = contract?.riwayat.at(-1);
     const amount = Number(baseline?.nilai_pencairan ?? 1_000_000_000);
     const progress = Number(baseline?.progres_fisik_pct ?? 35);
+    const registeredAkad = contract?.proyek?.akad ?? "Ijarah Asset to Be Leased";
+    const mismatchedAkad = registeredAkad === "Wakalah" ? "Ijarah Asset to Be Leased" : "Wakalah";
     setForm((current) => ({
       ...current,
       project_id: contract?.kontrak.project_id ?? current.project_id,
@@ -95,6 +117,9 @@ export default function PeriksaPage() {
       persetujuan_diperoleh: kind === "aturan" ? "1" : String(Number(amount >= 5_000_000_000 ? 3 : amount >= 1_000_000_000 ? 2 : 1)),
       kelengkapan_bukti: "1",
       kategori_hijau: rules.kategori_sah[0],
+      akad: kind === "akad" ? mismatchedAkad : registeredAkad,
+      pengusul: current.pengusul || "PPK Pelaksana Proyek",
+      verifikator: current.verifikator || "Verifikator KPPN",
       hash_tercatat: kind === "hash" ? "hash-asli-demo" : "",
       hash_dokumen_saat_ini: kind === "hash" ? "hash-berubah-demo" : "",
     }));
@@ -104,6 +129,14 @@ export default function PeriksaPage() {
     event.preventDefault(); setError(""); setResult(null);
     if (!contract) { setError("Muat kontrak terlebih dahulu agar sistem dapat menghitung fitur dari riwayat."); return; }
     if (save && !passcode) { setError("Masukkan kode akses untuk menyimpan ke ledger."); return; }
+    if (save && (!form.pengusul.trim() || !form.verifikator.trim())) {
+      setError("Pengusul dan verifikator wajib diisi bila hasil disimpan ke ledger (3-80 karakter).");
+      return;
+    }
+    if (save && (form.pengusul.trim().length < 3 || form.pengusul.trim().length > 80 || form.verifikator.trim().length < 3 || form.verifikator.trim().length > 80)) {
+      setError("Nama pengusul dan verifikator masing-masing harus 3 sampai 80 karakter.");
+      return;
+    }
     const value = Number(form.nilai_pencairan);
     const progress = Number(form.progres_fisik_pct);
     const approvals = Number(form.persetujuan_diperoleh);
@@ -129,8 +162,11 @@ export default function PeriksaPage() {
           persetujuan_diperoleh: approvals,
           kelengkapan_bukti: proof,
           kategori_hijau: form.kategori_hijau,
+          akad: form.akad,
           hash_tercatat: form.hash_tercatat,
           hash_dokumen_saat_ini: form.hash_dokumen_saat_ini,
+          pengusul: save ? form.pengusul.trim() : undefined,
+          verifikator: save ? form.verifikator.trim() : undefined,
           simpan: save,
         }),
       });
@@ -180,6 +216,7 @@ export default function PeriksaPage() {
               <div className="field"><label htmlFor="approvals">Persetujuan diperoleh</label><input id="approvals" type="number" min="0" max="100" step="1" value={form.persetujuan_diperoleh} onChange={(event) => setField("persetujuan_diperoleh", event.target.value)} required /></div>
               <div className="field"><label htmlFor="proof">Kelengkapan bukti</label><input id="proof" type="number" min="0" max="1" step="0.01" value={form.kelengkapan_bukti} onChange={(event) => setField("kelengkapan_bukti", event.target.value)} required /></div>
               <div className="field"><label htmlFor="category">Kategori hijau</label><select id="category" value={form.kategori_hijau} onChange={(event) => setField("kategori_hijau", event.target.value)}>{rules.kategori_sah.map((category) => <option key={category}>{category}</option>)}<option value="Kategori tidak sah">Kategori tidak sah, contoh aturan</option></select></div>
+              <div className="field"><label htmlFor="akad">Akad syariah</label><select id="akad" value={form.akad} onChange={(event) => setField("akad", event.target.value)}><option value="Ijarah Asset to Be Leased">Ijarah Asset to Be Leased</option><option value="Wakalah">Wakalah</option></select></div>
               <div className="field field-wide"><label><input type="checkbox" checked={form.milestone_terverifikasi} onChange={(event) => setField("milestone_terverifikasi", event.target.checked)} /> Milestone terverifikasi</label></div>
               <details className="field field-wide"><summary>Opsi hash dokumen</summary><div className="form-grid" style={{ marginTop: 12 }}><div className="field"><label htmlFor="recorded-hash">Hash tercatat</label><input id="recorded-hash" value={form.hash_tercatat} onChange={(event) => setField("hash_tercatat", event.target.value)} /></div><div className="field"><label htmlFor="current-hash">Hash dokumen saat ini</label><input id="current-hash" value={form.hash_dokumen_saat_ini} onChange={(event) => setField("hash_dokumen_saat_ini", event.target.value)} /></div></div></details>
             </div>
@@ -189,9 +226,14 @@ export default function PeriksaPage() {
               <button type="button" onClick={() => quickExample("aturan")}>Persetujuan kurang</button>
               <button type="button" onClick={() => quickExample("lonjakan")}>Lonjakan nilai</button>
               <button type="button" onClick={() => quickExample("hash")}>Hash berbeda</button>
+              <button type="button" onClick={() => quickExample("akad")}>Akad berbeda (R08)</button>
             </div>
-            <label className="save-toggle"><input type="checkbox" checked={save} onChange={(event) => setSave(event.target.checked)} /><span><strong>Simpan hasil ke ledger</strong><br /><small>Perlu kode akses. Bawaan mati.</small></span></label>
-            {save && <div className="field"><label htmlFor="passcode">Kode akses</label><input id="passcode" type="password" autoComplete="current-password" value={passcode} onChange={(event) => setPasscode(event.target.value)} required /></div>}
+            <label className="save-toggle"><input type="checkbox" checked={save} onChange={(event) => setSave(event.target.checked)} /><span><strong>Simpan hasil ke ledger</strong><br /><small>Perlu pengusul, verifikator, dan kode akses penyedia data. Bawaan mati.</small></span></label>
+            {save && <div className="form-grid" style={{ marginTop: 12 }}>
+              <div className="field"><label htmlFor="pengusul">Pengusul pencairan</label><input id="pengusul" placeholder="Contoh: PPK Pelaksana Proyek" value={form.pengusul} onChange={(event) => setField("pengusul", event.target.value)} required /></div>
+              <div className="field"><label htmlFor="verifikator">Verifikator</label><input id="verifikator" placeholder="Contoh: Verifikator KPPN" value={form.verifikator} onChange={(event) => setField("verifikator", event.target.value)} required /></div>
+              <div className="field field-wide"><label htmlFor="passcode">Kode akses penyedia data</label><input id="passcode" type="password" autoComplete="current-password" value={passcode} onChange={(event) => setPasscode(event.target.value)} required /></div>
+            </div>}
             {error && <p className="field-error" role="alert">{error}</p>}
             <div className="button-row" style={{ marginTop: 18 }}><button className="button button-primary" disabled={pending || !contract} type="submit">{pending ? "Memeriksa" : save ? "Simpan ke ledger" : "Periksa transaksi"}</button><button className="button" type="button" onClick={() => { setForm(emptyForm); setResult(null); setError(""); }}>Bersihkan</button></div>
           </form>
