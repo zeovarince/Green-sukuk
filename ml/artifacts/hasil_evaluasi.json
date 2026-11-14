@@ -1,5 +1,5 @@
 {
-  "dibuat_pada": "2026-10-24",
+  "dibuat_pada": "2026-11-14",
   "seed_utama": 42,
   "ambang": {
     "nilai": 0.665,
@@ -133,5 +133,429 @@
   "latensi_ms": {
     "lokal": 0.03,
     "vercel": 0.0
+  },
+  "waktu_deteksi_pola": {
+    "jumlah_pola": 36,
+    "aturan_saja": {
+      "terdeteksi_pct": 0.0,
+      "median_posisi": null
+    },
+    "iforest_saja": {
+      "terdeteksi_pct": 0.0,
+      "median_posisi": null
+    },
+    "hybrid": {
+      "terdeteksi_pct": 0.0,
+      "median_posisi": null
+    },
+    "rincian": [
+      {
+        "kontrak_id": "PRJ-0007-K01",
+        "panjang": 2,
+        "posisi_terdeteksi": {
+          "aturan_saja": null,
+          "iforest_saja": null,
+          "hybrid": null
+        }
+      },
+      {
+        "kontrak_id": "PRJ-0036-K01",
+        "panjang": 3,
+        "posisi_terdeteksi": {
+          "aturan_saja": null,
+          "iforest_saja": null,
+          "hybrid": null
+        }
+      },
+      {
+        "kontrak_id": "PRJ-0042-K04",
+        "panjang": 2,
+        "posisi_terdeteksi": {
+          "aturan_saja": null,
+          "iforest_saja": null,
+          "hybrid": null
+        }
+      },
+      {
+        "kontrak_id": "PRJ-0085-K02",
+        "panjang": 2,
+        "posisi_terdeteksi": {
+          "aturan_saja": null,
+          "iforest_saja": null,
+          "hybrid": null
+        }
+      },
+      {
+        "kontrak_id": "PRJ-0088-K03",
+        "panjang": 2,
+        "posisi_terdeteksi": {
+          "aturan_saja": null,
+          "iforest_saja": null,
+          "hybrid": null
+        }
+      },
+      {
+        "kontrak_id": "PRJ-0133-K01",
+        "panjang": 2,
+        "posisi_terdeteksi": {
+          "aturan_saja": null,
+          "iforest_saja": null,
+          "hybrid": null
+        }
+      },
+      {
+        "kontrak_id": "PRJ-0146-K04",
+        "panjang": 2,
+        "posisi_terdeteksi": {
+          "aturan_saja": null,
+          "iforest_saja": null,
+          "hybrid": null
+        }
+      },
+      {
+        "kontrak_id": "PRJ-0184-K02",
+        "panjang": 3,
+        "posisi_terdeteksi": {
+          "aturan_saja": null,
+          "iforest_saja": null,
+          "hybrid": null
+        }
+      },
+      {
+        "kontrak_id": "PRJ-0264-K03",
+        "panjang": 2,
+        "posisi_terdeteksi": {
+          "aturan_saja": null,
+          "iforest_saja": null,
+          "hybrid": null
+        }
+      },
+      {
+        "kontrak_id": "PRJ-0279-K01",
+        "panjang": 3,
+        "posisi_terdeteksi": {
+          "aturan_saja": null,
+          "iforest_saja": null,
+          "hybrid": null
+        }
+      },
+      {
+        "kontrak_id": "PRJ-0291-K02",
+        "panjang": 2,
+        "posisi_terdeteksi": {
+          "aturan_saja": null,
+          "iforest_saja": null,
+          "hybrid": null
+        }
+      },
+      {
+        "kontrak_id": "PRJ-0302-K01",
+        "panjang": 2,
+        "posisi_terdeteksi": {
+          "aturan_saja": null,
+          "iforest_saja": null,
+          "hybrid": null
+        }
+      },
+      {
+        "kontrak_id": "PRJ-0341-K04",
+        "panjang": 2,
+        "posisi_terdeteksi": {
+          "aturan_saja": null,
+          "iforest_saja": null,
+          "hybrid": null
+        }
+      },
+      {
+        "kontrak_id": "PRJ-0359-K01",
+        "panjang": 1,
+        "posisi_terdeteksi": {
+          "aturan_saja": null,
+          "iforest_saja": null,
+          "hybrid": null
+        }
+      },
+      {
+        "kontrak_id": "PRJ-0370-K02",
+        "panjang": 3,
+        "posisi_terdeteksi": {
+          "aturan_saja": null,
+          "iforest_saja": null,
+          "hybrid": null
+        }
+      },
+      {
+        "kontrak_id": "PRJ-0407-K01",
+        "panjang": 3,
+        "posisi_terdeteksi": {
+          "aturan_saja": null,
+          "iforest_saja": null,
+          "hybrid": null
+        }
+      },
+      {
+        "kontrak_id": "PRJ-0418-K04",
+        "panjang": 3,
+        "posisi_terdeteksi": {
+          "aturan_saja": null,
+          "iforest_saja": null,
+          "hybrid": null
+        }
+      },
+      {
+        "kontrak_id": "PRJ-0432-K03",
+        "panjang": 3,
+        "posisi_terdeteksi": {
+          "aturan_saja": null,
+          "iforest_saja": null,
+          "hybrid": null
+        }
+      },
+      {
+        "kontrak_id": "PRJ-0437-K03",
+        "panjang": 3,
+        "posisi_terdeteksi": {
+          "aturan_saja": null,
+          "iforest_saja": null,
+          "hybrid": null
+        }
+      },
+      {
+        "kontrak_id": "PRJ-0457-K03",
+        "panjang": 3,
+        "posisi_terdeteksi": {
+          "aturan_saja": null,
+          "iforest_saja": null,
+          "hybrid": null
+        }
+      },
+      {
+        "kontrak_id": "PRJ-0497-K03",
+        "panjang": 3,
+        "posisi_terdeteksi": {
+          "aturan_saja": null,
+          "iforest_saja": null,
+          "hybrid": null
+        }
+      },
+      {
+        "kontrak_id": "PRJ-0507-K02",
+        "panjang": 3,
+        "posisi_terdeteksi": {
+          "aturan_saja": null,
+          "iforest_saja": null,
+          "hybrid": null
+        }
+      },
+      {
+        "kontrak_id": "PRJ-0550-K03",
+        "panjang": 4,
+        "posisi_terdeteksi": {
+          "aturan_saja": null,
+          "iforest_saja": null,
+          "hybrid": null
+        }
+      },
+      {
+        "kontrak_id": "PRJ-0615-K01",
+        "panjang": 2,
+        "posisi_terdeteksi": {
+          "aturan_saja": null,
+          "iforest_saja": null,
+          "hybrid": null
+        }
+      },
+      {
+        "kontrak_id": "PRJ-0628-K02",
+        "panjang": 2,
+        "posisi_terdeteksi": {
+          "aturan_saja": null,
+          "iforest_saja": null,
+          "hybrid": null
+        }
+      },
+      {
+        "kontrak_id": "PRJ-0663-K02",
+        "panjang": 2,
+        "posisi_terdeteksi": {
+          "aturan_saja": null,
+          "iforest_saja": null,
+          "hybrid": null
+        }
+      },
+      {
+        "kontrak_id": "PRJ-0666-K02",
+        "panjang": 1,
+        "posisi_terdeteksi": {
+          "aturan_saja": null,
+          "iforest_saja": null,
+          "hybrid": null
+        }
+      },
+      {
+        "kontrak_id": "PRJ-0674-K05",
+        "panjang": 2,
+        "posisi_terdeteksi": {
+          "aturan_saja": null,
+          "iforest_saja": null,
+          "hybrid": null
+        }
+      },
+      {
+        "kontrak_id": "PRJ-0677-K01",
+        "panjang": 2,
+        "posisi_terdeteksi": {
+          "aturan_saja": null,
+          "iforest_saja": null,
+          "hybrid": null
+        }
+      },
+      {
+        "kontrak_id": "PRJ-0726-K01",
+        "panjang": 3,
+        "posisi_terdeteksi": {
+          "aturan_saja": null,
+          "iforest_saja": null,
+          "hybrid": null
+        }
+      },
+      {
+        "kontrak_id": "PRJ-0740-K02",
+        "panjang": 4,
+        "posisi_terdeteksi": {
+          "aturan_saja": null,
+          "iforest_saja": null,
+          "hybrid": null
+        }
+      },
+      {
+        "kontrak_id": "PRJ-0740-K04",
+        "panjang": 3,
+        "posisi_terdeteksi": {
+          "aturan_saja": null,
+          "iforest_saja": null,
+          "hybrid": null
+        }
+      },
+      {
+        "kontrak_id": "PRJ-0741-K01",
+        "panjang": 2,
+        "posisi_terdeteksi": {
+          "aturan_saja": null,
+          "iforest_saja": null,
+          "hybrid": null
+        }
+      },
+      {
+        "kontrak_id": "PRJ-0741-K03",
+        "panjang": 3,
+        "posisi_terdeteksi": {
+          "aturan_saja": null,
+          "iforest_saja": null,
+          "hybrid": null
+        }
+      },
+      {
+        "kontrak_id": "PRJ-0774-K02",
+        "panjang": 2,
+        "posisi_terdeteksi": {
+          "aturan_saja": null,
+          "iforest_saja": null,
+          "hybrid": null
+        }
+      },
+      {
+        "kontrak_id": "PRJ-0781-K04",
+        "panjang": 3,
+        "posisi_terdeteksi": {
+          "aturan_saja": null,
+          "iforest_saja": null,
+          "hybrid": null
+        }
+      }
+    ]
+  },
+  "kelengkapan_tautan": {
+    "n": 11583,
+    "proyek_valid": 0.9978,
+    "kontrak_milik_proyek": 0.9978,
+    "hash_cocok": 0.9972,
+    "entri_ledger": 1.0,
+    "gabungan": 0.9951,
+    "seluruh_data": {
+      "n": 58023,
+      "proyek_valid": 0.9982,
+      "kontrak_milik_proyek": 0.9982,
+      "hash_cocok": 0.9972,
+      "entri_ledger": 1.0,
+      "gabungan": 0.9954
+    }
+  },
+  "biaya": {
+    "ukuran_model_kb": 622.67,
+    "waktu_latih_detik": 0.745,
+    "waktu_inferensi_ms": 0.031,
+    "waktu_verifikasi_penuh_detik": 0.746,
+    "baris_transaksi": 58023,
+    "ukuran_transaksi_csv_kb": 18685.77,
+    "baris_ledger": 58597,
+    "ukuran_ledger_csv_kb": 34955.47,
+    "catatan": "Ukuran tabel Supabase dan paket layanan Vercel/Supabase diisi pemilik dari dashboard saat pengukuran deployment."
+  },
+  "uji_perusakan": {
+    "seed": 42,
+    "percobaan_per_skenario": 200,
+    "jumlah_entri": 1000,
+    "ubah": {
+      "hash_chain": {
+        "terdeteksi_pct": 100.0,
+        "lokasi_tepat_pct": 100.0
+      },
+      "tabel_log": {
+        "terdeteksi_pct": 0.0,
+        "lokasi_tepat_pct": 0.0
+      }
+    },
+    "hapus": {
+      "hash_chain": {
+        "terdeteksi_pct": 100.0,
+        "lokasi_tepat_pct": 100.0
+      },
+      "tabel_log": {
+        "terdeteksi_pct": 0.0,
+        "lokasi_tepat_pct": 0.0
+      }
+    },
+    "sisip": {
+      "hash_chain": {
+        "terdeteksi_pct": 100.0,
+        "lokasi_tepat_pct": 100.0
+      },
+      "tabel_log": {
+        "terdeteksi_pct": 0.0,
+        "lokasi_tepat_pct": 0.0
+      }
+    },
+    "tukar": {
+      "hash_chain": {
+        "terdeteksi_pct": 100.0,
+        "lokasi_tepat_pct": 100.0
+      },
+      "tabel_log": {
+        "terdeteksi_pct": 0.0,
+        "lokasi_tepat_pct": 0.0
+      }
+    },
+    "hitung_ulang": {
+      "hash_chain": {
+        "terdeteksi_pct": 0.0,
+        "lokasi_tepat_pct": 0.0
+      },
+      "tabel_log": {
+        "terdeteksi_pct": 0.0,
+        "lokasi_tepat_pct": 0.0
+      }
+    },
+    "catatan": "Tabel log biasa tidak memiliki hash, sehingga tidak mendeteksi perubahan apa pun. Skenario hitung ulang seluruh rantai tidak terdeteksi oleh keduanya. Pemotongan entri terakhir juga tidak terdeteksi tanpa hash jangkar di luar basis data, jadi skenario hapus dibatasi pada entri yang memiliki penerus."
   }
 }

@@ -9,6 +9,25 @@ import json
 import os
 from typing import Any, Dict, List, Optional, Set, Tuple
 
+PRINSIP_AMANAH = "amanah"
+PRINSIP_HIFZ_AL_MAL = "hifz_al_mal"
+
+# Satu sumber pemetaan prinsip. Diekspor ke rules_config.json oleh export_artifacts.py.
+PETA_PRINSIP: Dict[str, str] = {
+    "R01_ID_PROYEK": PRINSIP_AMANAH,
+    "R02_PAGU": PRINSIP_HIFZ_AL_MAL,
+    "R03_PERSETUJUAN": PRINSIP_AMANAH,
+    "R04_KATEGORI": PRINSIP_HIFZ_AL_MAL,
+    "R05_HASH": PRINSIP_AMANAH,
+    "R06_MILESTONE": PRINSIP_AMANAH,
+    "R07_BUKTI": PRINSIP_HIFZ_AL_MAL,
+}
+
+
+def prinsip_aturan(kode: str) -> str:
+    """Mengembalikan tag prinsip untuk satu kode aturan. Gagal keras bila kode tidak dikenal."""
+    return PETA_PRINSIP[kode]
+
 
 def muat_konfigurasi_aturan(path_config: Optional[str] = None) -> Dict[str, Any]:
     """Memuat parameter aturan dari rules_config.json."""
@@ -65,7 +84,7 @@ def periksa_aturan_transaksi(
     Mengembalikan:
       {
         "lolos": bool,
-        "temuan": [{"kode": str, "pesan": str}]
+        "temuan": [{"kode": str, "pesan": str, "prinsip": str}]
       }
     """
     if config is None:
@@ -151,7 +170,10 @@ def periksa_aturan_transaksi(
 
     return {
         "lolos": len(temuan) == 0,
-        "temuan": temuan
+        "temuan": [
+            {"kode": item["kode"], "pesan": item["pesan"], "prinsip": prinsip_aturan(item["kode"])}
+            for item in temuan
+        ],
     }
 
 

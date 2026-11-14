@@ -1,11 +1,12 @@
-import { batasiPenulisan, bacaJson, cekKodeAkses, errorResponse, fromError, json } from "@/lib/http";
+import { batasiPenulisan, bacaJson, errorResponse, fromError, json, periksaAkses } from "@/lib/http";
 import { deleteDemoBackup, getDemoBackup, getRows, saveDemoBackup, updateLedgerPayload, type LedgerRow } from "@/lib/store";
 
 export const runtime = "nodejs";
 
 export async function POST(request: Request) {
   if (process.env.DEMO_MODE !== "true") return errorResponse("TIDAK_DITEMUKAN", "Route tidak ditemukan.", 404);
-  if (!cekKodeAkses(request)) return errorResponse("TIDAK_ADA_AKSES", "Kode akses tidak valid.", 401);
+  const akses = periksaAkses(request);
+  if (!akses.ok) return akses.response;
   if (!batasiPenulisan(request, 5)) return errorResponse("TERLALU_BANYAK", "Batas permintaan tulis tercapai. Coba lagi sebentar.", 429);
   const body = await bacaJson(request);
   if (!body || !Number.isSafeInteger(body.seq) || Number(body.seq) < 1) return errorResponse("VALIDASI_GAGAL", "seq harus bilangan bulat positif.", 400);

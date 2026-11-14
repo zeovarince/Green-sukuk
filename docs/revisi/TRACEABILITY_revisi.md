@@ -1,0 +1,56 @@
+# TRACEABILITY (revisi)
+
+> Versi revisi 2026-11-13, draf menunggu persetujuan pemilik. Menggantikan `TRACEABILITY.md` setelah disetujui. Revisi: REV-14 (baris 17 sampai 29, penanda revisi pada baris 3, 7, 9, 10, 13). Rincian di `PERUBAHAN_revisi.md`.
+
+Peta dari klaim dan komponen di esai ke bagian prototipe yang membuktikannya, beserta keterbatasan tiap pembuktian. Tujuannya agar esai dan prototipe tidak saling bertentangan.
+
+Cara memakai: kolom "Klaim di esai" merangkum isi yang sudah dicocokkan dengan naskah sumber dan salinan revisi. [x] pada kolom Cocok berarti klaim atau gagasan terkait ditemukan dan dirumuskan agar sesuai dengan isi esai revisi; tanda ini bukan validasi fakta atau sitasi. Kolom Hasil mencatat hasil implementasi dan evaluasi.
+
+Status revisi 2026-11-13: baris 1 sampai 16 menyatakan keadaan sebelum revisi, kecuali yang diberi catatan "Revisi". Baris 17 sampai 29 baru dan semuanya belum dikerjakan, jadi kolom Cocok `[ ]` dan kolom Hasil diisi setelah fase terkait selesai. Angka di baris 14 berasal dari model sebelum revisi dan diganti setelah fase R6.
+
+Status 2026-10-25: naskah sumber Essai Versi 5 + Template.docx sudah diperiksa dan diselaraskan dalam salinan docs/ESSAI_GSTP_REVISI.docx; sumber tetap utuh. Kolom Hasil mencatat implementasi lokal, hasil eksperimen, atau batas verifikasi yang diketahui. Daftar pustaka pada naskah sumber kosong, sehingga kecocokan sitasi terhadap sumber rujukan belum divalidasi. Skenario publik juga belum dijalankan.
+
+| No | Klaim atau komponen di esai (parafrase) | Bagian prototipe | Dokumen | Yang dibuktikan | Batas pembuktian | Cocok | Hasil |
+|---|---|---|---|---|---|---|---|
+| 1 | GSTP memeriksa keterlacakan alokasi Green Sukuk sejak pencairan, bukan hanya lewat laporan tahunan | Alur `/api/periksa` dan UI F1 | `ARCHITECTURE.md`, `WEB_SPEC.md` | Route dan halaman tersedia; build produksi berhasil. API belum berhasil membaca Supabase. | Data simulasi | [x] | Halaman lokal menjawab HTTP 200; uji baca langsung Supabase mengembalikan 401 untuk secret key server. |
+| 2 | Rancangan mengintegrasikan penautan data, ledger, dan analitik | Tabel registri dan transaksi, `ledger_entri`, library aturan dan skor | `ARCHITECTURE.md` | Komponen dan API ada | Penautan data, ledger, dan analitik tercantum dalam rancangan esai | [x] | Komponen tersedia di repo; database berisi 800 proyek, 2.719 kontrak, 58.023 transaksi, dan 58.597 entri ledger menurut verifikasi fase 6. |
+| 3 | Rancangan menggabungkan smart contract dan aturan deterministik untuk validasi | Rule engine tujuh aturan (delapan setelah revisi, baris 17) | `RULES.md` | Tes kasus emas TypeScript lulus | Bukan chaincode sungguhan | [x] | 517 tes Vitest lulus; implementasi bukan smart contract atau chaincode. |
+| 4 | Parameter aturan ditetapkan otoritas berwenang | `rules_config.json` bersama | `RULES.md`, `EXPORT_SPEC.md` | Parameter dipisah dari kode | Tidak ada mekanisme otoritas sungguhan | [x] | Parameter terpisah; persetujuan otoritas tidak dibangun. |
+| 5 | Isolation Forest memberi skor anomali pada transaksi yang lolos aturan | Model dan skor | `MODEL_SPEC.md` | Skor dihitung dan kasus emas diuji | Fitur dan data buatan sendiri | [x] | Library TypeScript lulus tes kasus emas; metrik seed 42 tersedia pada `EVALUATION.md`. |
+| 6 | Peringatan anomali adalah prioritas pemeriksaan, bukan keputusan pemeriksaan | Teks UI dan status kasus | `WEB_SPEC.md` bagian 1 dan 10 | Antarmuka memakai bahasa prioritas telaah | Tidak ada | [x] | Catatan permanen tampil di footer dan alur peringatan. |
+| 7 | Ledger mencatat metadata, hash, waktu, status verifikasi, jejak persetujuan dan perubahan | `ledger_entri`, verifikasi | `LEDGER_SPEC.md` | Rantai diverifikasi pada basis data | Hash-chain tunggal, bukan jaringan permissioned. Keterangan "ledger simulasi" ditegaskan di UI (REV-13) | [x] | Verifikasi penuh sebelumnya valid untuk 58.597 entri; pengujian perusakan dari UI belum dilakukan. |
+| 8 | Dokumen lengkap dan data sensitif disimpan off-chain, terenkripsi | Hash dokumen simulasi | `LEDGER_SPEC.md` bagian 2 | Baru pemisahan konsep dan hash simulasi | Tidak ada dokumen dan enkripsi nyata | [x] | Penyimpanan dokumen dan enkripsi tidak dibangun. |
+| 9 | Koreksi memperbarui versi data, riwayat tetap tertaut | Entri `koreksi` | `LEDGER_SPEC.md` bagian 3 | Belum dibuktikan oleh alur aplikasi | Fitur koreksi belum dibangun | [x] | Tidak ada alur koreksi pada UI/API. Revisi: dirancang di baris 22. |
+| 10 | Pengawasan BPK dan otoritas syariah terpisah dari persetujuan operasional | Halaman Tentang | `WEB_SPEC.md` bagian 9 | Hanya penjelasan konsep | Tidak diimplementasikan sebagai peran | [x] | Dijelaskan sebagai rancangan tata kelola, tanpa autentikasi atau pemisahan peran. Revisi: peran simulasi di baris 20 dan 21. |
+| 11 | Pentahelix sebagai model kolaborasi | Halaman Tentang | `WEB_SPEC.md` bagian 9 | Hanya penjelasan konsep | Tidak diimplementasikan | [x] | Tabel pihak dan fungsi ditampilkan; tidak ada integrasi antar pihak. |
+| 12 | Evaluasi deteksi memakai data simulasi, split data, dan ambang dari validasi | Prototipe tahap awal, protokol evaluasi | `PRD.md`, `EVALUATION.md` | Protokol berjalan pada data simulasi | Bukan data riil | [x] | Evaluasi seed 42 dan lima seed ada; bukan data riil. |
+| 13 | Metrik evaluasi: precision, recall, laju peringatan palsu, waktu deteksi, kelengkapan tautan | Evaluasi dan latensi | `EVALUATION.md` bagian 4 | Metrik klasifikasi dilaporkan; pengukuran lain belum lengkap | Waktu deteksi pola dan kelengkapan tautan tidak diukur; Vercel belum diukur | [x] | Precision, recall, F1, FAR dan peringatan/1.000 tersedia. Latensi lokal 0,03 ms dari artefak; Vercel belum diukur. Revisi: waktu deteksi, kelengkapan tautan, dan latensi dirancang di baris 29. |
+| 14 | Perbandingan aturan, Isolation Forest, dan hybrid; hasil seed 42 tidak menunjukkan keunggulan hybrid secara keseluruhan | Perbandingan tiga pendekatan | EVALUATION.md | Hasil seed 42 dicantumkan dan ditafsirkan sesuai metrik | Tidak membuktikan kinerja pada data riil | [x] | F1 aturan 0,6608, Isolation Forest 0,0748, hybrid 0,3950; FAR hybrid 3,44%, sedangkan aturan 0%. |
+| 15 | Naskah menyebut UU Pelindungan Data Pribadi sebagai kerangka kebijakan yang perlu diperhatikan | Tidak ada data pribadi di prototipe | ARCHITECTURE.md bagian 6 | Peraturan disebut sebagai konteks rancangan, bukan hasil audit kepatuhan | Mekanisme perlindungan tidak dibangun | [x] | Prototipe memakai data simulasi dan tidak menguji kepatuhan hukum. |
+| 16 | Hasil riset terdahulu pada deteksi anomali beragam | DATA_SPEC.md bagian 7 | Pendahuluan, paragraf hasil penelitian terdahulu | Pernyataan variasi hasil ditemukan pada naskah | Sumber dan konteks penelitian berbeda; daftar pustaka sumber kosong | [x] | Variasi recall/precision tercantum di esai; validasi sitasi menunggu daftar pustaka lengkap. |
+| 17 | Smart contract memeriksa ketentuan akad, termasuk wakalah | Aturan `R08_AKAD` | `RULES.md`, `DATA_SPEC.md` | Akad transaksi dicocokkan dengan akad terdaftar proyek | Cek konsistensi data, bukan penilaian syariah | [ ] | Belum dikerjakan (fase R4). |
+| 18 | Prinsip amanah dan hifz al-mal menjadi dasar pemeriksaan | Tag prinsip pada aturan dan temuan | `RULES.md` bagian 1A, `WEB_SPEC.md` | Tiap aturan dan temuan membawa label prinsip | Pemetaan usulan penulis, bukan penilaian syariah | [ ] | Belum dikerjakan (fase R1). |
+| 19 | Pengusul dan verifikator tercatat | `pengusul` dan `verifikator` pada `/api/periksa` dan payload ledger | `API_SPEC.md`, `LEDGER_SPEC.md` bagian 3B | Dua pihak tercatat pada transaksi yang disimpan | Teks isian, bukan identitas terverifikasi | [ ] | Belum dikerjakan (fase R2). |
+| 20 | Pembagian peran auditor dan pejabat berwenang | Tiga kode akses peran dan tabel perpindahan status | `API_SPEC.md` bagian 1 dan 5 | Perpindahan status dibatasi per peran | Simulasi lewat kode akses, tanpa akun atau identitas | [ ] | Belum dikerjakan (fase R2). |
+| 21 | Otoritas syariah menelaah kesesuaian akad | `POST /api/peringatan/{id}/telaah-syariah` | `API_SPEC.md` bagian 5B | Putusan otoritas syariah tercatat di ledger atas temuan R08 | Hanya pencatatan, bukan penilaian syariah | [ ] | Belum dikerjakan (fase R4). |
+| 22 | Koreksi data: versi baru dibuat, riwayat tetap tertaut | `POST /api/peringatan/{id}/koreksi`, entri ledger `koreksi` | `API_SPEC.md` bagian 5A, `LEDGER_SPEC.md` bagian 3A | Transaksi baru, pemeriksaan ulang, entri lama tidak berubah | Penanda `digantikan_oleh` di tabel dapat diubah pemegang akses database | [ ] | Belum dikerjakan (fase R2). |
+| 23 | Dasbor memuat tautan bukti | Panel bukti di Periksa dan Detail Peringatan | `API_SPEC.md` bagian 2, `WEB_SPEC.md` | Hash tercatat, hash saat ini, dan kelengkapan bukti ditampilkan | Dokumen asli tidak ada | [ ] | Belum dikerjakan (fase R1). |
+| 24 | Skor di bawah ambang masuk pemantauan berlanjut | Respons `tindak_lanjut` dan tampilan Periksa | `API_SPEC.md` bagian 2 | Status tindak lanjut ditampilkan untuk transaksi tanpa peringatan | Tidak ada pemantauan berkala yang berjalan | [ ] | Belum dikerjakan (fase R1). |
+| 25 | Fitur model: kelengkapan bukti, perbandingan menurut jenis dan tahap proyek, perubahan jadwal | Tiga fitur baru, vektor 18 fitur | `MODEL_SPEC.md` bagian 3, `DECISIONS.md` D-021 | Fitur dihitung dari kolom yang ada dan diuji kesesuaiannya | Jadwal acuan sirkular pada data simulasi | [ ] | Belum dikerjakan (fase R5). |
+| 26 | Data dipisahkan menurut waktu serta keterkaitan proyek | Pemisahan per proyek | `DATA_SPEC.md` bagian 6, `DECISIONS.md` D-017 | Tidak ada proyek di lebih dari satu split | Rentang waktu antar split tumpang tindih | [ ] | Belum dikerjakan (fase R5). |
+| 27 | Uji konsep pada satu kategori dalam satu siklus anggaran | Irisan uji konsep | `EVALUATION.md` bagian 4F, `DECISIONS.md` D-019 | Metrik pada irisan split pengujian | Irisan kecil, metrik per subtipe tidak stabil | [ ] | Belum dikerjakan (fase R6). |
+| 28 | Manfaat blockchain dibandingkan basis data berjejak audit | Uji perusakan hash-chain melawan tabel log biasa | `EVALUATION.md` bagian 4D | Deteksi perubahan, penghapusan, sisipan, dan penukaran urutan | Pembanding sederhana, tanpa konsensus antar lembaga | [ ] | Belum dikerjakan (fase R3). |
+| 29 | Waktu deteksi, kelengkapan tautan, biaya, dan latensi | Metrik tambahan dan `ml/ukur_latensi.py` | `EVALUATION.md` bagian 4A sampai 4C dan 4E | Metrik dihitung dan dilaporkan apa adanya | Data simulasi, satu lokasi pengukur | [ ] | Belum dikerjakan (fase R3 dan R7). |
+
+## Setelah evaluasi dan demo
+
+1. Isi kolom Hasil dengan angka atau status nyata (misalnya "F1 hybrid pada seed 42: ..." atau "skenario 3 berjalan").
+2. Untuk klaim yang hasilnya lebih lemah dari yang tertulis di esai, ubah kalimat esai, bukan hasilnya.
+3. Untuk klaim yang tidak diimplementasikan (nomor 8, 11, 15, dan bagian peran yang membutuhkan identitas sungguhan pada nomor 10 dan 20), pastikan esai menyebutnya sebagai rancangan atau pengembangan lanjutan.
+
+## Klaim yang tidak boleh ada di esai
+
+- Prototipe memakai Hyperledger Fabric atau blockchain permissioned.
+- Hasil evaluasi berlaku pada data riil Green Sukuk.
+- Sistem membuktikan atau mendeteksi fraud.
+- Ledger mencegah perubahan data oleh pengelola database.

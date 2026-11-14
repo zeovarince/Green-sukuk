@@ -5,7 +5,9 @@ import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import DoubleCurve, { type CurveRow } from "@/components/DoubleCurve";
 import ScoreRuler from "@/components/ScoreRuler";
+import PanelBukti, { type Bukti } from "@/components/PanelBukti";
 import { api, formatAngka, formatRupiah, formatRingkas, formatTanggal } from "@/lib/format";
+import { labelPrinsip, type Prinsip } from "@/lib/aturan";
 import rules from "@/data/artifacts/rules_config.json";
 
 type ContractResponse = {
@@ -16,8 +18,10 @@ type ContractResponse = {
 type CheckResult = {
   keputusan: "normal" | "peringatan";
   jenis_peringatan: string | null;
-  temuan_aturan: { kode: string; pesan: string }[];
+  temuan_aturan: { kode: string; pesan: string; prinsip: Prinsip }[];
   skor: { nilai: number | null; ambang: number; di_atas_ambang: boolean; versi_model: string };
+  tindak_lanjut: "pemantauan_berlanjut" | "telaah_auditor";
+  bukti: Bukti;
   fitur: Record<string, number>;
   pembanding: { median_pencairan_sebelumnya: number; jumlah_pencairan_7_hari: number; rata_rata_delta_progres: number };
   tersimpan: { trx_id: string; peringatan_id: string | null; seq_ledger: number | null } | null;
@@ -25,6 +29,10 @@ type CheckResult = {
 };
 
 const today = new Date().toISOString().slice(0, 10);
+const tindakLanjutLabel: Record<CheckResult["tindak_lanjut"], string> = {
+  pemantauan_berlanjut: "Pemantauan berlanjut",
+  telaah_auditor: "Telaah auditor",
+};
 const emptyForm = { project_id: "", tanggal: today, jenis_pembayaran: "termin", nilai_pencairan: "1000000000", progres_fisik_pct: "10", milestone_terverifikasi: true, persetujuan_diperoleh: "1", kelengkapan_bukti: "1", kategori_hijau: rules.kategori_sah[0], hash_tercatat: "", hash_dokumen_saat_ini: "" };
 
 export default function PeriksaPage() {
@@ -193,15 +201,17 @@ export default function PeriksaPage() {
           <div className="section-heading"><h2 id="result-title">Hasil pemeriksaan</h2>{result && <span className="provenance">{formatAngka(result.waktu_proses_ms, 2)} ms</span>}</div>
           {!result && <p className="empty-state">Muat kontrak, lalu periksa transaksi untuk melihat temuan, skor, dan pembanding.</p>}
           {result && <>
-            <div className="result-banner" data-warning={result.keputusan === "peringatan"}><span className="status-flag result-flag" data-status={result.keputusan === "peringatan" ? "baru" : "ditelaah"}>{result.keputusan === "peringatan" ? "Perlu diperiksa" : "Tidak ada peringatan baru"}</span></div>
-            {result.temuan_aturan.length > 0 ? <div className="rule-top"><h3>Temuan aturan</h3><ul className="finding-list">{result.temuan_aturan.map((item) => <li className="finding-item" key={item.kode}><strong>{item.kode}</strong>: {item.pesan}</li>)}</ul></div> : <div className="rule-top"><h3>Skor anomali</h3>{result.skor.nilai === null ? <p>Skor tidak dihitung karena ada temuan aturan.</p> : <><p>Skor {formatAngka(result.skor.nilai, 4)}, ambang {formatAngka(result.skor.ambang, 4)}. Skor menunjukkan seberapa jauh pola transaksi ini dari pola umum. Skor bukan bukti pelanggaran.</p><ScoreRuler score={result.skor.nilai} threshold={result.skor.ambang} /></>}</div>}
+            <div className="result-banner" data-warning={result.keputusan === "peringatan"}><span className="status-flag result-flag" data-status={result.keputusan === "peringatan" ? "baru" : "ditelaah"}>{result.keputusan === "peringatan" ? "Perlu diperiksa" : "Tidak ada peringatan baru"}</span><p className="tindak-lanjut">Tindak lanjut: <strong>{tindakLanjutLabel[result.tindak_lanjut]}</strong></p></div>
+            {result.temuan_aturan.length > 0 ? <div className="rule-top"><h3>Temuan aturan</h3><ul className="finding-list">{result.temuan_aturan.map((item) => <li className="finding-item" key={item.kode}><strong>{item.kode}</strong>: {item.pesan} <span className="principle-tag" data-prinsip={item.prinsip}>{labelPrinsip(item.prinsip)}</span></li>)}</ul></div> : <div className="rule-top"><h3>Skor anomali</h3>{result.skor.nilai === null ? <p>Skor tidak dihitung karena ada temuan aturan.</p> : <><p>Skor {formatAngka(result.skor.nilai, 4)}, ambang {formatAngka(result.skor.ambang, 4)}. Skor menunjukkan seberapa jauh pola transaksi ini dari pola umum. Skor bukan bukti pelanggaran.</p><ScoreRuler score={result.skor.nilai} threshold={result.skor.ambang} /></>}</div>}
             {contract && <div className="section"><DoubleCurve rows={contract.riwayat} nilaiKontrak={Number(contract.kontrak.nilai_kontrak_awal)} flagged={flagged} preview={preview} title="Riwayat kontrak dan transaksi ini" /></div>}
             <div className="section"><h3>Pembanding riwayat</h3><div className="measure-list"><div><span>Median pencairan sebelumnya</span><strong>{formatRupiah(result.pembanding.median_pencairan_sebelumnya)}</strong></div><div><span>Pencairan dalam 7 hari</span><strong>{result.pembanding.jumlah_pencairan_7_hari}</strong></div><div><span>Rata-rata delta progres</span><strong>{formatAngka(result.pembanding.rata_rata_delta_progres)} poin</strong></div></div></div>
+            <div className="section"><PanelBukti bukti={result.bukti} /></div>
             {result.tersimpan && <p className="info-note">Tersimpan ke ledger sebagai entri {result.tersimpan.seq_ledger}. ID transaksi: <code>{result.tersimpan.trx_id}</code>{result.tersimpan.peringatan_id && <>. <a href={`/peringatan/${result.tersimpan.peringatan_id}`}>Buka peringatan</a></>}</p>}
           </>}
         </section>
       </div>
-      <p className="provenance" style={{ marginTop: 28 }}>Nilai aturan dan skor menggunakan artefak model {rules.versi}. Data simulasi. Peringatan menentukan urutan pemeriksaan.</p>
+      <p className="provenance" style={{ marginTop: 28 }}>Aturan versi {rules.versi}. Data simulasi. Peringatan menentukan urutan pemeriksaan, bukan penetapan fraud.</p>
+      <p className="info-note">Ledger simulasi hash-chain di satu database. Rancangan penuh memakai permissioned blockchain antar lembaga.</p>
     </>
   );
 }

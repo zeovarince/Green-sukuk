@@ -18,6 +18,7 @@ import sklearn
 from datetime import datetime
 
 from gstp.aturan import (
+    PETA_PRINSIP,
     muat_konfigurasi_aturan,
     periksa_aturan_transaksi,
     evaluasi_aturan_dataframe,
@@ -277,6 +278,8 @@ def main():
     # 1. rules_config.json sudah ada, pastikan valid
     rules_cfg_path = os.path.join(ARTIFACTS_DIR, "rules_config.json")
     cfg_export = dict(cfg)
+    cfg_export["versi"] = 2
+    cfg_export["prinsip"] = dict(PETA_PRINSIP)
     cfg_export["versi_skema"] = 1
     cfg_export["dibuat_pada"] = datetime.now().strftime("%Y-%m-%d")
     with open(rules_cfg_path, "w", encoding="utf-8") as f:

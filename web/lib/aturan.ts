@@ -1,5 +1,7 @@
 import rules from "@/data/artifacts/rules_config.json";
 
+export type Prinsip = "amanah" | "hifz_al_mal";
+
 export interface TransaksiUntukAturan {
   project_id: string;
   kontrak_id: string;
@@ -25,6 +27,7 @@ export interface KonteksAturan {
 export interface TemuanAturan {
   kode: string;
   pesan: string;
+  prinsip: Prinsip;
 }
 
 export const KODE_ATURAN = [
@@ -36,6 +39,24 @@ export const KODE_ATURAN = [
   "R06_MILESTONE",
   "R07_BUKTI",
 ] as const;
+
+const PETA_PRINSIP = rules.prinsip as Record<string, Prinsip>;
+
+export function prinsipUntuk(kode: string): Prinsip {
+  const prinsip = PETA_PRINSIP[kode];
+  if (prinsip !== "amanah" && prinsip !== "hifz_al_mal") {
+    throw new Error(`Prinsip untuk aturan ${kode} belum dipetakan di rules_config.json.`);
+  }
+  return prinsip;
+}
+
+export function labelPrinsip(prinsip: Prinsip): string {
+  return prinsip === "hifz_al_mal" ? "Hifz al-mal" : "Amanah";
+}
+
+export function ambangBukti(): number {
+  return Number(rules.ambang_bukti);
+}
 
 export function hitungPersetujuanWajib(nilaiPencairan: number): number {
   if (nilaiPencairan < rules.ambang_persetujuan_rupiah.dua_mulai) return 1;
@@ -52,32 +73,35 @@ export function periksaAturanTransaksi(
   konteks: KonteksAturan,
 ): TemuanAturan[] {
   const temuan: TemuanAturan[] = [];
+  const catat = (kode: string, pesan: string): void => {
+    temuan.push({ kode, pesan, prinsip: prinsipUntuk(kode) });
+  };
+
   const currentProjectInvalid = !konteks.projectIdSah || transaksi.project_id !== konteks.projectIdKontrak;
   if (currentProjectInvalid) {
-    temuan.push({ kode: "R01_ID_PROYEK", pesan: `ID proyek ${transaksi.project_id} tidak valid atau tidak sesuai dengan registri kontrak.` });
+    catat("R01_ID_PROYEK", `ID proyek ${transaksi.project_id} tidak valid atau tidak sesuai dengan registri kontrak.`);
   }
 
   const kumulatif = Number(konteks.kumulatifCairSebelumnya ?? 0) + Number(transaksi.nilai_pencairan);
   if (kumulatif > Number(konteks.paguAlokasiKontrak)) {
-    temuan.push({ kode: "R02_PAGU", pesan: `Kumulatif pencairan Rp${rupiah(kumulatif)} melebihi pagu alokasi kontrak Rp${rupiah(konteks.paguAlokasiKontrak)}.` });
+    catat("R02_PAGU", `Kumulatif pencairan Rp${rupiah(kumulatif)} melebihi pagu alokasi kontrak Rp${rupiah(konteks.paguAlokasiKontrak)}.`);
   }
 
   const wajib = transaksi.persetujuan_wajib ?? hitungPersetujuanWajib(transaksi.nilai_pencairan);
   if (transaksi.persetujuan_diperoleh < wajib) {
-    temuan.push({ kode: "R03_PERSETUJUAN", pesan: `Persetujuan yang diperoleh ${transaksi.persetujuan_diperoleh}, yang diwajibkan ${wajib}.` });
+    catat("R03_PERSETUJUAN", `Persetujuan yang diperoleh ${transaksi.persetujuan_diperoleh}, yang diwajibkan ${wajib}.`);
   }
   if (!(rules.kategori_sah as string[]).includes(transaksi.kategori_hijau)) {
-    temuan.push({ kode: "R04_KATEGORI", pesan: `Kategori '${transaksi.kategori_hijau}' tidak termasuk dalam kategori hijau yang memenuhi syarat.` });
+    catat("R04_KATEGORI", `Kategori '${transaksi.kategori_hijau}' tidak termasuk dalam kategori hijau yang memenuhi syarat.`);
   }
   if (transaksi.hash_tercatat !== transaksi.hash_dokumen_saat_ini) {
-    temuan.push({ kode: "R05_HASH", pesan: "Hash dokumen saat ini tidak cocok dengan hash yang tercatat." });
+    catat("R05_HASH", "Hash dokumen saat ini tidak cocok dengan hash yang tercatat.");
   }
   if (!transaksi.milestone_terverifikasi && transaksi.jenis_pembayaran.toLowerCase() === "termin") {
-    temuan.push({ kode: "R06_MILESTONE", pesan: "Pembayaran termin diajukan namun verifikasi milestone belum terpenuhi." });
+    catat("R06_MILESTONE", "Pembayaran termin diajukan namun verifikasi milestone belum terpenuhi.");
   }
   if (Number(Number(transaksi.kelengkapan_bukti).toFixed(4)) < Number(Number(rules.ambang_bukti).toFixed(4))) {
-    temuan.push({ kode: "R07_BUKTI", pesan: `Kelengkapan bukti (${transaksi.kelengkapan_bukti.toFixed(2)}) di bawah ambang batas minimal (${rules.ambang_bukti.toFixed(2)}).` });
+    catat("R07_BUKTI", `Kelengkapan bukti (${transaksi.kelengkapan_bukti.toFixed(2)}) di bawah ambang batas minimal (${rules.ambang_bukti.toFixed(2)}).`);
   }
   return temuan;
 }
-

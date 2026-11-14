@@ -121,7 +121,7 @@ export default function LedgerPage() {
         <div className="verify-controls"><div className="field"><label htmlFor="damage-seq">Seq untuk demo</label><input id="damage-seq" type="number" min="1" value={demoSeq} onChange={(event) => setDemoSeq(event.target.value)} disabled={damagedSeq !== null} /></div><div className="field"><label htmlFor="demo-passcode">Kode akses</label><input id="demo-passcode" type="password" value={passcode} onChange={(event) => setPasscode(event.target.value)} autoComplete="current-password" /></div>{damagedSeq === null ? <button className="button button-warning" type="button" disabled={pending} onClick={() => void damage()}>Rusak entri (demo)</button> : <button className="button button-primary" type="button" disabled={pending} onClick={() => void restore()}>Pulihkan</button>}</div>
         {damagedSeq !== null && <p className="info-note">Entri {damagedSeq} menunggu dipulihkan. Verifikasi dari {damagedSeq} sampai {damagedSeq} untuk melihat perubahan.</p>}
       </section>}
-      <p className="info-note">Ledger ini adalah hash-chain simulasi dalam satu database. Ia membantu mendeteksi perubahan saat diverifikasi, dan tidak mencegah pengelola database menulis ulang rantai. <Link href="/tentang">Baca keterbatasan</Link>.</p>
+      <p className="info-note">Ledger simulasi hash-chain di satu database. Rancangan penuh memakai permissioned blockchain antar lembaga. <Link href="/tentang">Baca keterbatasan</Link>.</p>
     </>
   );
 }

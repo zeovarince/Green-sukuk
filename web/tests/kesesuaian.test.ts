@@ -1,7 +1,8 @@
 import { describe, expect, it } from "vitest";
 import golden from "@/data/artifacts/golden_cases.json";
+import rules from "@/data/artifacts/rules_config.json";
 import { hitungFiturSatuTransaksi } from "@/lib/fitur";
-import { periksaAturanTransaksi } from "@/lib/aturan";
+import { KODE_ATURAN, periksaAturanTransaksi, prinsipUntuk } from "@/lib/aturan";
 import { hitungSkorIsolationForest } from "@/lib/iforest";
 import { kanonikalisasiPayload, hitungHashEntriLedger, verifikasiRantaiLedger } from "@/lib/ledger";
 
@@ -26,7 +27,14 @@ describe("kesesuaian Python dan TypeScript", () => {
       kumulatifCairSebelumnya: item.konteks.kumulatif_cair_sebelumnya,
     });
     expect(findings.map((finding) => finding.kode).sort()).toEqual([...item.jawaban.aturan].sort());
+    for (const finding of findings) {
+      expect(finding.prinsip, `${item.id}: prinsip ${finding.kode}`).toBe(rules.prinsip[finding.kode as keyof typeof rules.prinsip]);
+    }
     expect(hitungSkorIsolationForest(features), `${item.id}: skor`).toBeCloseTo(item.jawaban.skor, 9);
+  });
+
+  it("memberi tag prinsip pada setiap kode aturan", () => {
+    for (const kode of KODE_ATURAN) expect(["amanah", "hifz_al_mal"]).toContain(prinsipUntuk(kode));
   });
 
   it.each(golden.ledger_kanonik_cases.map((item, index) => [`payload ${index + 1}`, item] as const))("kanonikalisasi dan hash ledger cocok untuk %s", (_name, item) => {

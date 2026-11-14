@@ -8,6 +8,7 @@ import os
 import pandas as pd
 import pytest
 from gstp.aturan import (
+    PETA_PRINSIP,
     muat_konfigurasi_aturan,
     hitung_persetujuan_wajib,
     periksa_aturan_transaksi,
@@ -33,10 +34,15 @@ def dataset():
 
 def test_konfigurasi_aturan():
     cfg = muat_konfigurasi_aturan()
-    assert cfg["versi"] == 1
+    assert cfg["versi"] == 2
     assert "kategori_sah" in cfg
     assert len(cfg["kategori_sah"]) == 8
     assert cfg["ambang_bukti"] == 0.80
+    assert cfg["prinsip"] == PETA_PRINSIP
+    assert set(PETA_PRINSIP) == {
+        "R01_ID_PROYEK", "R02_PAGU", "R03_PERSETUJUAN", "R04_KATEGORI",
+        "R05_HASH", "R06_MILESTONE", "R07_BUKTI",
+    }
 
 
 def test_hitung_persetujuan_wajib():
@@ -120,6 +126,15 @@ def test_aturan_satuan_tiap_kode():
     res_r07 = periksa_aturan_transaksi(trx_r07, proyek_sah, peta_kontrak, pagu, kumulatif_cair_sebelumnya=0, config=cfg)
     assert res_r07["lolos"] is False
     assert any(t["kode"] == "R07_BUKTI" for t in res_r07["temuan"])
+
+    # Setiap temuan membawa tag prinsip yang sesuai peta tunggal.
+    semua_hasil = [res_r01, res_r02, res_r03, res_r04, res_r05, res_r06, res_r07]
+    for hasil in semua_hasil:
+        assert hasil["temuan"], "kasus pelanggaran harus menghasilkan temuan"
+        for item in hasil["temuan"]:
+            assert item["prinsip"] == PETA_PRINSIP[item["kode"]]
+            assert item["prinsip"] in {"amanah", "hifz_al_mal"}
+    assert res_lolos["temuan"] == []
 
 
 def test_evaluasi_pada_data_simulasi(dataset):

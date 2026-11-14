@@ -77,12 +77,15 @@ create table if not exists transaksi (
     kelompok_kasus text,
     subtipe_kasus text,
     sumber text not null default 'simulasi',
+    digantikan_oleh text,
+    koreksi_dari text,
     dibuat_pada timestamptz not null default now()
 );
 
 create index if not exists idx_transaksi_kontrak_tanggal on transaksi (kontrak_id, tanggal);
 create index if not exists idx_transaksi_tanggal on transaksi (tanggal);
 create index if not exists idx_transaksi_project_id on transaksi (project_id);
+create index if not exists idx_transaksi_kontrak_aktif on transaksi (kontrak_id, tanggal) where digantikan_oleh is null;
 
 -- ==============================================================================
 -- Tabel: peringatan

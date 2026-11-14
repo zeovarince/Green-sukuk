@@ -56,6 +56,24 @@ def test_format_model_if():
     assert size_mb < 2.0, f"Ukuran model_if.json terlalu besar: {size_mb:.2f} MB"
 
 
+def test_format_rules_config():
+    path = os.path.join(ARTIFACTS_DIR, "rules_config.json")
+    with open(path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    assert data["versi"] == 2
+    assert data["versi_skema"] == 1
+    assert data["prinsip"] == {
+        "R01_ID_PROYEK": "amanah",
+        "R02_PAGU": "hifz_al_mal",
+        "R03_PERSETUJUAN": "amanah",
+        "R04_KATEGORI": "hifz_al_mal",
+        "R05_HASH": "amanah",
+        "R06_MILESTONE": "amanah",
+        "R07_BUKTI": "hifz_al_mal",
+    }
+
+
 def test_format_golden_cases():
     path = os.path.join(ARTIFACTS_DIR, "golden_cases.json")
     with open(path, "r", encoding="utf-8") as f:

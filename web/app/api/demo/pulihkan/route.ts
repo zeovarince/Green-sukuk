@@ -1,11 +1,12 @@
-import { batasiPenulisan, cekKodeAkses, errorResponse, fromError, json } from "@/lib/http";
+import { batasiPenulisan, errorResponse, fromError, json, periksaAkses } from "@/lib/http";
 import { deleteDemoBackup, getDemoBackup, getRows, updateLedgerPayload } from "@/lib/store";
 
 export const runtime = "nodejs";
 
 export async function POST(request: Request) {
   if (process.env.DEMO_MODE !== "true") return errorResponse("TIDAK_DITEMUKAN", "Route tidak ditemukan.", 404);
-  if (!cekKodeAkses(request)) return errorResponse("TIDAK_ADA_AKSES", "Kode akses tidak valid.", 401);
+  const akses = periksaAkses(request);
+  if (!akses.ok) return akses.response;
   if (!batasiPenulisan(request, 5)) return errorResponse("TERLALU_BANYAK", "Batas permintaan tulis tercapai. Coba lagi sebentar.", 429);
   try {
     // The saved backup is keyed by seq. A single active damage is allowed so recovery is unambiguous.

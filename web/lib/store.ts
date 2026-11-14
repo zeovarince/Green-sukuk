@@ -118,6 +118,8 @@ export interface TransaksiRow extends Record<string, unknown> {
   nilai_pencairan: number;
   progres_fisik_pct: number;
   kumulatif_cair: number;
+  digantikan_oleh?: string | null;
+  koreksi_dari?: string | null;
 }
 
 export interface PeringatanRow extends Record<string, unknown> {
@@ -159,7 +161,11 @@ export async function getTransaksi(trxId: string): Promise<TransaksiRow | null> 
   return (await getRows<TransaksiRow>("transaksi", { select: "*", trx_id: `eq.${trxId}`, limit: 1 }))[0] ?? null;
 }
 
-export async function getRiwayatKontrak(kontrakId: string, sebelumTanggal?: string): Promise<TransaksiRow[]> {
+export async function getRiwayatKontrak(
+  kontrakId: string,
+  sebelumTanggal?: string,
+  options: { sertakanDigantikan?: boolean; kecualiTrxId?: string } = {},
+): Promise<TransaksiRow[]> {
   const rows: TransaksiRow[] = [];
   let offset = 0;
   while (true) {
@@ -167,6 +173,8 @@ export async function getRiwayatKontrak(kontrakId: string, sebelumTanggal?: stri
       select: "*",
       kontrak_id: `eq.${kontrakId}`,
       ...(sebelumTanggal ? { tanggal: `lt.${sebelumTanggal}` } : {}),
+      ...(options.sertakanDigantikan ? {} : { digantikan_oleh: "is.null" }),
+      ...(options.kecualiTrxId ? { trx_id: `neq.${options.kecualiTrxId}` } : {}),
       order: "tanggal.asc,trx_id.asc",
       limit: PAGE_SIZE,
       offset,
@@ -175,6 +183,10 @@ export async function getRiwayatKontrak(kontrakId: string, sebelumTanggal?: stri
     if (page.length < PAGE_SIZE) return rows;
     offset += PAGE_SIZE;
   }
+}
+
+export async function tandaiTransaksiDigantikan(trxId: string, trxPengganti: string): Promise<void> {
+  await patchRows<TransaksiRow>("transaksi", { trx_id: `eq.${trxId}` }, { digantikan_oleh: trxPengganti });
 }
 
 export async function getPeringatan(id: string): Promise<PeringatanRow | null> {

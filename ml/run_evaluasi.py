@@ -22,6 +22,8 @@ import pandas as pd
 
 from gstp.aturan import evaluasi_aturan_dataframe, muat_konfigurasi_aturan
 from gstp.fitur import DAFTAR_FITUR, bangun_fitur_dataframe
+from gstp.ledger import verifikasi_rantai_ledger
+from gstp.metrik import deteksi_pola_beruntun, hitung_biaya, kelengkapan_tautan, uji_perusakan
 from gstp.model import latih_model_isolation_forest, hitung_skor_iforest, tentukan_ambang_validasi
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -69,7 +71,9 @@ def evaluasi_satu_dataset(df_trx, df_prj, df_ktr, cfg, seed: int = 42):
     X_dev = bangun_fitur_dataframe(df_dev_lolos).values
 
     # Latih model Isolation Forest
+    waktu_latih_mulai = time.perf_counter()
     model = latih_model_isolation_forest(X_dev, seed=seed)
+    waktu_latih_detik = time.perf_counter() - waktu_latih_mulai
 
     # Validasi
     df_val = df_trx[mask_val].copy().reset_index(drop=True)
@@ -132,11 +136,18 @@ def evaluasi_satu_dataset(df_trx, df_prj, df_ktr, cfg, seed: int = 42):
     far_sah_if = float(pred_iforest[mask_sah].sum()) / n_sah if n_sah > 0 else 0.0
     far_sah_hy = float(pred_hybrid[mask_sah].sum()) / n_sah if n_sah > 0 else 0.0
 
+    waktu_deteksi_pola = deteksi_pola_beruntun(df_test, {
+        "aturan_saja": pred_aturan,
+        "iforest_saja": pred_iforest,
+        "hybrid": pred_hybrid,
+    })
+
     return {
         "ambang_hybrid": ambang_hybrid,
         "f1_val_hybrid": f1_val_h,
         "far_val_hybrid": far_val_h,
         "ambang_iforest": ambang_iforest,
+        "waktu_latih_detik": waktu_latih_detik,
         "pengujian": {
             "aturan_saja": metrik_aturan,
             "iforest_saja": metrik_iforest,
@@ -149,6 +160,7 @@ def evaluasi_satu_dataset(df_trx, df_prj, df_ktr, cfg, seed: int = 42):
             "iforest_saja": round(far_sah_if, 4),
             "hybrid": round(far_sah_hy, 4),
         },
+        "waktu_deteksi_pola": waktu_deteksi_pola,
         "model": model,
         "X_test": X_test,
     }
@@ -166,6 +178,16 @@ def main():
     df_prj = pd.read_csv(prj_path)
     df_ktr = pd.read_csv(ktr_path)
 
+    ledger_path = os.path.join(DATA_DIR, "ledger_entri_awal.csv")
+    if not os.path.exists(ledger_path):
+        raise FileNotFoundError(
+            f"File {ledger_path} tidak ditemukan. Jalankan `python ml/build_initial_ledger.py` lebih dulu "
+            "agar metrik kelengkapan tautan dan uji perusakan dapat dihitung."
+        )
+    df_ledger = pd.read_csv(ledger_path)
+    df_ledger = df_ledger.sort_values("seq", kind="mergesort").reset_index(drop=True)
+    trx_ledger = set(df_ledger.loc[df_ledger["jenis_entri"] == "transaksi", "trx_id"].astype(str))
+
     # 1. Jalankan seed utama (42)
     print("\n1. Mengevaluasi seed utama (seed 42)...")
     t0 = time.time()
@@ -178,6 +200,29 @@ def main():
     t_lat0 = time.time()
     _ = hitung_skor_iforest(model_42, X_sample)
     latensi_ms_lokal = ((time.time() - t_lat0) / len(X_sample)) * 1000.0
+
+    # Metrik tambahan fase R3
+    print("\n1b. Menghitung kelengkapan tautan, biaya, dan uji perusakan...")
+    tautan = kelengkapan_tautan(df_trx, df_prj, df_ktr, trx_ledger)
+
+    waktu_verifikasi_mulai = time.perf_counter()
+    verifikasi_penuh = verifikasi_rantai_ledger(df_ledger.to_dict("records"))
+    waktu_verifikasi_penuh_detik = time.perf_counter() - waktu_verifikasi_mulai
+    if not verifikasi_penuh["valid"]:
+        raise RuntimeError(f"Ledger lokal tidak valid pada seq {verifikasi_penuh.get('rusak_pada')}.")
+
+    biaya = hitung_biaya(
+        model_path=os.path.join(ARTIFACTS_DIR, "model_if.json"),
+        ledger_path=ledger_path,
+        transaksi_path=trx_path,
+        jumlah_baris_transaksi=len(df_trx),
+        jumlah_baris_ledger=len(df_ledger),
+        waktu_latih_detik=hasil_42["waktu_latih_detik"],
+        waktu_inferensi_ms=latensi_ms_lokal,
+        waktu_verifikasi_penuh_detik=waktu_verifikasi_penuh_detik,
+    )
+
+    perusakan = uji_perusakan(df_ledger.head(1000).to_dict("records"))
 
     # 2. Jalankan beberapa seed (42, 43, 44, 45, 46) untuk kestabilan model iForest
     seeds = [42, 43, 44, 45, 46]
@@ -224,6 +269,10 @@ def main():
             "lokal": round(latensi_ms_lokal, 2),
             "vercel": 0.0,
         },
+        "waktu_deteksi_pola": hasil_42["waktu_deteksi_pola"],
+        "kelengkapan_tautan": tautan,
+        "biaya": biaya,
+        "uji_perusakan": perusakan,
     }
 
     os.makedirs(ARTIFACTS_DIR, exist_ok=True)
@@ -248,6 +297,26 @@ def main():
     print("\n=== EVALUASI BEBERAPA SEED (HYBRID) ===")
     print(f"F1 Hybrid (rerata ± SD) : {f1_hy_mean:.4f} ± {f1_hy_sd:.4f}")
     print(f"FAR Hybrid (rerata ± SD): {far_hy_mean:.4f} ± {far_hy_sd:.4f}")
+
+    print("\n=== WAKTU DETEKSI POLA BERUNTUN ===")
+    for nama in ("aturan_saja", "iforest_saja", "hybrid"):
+        baris = hasil_42["waktu_deteksi_pola"][nama]
+        print(f"{nama:14s}: {baris['terdeteksi_pct']:.2f}% pola terdeteksi, median posisi {baris['median_posisi']}")
+    print(f"Jumlah pola: {hasil_42['waktu_deteksi_pola']['jumlah_pola']}")
+
+    print("\n=== KELENGKAPAN TAUTAN (SPLIT PENGUJIAN) ===")
+    for kunci in ("n", "proyek_valid", "kontrak_milik_proyek", "hash_cocok", "entri_ledger", "gabungan"):
+        print(f"{kunci:22s}: {tautan[kunci]}")
+
+    print("\n=== BIAYA ===")
+    for kunci, nilai in biaya.items():
+        print(f"{kunci:30s}: {nilai}")
+
+    print("\n=== UJI PERUSAKAN (HASH-CHAIN VS TABEL LOG) ===")
+    for nama in ("ubah", "hapus", "sisip", "tukar", "hitung_ulang"):
+        hc = perusakan[nama]["hash_chain"]
+        tl = perusakan[nama]["tabel_log"]
+        print(f"{nama:14s}: hash-chain {hc['terdeteksi_pct']:.2f}% / lokasi {hc['lokasi_tepat_pct']:.2f}%, tabel log {tl['terdeteksi_pct']:.2f}%")
 
 
 if __name__ == "__main__":
